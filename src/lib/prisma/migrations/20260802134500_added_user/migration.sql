@@ -1,0 +1,11 @@
+-- AlterTable
+ALTER TABLE "kycs" ALTER COLUMN "id" DROP DEFAULT,
+ALTER COLUMN "updated_at" DROP DEFAULT;
+
+-- AlterTable
+ALTER TABLE "users" ALTER COLUMN "id" DROP DEFAULT,
+ALTER COLUMN "updated_at" DROP DEFAULT;
+
+-- AlterTable
+ALTER TABLE "wallets" ALTER COLUMN "id" DROP DEFAULT,
+ALTER COLUMN "updated_at" DROP DEFAULT;

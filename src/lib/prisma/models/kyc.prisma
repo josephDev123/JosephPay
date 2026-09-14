@@ -1,0 +1,32 @@
+model Kyc {
+  id            String    @id @default(uuid()) @db.Uuid
+  userId        String    @unique @map("user_id") @db.Uuid
+  documentType  KycDocumentType
+  status        KycStatus @default(PENDING)
+  submittedData Json?     @map("submitted_data")
+  reviewNote    String?   @map("review_note")
+  reviewedAt    DateTime? @map("reviewed_at") @db.Timestamptz(6)
+  createdAt     DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt     DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  user          User      @relation(fields: [userId], references: [id])
+
+  @@index([userId], map: "kyc_user_id_idx")
+  @@map("kycs")
+}
+
+enum KycStatus {
+  PENDING
+  UNDER_REVIEW
+  VERIFIED
+  FAILED
+}
+
+
+enum KycDocumentType {
+  NIN
+  PASSPORT
+  BVN
+  DRIVERS_LICENSE
+  VOTERS_CARD
+  NATIONAL_ID_CARD
+}

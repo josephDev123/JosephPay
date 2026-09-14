@@ -9,7 +9,41 @@
 * 🟢 You can import this file directly.
 */
 
+export const Currency = {
+  NGN: 'NGN',
+  USD: 'USD'
+} as const
+
+export type Currency = (typeof Currency)[keyof typeof Currency]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const KycStatus = {
+  PENDING: 'PENDING',
+  UNDER_REVIEW: 'UNDER_REVIEW',
+  VERIFIED: 'VERIFIED',
+  FAILED: 'FAILED'
+} as const
+
+export type KycStatus = (typeof KycStatus)[keyof typeof KycStatus]
+
+
+export const KycDocumentType = {
+  NIN: 'NIN',
+  PASSPORT: 'PASSPORT',
+  BVN: 'BVN',
+  DRIVERS_LICENSE: 'DRIVERS_LICENSE',
+  VOTERS_CARD: 'VOTERS_CARD',
+  NATIONAL_ID_CARD: 'NATIONAL_ID_CARD'
+} as const
+
+export type KycDocumentType = (typeof KycDocumentType)[keyof typeof KycDocumentType]
+
+
+export const Gender = {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE',
+  OTHER: 'OTHER',
+  PREFER_NOT_TO_SAY: 'PREFER_NOT_TO_SAY'
+} as const
+
+export type Gender = (typeof Gender)[keyof typeof Gender]

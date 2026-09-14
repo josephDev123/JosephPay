@@ -1,0 +1,13 @@
+model Wallet {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  currency  Currency
+  balance   BigInt   @default(0) @db.BigInt
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, currency], map: "wallet_user_id_currency_key")
+  @@index([userId], map: "wallet_user_id_idx")
+  @@map("wallets")
+}
