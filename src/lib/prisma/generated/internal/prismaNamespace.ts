@@ -848,7 +848,17 @@ export const KycScalarFieldEnum = {
   userId: 'userId',
   documentType: 'documentType',
   status: 'status',
-  submittedData: 'submittedData',
+  firstName: 'firstName',
+  middleName: 'middleName',
+  lastName: 'lastName',
+  dateOfBirth: 'dateOfBirth',
+  nationality: 'nationality',
+  documentNumber: 'documentNumber',
+  documentIssueDate: 'documentIssueDate',
+  documentExpiryDate: 'documentExpiryDate',
+  provider: 'provider',
+  providerReference: 'providerReference',
+  providerResponse: 'providerResponse',
   reviewNote: 'reviewNote',
   reviewedAt: 'reviewedAt',
   createdAt: 'createdAt',
@@ -1020,6 +1030,20 @@ export type EnumKycStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
  * Reference to a field of type 'KycStatus[]'
  */
 export type ListEnumKycStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'KycStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'KycProvider'
+ */
+export type EnumKycProviderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'KycProvider'>
+    
+
+
+/**
+ * Reference to a field of type 'KycProvider[]'
+ */
+export type ListEnumKycProviderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'KycProvider[]'>
     
 
 

@@ -39,6 +39,15 @@ export const KycDocumentType = {
 export type KycDocumentType = (typeof KycDocumentType)[keyof typeof KycDocumentType]
 
 
+export const KycProvider = {
+  DOJAH: 'DOJAH',
+  PREMBLY: 'PREMBLY',
+  MANUAL: 'MANUAL'
+} as const
+
+export type KycProvider = (typeof KycProvider)[keyof typeof KycProvider]
+
+
 export const Gender = {
   MALE: 'MALE',
   FEMALE: 'FEMALE',

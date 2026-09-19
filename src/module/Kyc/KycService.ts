@@ -3,27 +3,33 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Prisma } from '../../lib/prisma/generated/client.js';
+import { Kyc, Prisma } from '../../lib/prisma/generated/client.js';
 import { PrismaService } from '../../lib/prisma/prisma.service.js';
 import { errorResponse } from '../../shared/http/api-response.js';
-import {
-  mapKycProfile,
-  type KycProfileView,
-} from './mappers/kyc.mapper.js';
+import { mapKycProfile, type KycProfileView } from './mappers/kyc.mapper.js';
 import { KycRepository } from './KycRepository.js';
 import type { ReviewKycDto } from './dto/review-kyc.dto.js';
 import type { SubmitKycDto } from './dto/submit-kyc.dto.js';
+import type { KycProvider } from './adapters/kycs-provider-interface.js';
 
+export type IdentityType = Omit<
+  Kyc,
+  'id' | 'userId' | 'reviewNote' | 'reviewedAt' | 'createdAt' | 'updatedAt'
+>;
 @Injectable()
 export class KycService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly kycRepository: KycRepository,
+    private readonly kycProvider: KycProvider,
   ) {}
 
   async submit(userId: string, input: SubmitKycDto): Promise<KycProfileView> {
     try {
-      const existing = await this.kycRepository.findByUserId(this.prisma, userId);
+      const existing = await this.kycRepository.findByUserId(
+        this.prisma,
+        userId,
+      );
 
       if (existing?.status === 'VERIFIED') {
         throw new ConflictException(
@@ -34,10 +40,31 @@ export class KycService {
         );
       }
 
+      const kycIdentity = await this.kycProvider.verifyKYCIdentity({
+        value: input.value,
+      });
+
+      const identity: IdentityType = {
+        status: 'VERIFIED',
+        documentType: input.documentType,
+        firstName: kycIdentity.firstName,
+        middleName: kycIdentity.middleName,
+        lastName: kycIdentity.lastName,
+        dateOfBirth: kycIdentity.dateOfBirth,
+        nationality: kycIdentity.nationality,
+        documentNumber: kycIdentity.documentNumber,
+        documentIssueDate: kycIdentity.documentIssueDate,
+        documentExpiryDate: kycIdentity.documentExpiryDate,
+        provider: 'DOJAH',
+        providerReference: kycIdentity.providerReference,
+        providerResponse: kycIdentity.providerResponse,
+      };
+
       const kyc = await this.kycRepository.upsertPending(
         this.prisma,
         userId,
-        input as Prisma.InputJsonValue,
+        identity,
+        // input as Prisma.InputJsonValue,
       );
 
       return mapKycProfile(kyc);

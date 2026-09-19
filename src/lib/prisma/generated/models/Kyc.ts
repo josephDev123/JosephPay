@@ -29,6 +29,16 @@ export type KycMinAggregateOutputType = {
   userId: string | null
   documentType: $Enums.KycDocumentType | null
   status: $Enums.KycStatus | null
+  firstName: string | null
+  middleName: string | null
+  lastName: string | null
+  dateOfBirth: Date | null
+  nationality: string | null
+  documentNumber: string | null
+  documentIssueDate: Date | null
+  documentExpiryDate: Date | null
+  provider: $Enums.KycProvider | null
+  providerReference: string | null
   reviewNote: string | null
   reviewedAt: Date | null
   createdAt: Date | null
@@ -40,6 +50,16 @@ export type KycMaxAggregateOutputType = {
   userId: string | null
   documentType: $Enums.KycDocumentType | null
   status: $Enums.KycStatus | null
+  firstName: string | null
+  middleName: string | null
+  lastName: string | null
+  dateOfBirth: Date | null
+  nationality: string | null
+  documentNumber: string | null
+  documentIssueDate: Date | null
+  documentExpiryDate: Date | null
+  provider: $Enums.KycProvider | null
+  providerReference: string | null
   reviewNote: string | null
   reviewedAt: Date | null
   createdAt: Date | null
@@ -51,7 +71,17 @@ export type KycCountAggregateOutputType = {
   userId: number
   documentType: number
   status: number
-  submittedData: number
+  firstName: number
+  middleName: number
+  lastName: number
+  dateOfBirth: number
+  nationality: number
+  documentNumber: number
+  documentIssueDate: number
+  documentExpiryDate: number
+  provider: number
+  providerReference: number
+  providerResponse: number
   reviewNote: number
   reviewedAt: number
   createdAt: number
@@ -65,6 +95,16 @@ export type KycMinAggregateInputType = {
   userId?: true
   documentType?: true
   status?: true
+  firstName?: true
+  middleName?: true
+  lastName?: true
+  dateOfBirth?: true
+  nationality?: true
+  documentNumber?: true
+  documentIssueDate?: true
+  documentExpiryDate?: true
+  provider?: true
+  providerReference?: true
   reviewNote?: true
   reviewedAt?: true
   createdAt?: true
@@ -76,6 +116,16 @@ export type KycMaxAggregateInputType = {
   userId?: true
   documentType?: true
   status?: true
+  firstName?: true
+  middleName?: true
+  lastName?: true
+  dateOfBirth?: true
+  nationality?: true
+  documentNumber?: true
+  documentIssueDate?: true
+  documentExpiryDate?: true
+  provider?: true
+  providerReference?: true
   reviewNote?: true
   reviewedAt?: true
   createdAt?: true
@@ -87,7 +137,17 @@ export type KycCountAggregateInputType = {
   userId?: true
   documentType?: true
   status?: true
-  submittedData?: true
+  firstName?: true
+  middleName?: true
+  lastName?: true
+  dateOfBirth?: true
+  nationality?: true
+  documentNumber?: true
+  documentIssueDate?: true
+  documentExpiryDate?: true
+  provider?: true
+  providerReference?: true
+  providerResponse?: true
   reviewNote?: true
   reviewedAt?: true
   createdAt?: true
@@ -172,7 +232,17 @@ export type KycGroupByOutputType = {
   userId: string
   documentType: $Enums.KycDocumentType
   status: $Enums.KycStatus
-  submittedData: runtime.JsonValue | null
+  firstName: string | null
+  middleName: string | null
+  lastName: string | null
+  dateOfBirth: Date | null
+  nationality: string | null
+  documentNumber: string | null
+  documentIssueDate: Date | null
+  documentExpiryDate: Date | null
+  provider: $Enums.KycProvider | null
+  providerReference: string | null
+  providerResponse: runtime.JsonValue | null
   reviewNote: string | null
   reviewedAt: Date | null
   createdAt: Date
@@ -205,7 +275,17 @@ export type KycWhereInput = {
   userId?: Prisma.UuidFilter<"Kyc"> | string
   documentType?: Prisma.EnumKycDocumentTypeFilter<"Kyc"> | $Enums.KycDocumentType
   status?: Prisma.EnumKycStatusFilter<"Kyc"> | $Enums.KycStatus
-  submittedData?: Prisma.JsonNullableFilter<"Kyc">
+  firstName?: Prisma.StringNullableFilter<"Kyc"> | string | null
+  middleName?: Prisma.StringNullableFilter<"Kyc"> | string | null
+  lastName?: Prisma.StringNullableFilter<"Kyc"> | string | null
+  dateOfBirth?: Prisma.DateTimeNullableFilter<"Kyc"> | Date | string | null
+  nationality?: Prisma.StringNullableFilter<"Kyc"> | string | null
+  documentNumber?: Prisma.StringNullableFilter<"Kyc"> | string | null
+  documentIssueDate?: Prisma.DateTimeNullableFilter<"Kyc"> | Date | string | null
+  documentExpiryDate?: Prisma.DateTimeNullableFilter<"Kyc"> | Date | string | null
+  provider?: Prisma.EnumKycProviderNullableFilter<"Kyc"> | $Enums.KycProvider | null
+  providerReference?: Prisma.StringNullableFilter<"Kyc"> | string | null
+  providerResponse?: Prisma.JsonNullableFilter<"Kyc">
   reviewNote?: Prisma.StringNullableFilter<"Kyc"> | string | null
   reviewedAt?: Prisma.DateTimeNullableFilter<"Kyc"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Kyc"> | Date | string
@@ -218,7 +298,17 @@ export type KycOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   documentType?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  submittedData?: Prisma.SortOrderInput | Prisma.SortOrder
+  firstName?: Prisma.SortOrderInput | Prisma.SortOrder
+  middleName?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastName?: Prisma.SortOrderInput | Prisma.SortOrder
+  dateOfBirth?: Prisma.SortOrderInput | Prisma.SortOrder
+  nationality?: Prisma.SortOrderInput | Prisma.SortOrder
+  documentNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  documentIssueDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  documentExpiryDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  provider?: Prisma.SortOrderInput | Prisma.SortOrder
+  providerReference?: Prisma.SortOrderInput | Prisma.SortOrder
+  providerResponse?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewNote?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -234,7 +324,17 @@ export type KycWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.KycWhereInput | Prisma.KycWhereInput[]
   documentType?: Prisma.EnumKycDocumentTypeFilter<"Kyc"> | $Enums.KycDocumentType
   status?: Prisma.EnumKycStatusFilter<"Kyc"> | $Enums.KycStatus
-  submittedData?: Prisma.JsonNullableFilter<"Kyc">
+  firstName?: Prisma.StringNullableFilter<"Kyc"> | string | null
+  middleName?: Prisma.StringNullableFilter<"Kyc"> | string | null
+  lastName?: Prisma.StringNullableFilter<"Kyc"> | string | null
+  dateOfBirth?: Prisma.DateTimeNullableFilter<"Kyc"> | Date | string | null
+  nationality?: Prisma.StringNullableFilter<"Kyc"> | string | null
+  documentNumber?: Prisma.StringNullableFilter<"Kyc"> | string | null
+  documentIssueDate?: Prisma.DateTimeNullableFilter<"Kyc"> | Date | string | null
+  documentExpiryDate?: Prisma.DateTimeNullableFilter<"Kyc"> | Date | string | null
+  provider?: Prisma.EnumKycProviderNullableFilter<"Kyc"> | $Enums.KycProvider | null
+  providerReference?: Prisma.StringNullableFilter<"Kyc"> | string | null
+  providerResponse?: Prisma.JsonNullableFilter<"Kyc">
   reviewNote?: Prisma.StringNullableFilter<"Kyc"> | string | null
   reviewedAt?: Prisma.DateTimeNullableFilter<"Kyc"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Kyc"> | Date | string
@@ -247,7 +347,17 @@ export type KycOrderByWithAggregationInput = {
   userId?: Prisma.SortOrder
   documentType?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  submittedData?: Prisma.SortOrderInput | Prisma.SortOrder
+  firstName?: Prisma.SortOrderInput | Prisma.SortOrder
+  middleName?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastName?: Prisma.SortOrderInput | Prisma.SortOrder
+  dateOfBirth?: Prisma.SortOrderInput | Prisma.SortOrder
+  nationality?: Prisma.SortOrderInput | Prisma.SortOrder
+  documentNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  documentIssueDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  documentExpiryDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  provider?: Prisma.SortOrderInput | Prisma.SortOrder
+  providerReference?: Prisma.SortOrderInput | Prisma.SortOrder
+  providerResponse?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewNote?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -265,7 +375,17 @@ export type KycScalarWhereWithAggregatesInput = {
   userId?: Prisma.UuidWithAggregatesFilter<"Kyc"> | string
   documentType?: Prisma.EnumKycDocumentTypeWithAggregatesFilter<"Kyc"> | $Enums.KycDocumentType
   status?: Prisma.EnumKycStatusWithAggregatesFilter<"Kyc"> | $Enums.KycStatus
-  submittedData?: Prisma.JsonNullableWithAggregatesFilter<"Kyc">
+  firstName?: Prisma.StringNullableWithAggregatesFilter<"Kyc"> | string | null
+  middleName?: Prisma.StringNullableWithAggregatesFilter<"Kyc"> | string | null
+  lastName?: Prisma.StringNullableWithAggregatesFilter<"Kyc"> | string | null
+  dateOfBirth?: Prisma.DateTimeNullableWithAggregatesFilter<"Kyc"> | Date | string | null
+  nationality?: Prisma.StringNullableWithAggregatesFilter<"Kyc"> | string | null
+  documentNumber?: Prisma.StringNullableWithAggregatesFilter<"Kyc"> | string | null
+  documentIssueDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Kyc"> | Date | string | null
+  documentExpiryDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Kyc"> | Date | string | null
+  provider?: Prisma.EnumKycProviderNullableWithAggregatesFilter<"Kyc"> | $Enums.KycProvider | null
+  providerReference?: Prisma.StringNullableWithAggregatesFilter<"Kyc"> | string | null
+  providerResponse?: Prisma.JsonNullableWithAggregatesFilter<"Kyc">
   reviewNote?: Prisma.StringNullableWithAggregatesFilter<"Kyc"> | string | null
   reviewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Kyc"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Kyc"> | Date | string
@@ -276,7 +396,17 @@ export type KycCreateInput = {
   id?: string
   documentType: $Enums.KycDocumentType
   status?: $Enums.KycStatus
-  submittedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstName?: string | null
+  middleName?: string | null
+  lastName?: string | null
+  dateOfBirth?: Date | string | null
+  nationality?: string | null
+  documentNumber?: string | null
+  documentIssueDate?: Date | string | null
+  documentExpiryDate?: Date | string | null
+  provider?: $Enums.KycProvider | null
+  providerReference?: string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewNote?: string | null
   reviewedAt?: Date | string | null
   createdAt?: Date | string
@@ -289,7 +419,17 @@ export type KycUncheckedCreateInput = {
   userId: string
   documentType: $Enums.KycDocumentType
   status?: $Enums.KycStatus
-  submittedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstName?: string | null
+  middleName?: string | null
+  lastName?: string | null
+  dateOfBirth?: Date | string | null
+  nationality?: string | null
+  documentNumber?: string | null
+  documentIssueDate?: Date | string | null
+  documentExpiryDate?: Date | string | null
+  provider?: $Enums.KycProvider | null
+  providerReference?: string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewNote?: string | null
   reviewedAt?: Date | string | null
   createdAt?: Date | string
@@ -300,7 +440,17 @@ export type KycUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   documentType?: Prisma.EnumKycDocumentTypeFieldUpdateOperationsInput | $Enums.KycDocumentType
   status?: Prisma.EnumKycStatusFieldUpdateOperationsInput | $Enums.KycStatus
-  submittedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  middleName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  documentExpiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  provider?: Prisma.NullableEnumKycProviderFieldUpdateOperationsInput | $Enums.KycProvider | null
+  providerReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -313,7 +463,17 @@ export type KycUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   documentType?: Prisma.EnumKycDocumentTypeFieldUpdateOperationsInput | $Enums.KycDocumentType
   status?: Prisma.EnumKycStatusFieldUpdateOperationsInput | $Enums.KycStatus
-  submittedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  middleName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  documentExpiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  provider?: Prisma.NullableEnumKycProviderFieldUpdateOperationsInput | $Enums.KycProvider | null
+  providerReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -325,7 +485,17 @@ export type KycCreateManyInput = {
   userId: string
   documentType: $Enums.KycDocumentType
   status?: $Enums.KycStatus
-  submittedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstName?: string | null
+  middleName?: string | null
+  lastName?: string | null
+  dateOfBirth?: Date | string | null
+  nationality?: string | null
+  documentNumber?: string | null
+  documentIssueDate?: Date | string | null
+  documentExpiryDate?: Date | string | null
+  provider?: $Enums.KycProvider | null
+  providerReference?: string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewNote?: string | null
   reviewedAt?: Date | string | null
   createdAt?: Date | string
@@ -336,7 +506,17 @@ export type KycUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   documentType?: Prisma.EnumKycDocumentTypeFieldUpdateOperationsInput | $Enums.KycDocumentType
   status?: Prisma.EnumKycStatusFieldUpdateOperationsInput | $Enums.KycStatus
-  submittedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  middleName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  documentExpiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  provider?: Prisma.NullableEnumKycProviderFieldUpdateOperationsInput | $Enums.KycProvider | null
+  providerReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -348,7 +528,17 @@ export type KycUncheckedUpdateManyInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   documentType?: Prisma.EnumKycDocumentTypeFieldUpdateOperationsInput | $Enums.KycDocumentType
   status?: Prisma.EnumKycStatusFieldUpdateOperationsInput | $Enums.KycStatus
-  submittedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  middleName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  documentExpiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  provider?: Prisma.NullableEnumKycProviderFieldUpdateOperationsInput | $Enums.KycProvider | null
+  providerReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -360,7 +550,17 @@ export type KycCountOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   documentType?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  submittedData?: Prisma.SortOrder
+  firstName?: Prisma.SortOrder
+  middleName?: Prisma.SortOrder
+  lastName?: Prisma.SortOrder
+  dateOfBirth?: Prisma.SortOrder
+  nationality?: Prisma.SortOrder
+  documentNumber?: Prisma.SortOrder
+  documentIssueDate?: Prisma.SortOrder
+  documentExpiryDate?: Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  providerReference?: Prisma.SortOrder
+  providerResponse?: Prisma.SortOrder
   reviewNote?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -372,6 +572,16 @@ export type KycMaxOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   documentType?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  firstName?: Prisma.SortOrder
+  middleName?: Prisma.SortOrder
+  lastName?: Prisma.SortOrder
+  dateOfBirth?: Prisma.SortOrder
+  nationality?: Prisma.SortOrder
+  documentNumber?: Prisma.SortOrder
+  documentIssueDate?: Prisma.SortOrder
+  documentExpiryDate?: Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  providerReference?: Prisma.SortOrder
   reviewNote?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -383,6 +593,16 @@ export type KycMinOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   documentType?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  firstName?: Prisma.SortOrder
+  middleName?: Prisma.SortOrder
+  lastName?: Prisma.SortOrder
+  dateOfBirth?: Prisma.SortOrder
+  nationality?: Prisma.SortOrder
+  documentNumber?: Prisma.SortOrder
+  documentIssueDate?: Prisma.SortOrder
+  documentExpiryDate?: Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  providerReference?: Prisma.SortOrder
   reviewNote?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -408,6 +628,10 @@ export type NullableStringFieldUpdateOperationsInput = {
 
 export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
+}
+
+export type NullableEnumKycProviderFieldUpdateOperationsInput = {
+  set?: $Enums.KycProvider | null
 }
 
 export type KycCreateNestedOneWithoutUserInput = {
@@ -446,7 +670,17 @@ export type KycCreateWithoutUserInput = {
   id?: string
   documentType: $Enums.KycDocumentType
   status?: $Enums.KycStatus
-  submittedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstName?: string | null
+  middleName?: string | null
+  lastName?: string | null
+  dateOfBirth?: Date | string | null
+  nationality?: string | null
+  documentNumber?: string | null
+  documentIssueDate?: Date | string | null
+  documentExpiryDate?: Date | string | null
+  provider?: $Enums.KycProvider | null
+  providerReference?: string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewNote?: string | null
   reviewedAt?: Date | string | null
   createdAt?: Date | string
@@ -457,7 +691,17 @@ export type KycUncheckedCreateWithoutUserInput = {
   id?: string
   documentType: $Enums.KycDocumentType
   status?: $Enums.KycStatus
-  submittedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstName?: string | null
+  middleName?: string | null
+  lastName?: string | null
+  dateOfBirth?: Date | string | null
+  nationality?: string | null
+  documentNumber?: string | null
+  documentIssueDate?: Date | string | null
+  documentExpiryDate?: Date | string | null
+  provider?: $Enums.KycProvider | null
+  providerReference?: string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewNote?: string | null
   reviewedAt?: Date | string | null
   createdAt?: Date | string
@@ -484,7 +728,17 @@ export type KycUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   documentType?: Prisma.EnumKycDocumentTypeFieldUpdateOperationsInput | $Enums.KycDocumentType
   status?: Prisma.EnumKycStatusFieldUpdateOperationsInput | $Enums.KycStatus
-  submittedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  middleName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  documentExpiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  provider?: Prisma.NullableEnumKycProviderFieldUpdateOperationsInput | $Enums.KycProvider | null
+  providerReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -495,7 +749,17 @@ export type KycUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   documentType?: Prisma.EnumKycDocumentTypeFieldUpdateOperationsInput | $Enums.KycDocumentType
   status?: Prisma.EnumKycStatusFieldUpdateOperationsInput | $Enums.KycStatus
-  submittedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  middleName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  documentIssueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  documentExpiryDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  provider?: Prisma.NullableEnumKycProviderFieldUpdateOperationsInput | $Enums.KycProvider | null
+  providerReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewNote?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -509,7 +773,17 @@ export type KycSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   userId?: boolean
   documentType?: boolean
   status?: boolean
-  submittedData?: boolean
+  firstName?: boolean
+  middleName?: boolean
+  lastName?: boolean
+  dateOfBirth?: boolean
+  nationality?: boolean
+  documentNumber?: boolean
+  documentIssueDate?: boolean
+  documentExpiryDate?: boolean
+  provider?: boolean
+  providerReference?: boolean
+  providerResponse?: boolean
   reviewNote?: boolean
   reviewedAt?: boolean
   createdAt?: boolean
@@ -522,7 +796,17 @@ export type KycSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
   userId?: boolean
   documentType?: boolean
   status?: boolean
-  submittedData?: boolean
+  firstName?: boolean
+  middleName?: boolean
+  lastName?: boolean
+  dateOfBirth?: boolean
+  nationality?: boolean
+  documentNumber?: boolean
+  documentIssueDate?: boolean
+  documentExpiryDate?: boolean
+  provider?: boolean
+  providerReference?: boolean
+  providerResponse?: boolean
   reviewNote?: boolean
   reviewedAt?: boolean
   createdAt?: boolean
@@ -535,7 +819,17 @@ export type KycSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extension
   userId?: boolean
   documentType?: boolean
   status?: boolean
-  submittedData?: boolean
+  firstName?: boolean
+  middleName?: boolean
+  lastName?: boolean
+  dateOfBirth?: boolean
+  nationality?: boolean
+  documentNumber?: boolean
+  documentIssueDate?: boolean
+  documentExpiryDate?: boolean
+  provider?: boolean
+  providerReference?: boolean
+  providerResponse?: boolean
   reviewNote?: boolean
   reviewedAt?: boolean
   createdAt?: boolean
@@ -548,14 +842,24 @@ export type KycSelectScalar = {
   userId?: boolean
   documentType?: boolean
   status?: boolean
-  submittedData?: boolean
+  firstName?: boolean
+  middleName?: boolean
+  lastName?: boolean
+  dateOfBirth?: boolean
+  nationality?: boolean
+  documentNumber?: boolean
+  documentIssueDate?: boolean
+  documentExpiryDate?: boolean
+  provider?: boolean
+  providerReference?: boolean
+  providerResponse?: boolean
   reviewNote?: boolean
   reviewedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type KycOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "documentType" | "status" | "submittedData" | "reviewNote" | "reviewedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["kyc"]>
+export type KycOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "documentType" | "status" | "firstName" | "middleName" | "lastName" | "dateOfBirth" | "nationality" | "documentNumber" | "documentIssueDate" | "documentExpiryDate" | "provider" | "providerReference" | "providerResponse" | "reviewNote" | "reviewedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["kyc"]>
 export type KycInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -576,7 +880,17 @@ export type $KycPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     userId: string
     documentType: $Enums.KycDocumentType
     status: $Enums.KycStatus
-    submittedData: runtime.JsonValue | null
+    firstName: string | null
+    middleName: string | null
+    lastName: string | null
+    dateOfBirth: Date | null
+    nationality: string | null
+    documentNumber: string | null
+    documentIssueDate: Date | null
+    documentExpiryDate: Date | null
+    provider: $Enums.KycProvider | null
+    providerReference: string | null
+    providerResponse: runtime.JsonValue | null
     reviewNote: string | null
     reviewedAt: Date | null
     createdAt: Date
@@ -1009,7 +1323,17 @@ export interface KycFieldRefs {
   readonly userId: Prisma.FieldRef<"Kyc", 'String'>
   readonly documentType: Prisma.FieldRef<"Kyc", 'KycDocumentType'>
   readonly status: Prisma.FieldRef<"Kyc", 'KycStatus'>
-  readonly submittedData: Prisma.FieldRef<"Kyc", 'Json'>
+  readonly firstName: Prisma.FieldRef<"Kyc", 'String'>
+  readonly middleName: Prisma.FieldRef<"Kyc", 'String'>
+  readonly lastName: Prisma.FieldRef<"Kyc", 'String'>
+  readonly dateOfBirth: Prisma.FieldRef<"Kyc", 'DateTime'>
+  readonly nationality: Prisma.FieldRef<"Kyc", 'String'>
+  readonly documentNumber: Prisma.FieldRef<"Kyc", 'String'>
+  readonly documentIssueDate: Prisma.FieldRef<"Kyc", 'DateTime'>
+  readonly documentExpiryDate: Prisma.FieldRef<"Kyc", 'DateTime'>
+  readonly provider: Prisma.FieldRef<"Kyc", 'KycProvider'>
+  readonly providerReference: Prisma.FieldRef<"Kyc", 'String'>
+  readonly providerResponse: Prisma.FieldRef<"Kyc", 'Json'>
   readonly reviewNote: Prisma.FieldRef<"Kyc", 'String'>
   readonly reviewedAt: Prisma.FieldRef<"Kyc", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Kyc", 'DateTime'>

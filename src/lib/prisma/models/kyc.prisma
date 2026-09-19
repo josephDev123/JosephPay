@@ -1,14 +1,34 @@
+
+
 model Kyc {
-  id            String    @id @default(uuid()) @db.Uuid
-  userId        String    @unique @map("user_id") @db.Uuid
-  documentType  KycDocumentType
-  status        KycStatus @default(PENDING)
-  submittedData Json?     @map("submitted_data")
-  reviewNote    String?   @map("review_note")
-  reviewedAt    DateTime? @map("reviewed_at") @db.Timestamptz(6)
-  createdAt     DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt     DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
-  user          User      @relation(fields: [userId], references: [id])
+  id                   String          @id @default(uuid()) @db.Uuid
+  userId               String          @unique @map("user_id") @db.Uuid
+
+  documentType         KycDocumentType @map("document_type")
+  status               KycStatus       @default(PENDING)
+
+  firstName            String?         @map("first_name")
+  middleName           String?         @map("middle_name")
+  lastName             String?         @map("last_name")
+  dateOfBirth          DateTime?       @map("date_of_birth") @db.Date
+  nationality          String?
+
+  documentNumber       String?         @map("document_number")
+  documentIssueDate    DateTime?       @map("document_issue_date") @db.Date
+  documentExpiryDate   DateTime?       @map("document_expiry_date") @db.Date
+
+  provider             KycProvider?
+  providerReference    String?         @map("provider_reference")
+
+  providerResponse     Json?           @map("provider_response")
+
+  reviewNote           String?         @map("review_note")
+  reviewedAt           DateTime?       @map("reviewed_at") @db.Timestamptz(6)
+
+  createdAt            DateTime        @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt            DateTime        @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  user User @relation(fields: [userId], references: [id])
 
   @@index([userId], map: "kyc_user_id_idx")
   @@map("kycs")
@@ -30,3 +50,11 @@ enum KycDocumentType {
   VOTERS_CARD
   NATIONAL_ID_CARD
 }
+
+
+enum KycProvider {
+  DOJAH
+  PREMBLY
+  MANUAL
+}
+

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const submitKycSchema = z.object({
-  // value: z.string().trim(),
+  value: z.string().trim(),
   documentType: z.enum([
     'NIN',
     'PASSPORT',
@@ -11,7 +11,6 @@ export const submitKycSchema = z.object({
     'NATIONAL_ID_CARD',
   ]),
 });
-// .passthrough();
 
 export const reviewKycSchema = z.object({
   status: z.enum(['VERIFIED', 'FAILED']),
