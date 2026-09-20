@@ -1,5 +1,6 @@
 import {
   ConflictException,
+  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -11,6 +12,7 @@ import { KycRepository } from './KycRepository.js';
 import type { ReviewKycDto } from './dto/review-kyc.dto.js';
 import type { SubmitKycDto } from './dto/submit-kyc.dto.js';
 import type { KycProvider } from './adapters/kycs-provider-interface.js';
+import { KYC_PROVIDER } from './constants/kyc.token.js';
 
 export type IdentityType = Omit<
   Kyc,
@@ -21,6 +23,7 @@ export class KycService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly kycRepository: KycRepository,
+    @Inject(KYC_PROVIDER)
     private readonly kycProvider: KycProvider,
   ) {}
 

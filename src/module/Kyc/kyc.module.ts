@@ -2,8 +2,7 @@ import { Module } from '@nestjs/common';
 import { KycController } from './KycController.js';
 import { KycRepository } from './KycRepository.js';
 import { KycService } from './KycService.js';
-import { PrismaService } from 'src/lib/prisma/prisma.service.js';
-import { KycProvider } from './adapters/kycs-provider-interface.js';
+import { PrismaService } from '../../lib/prisma/prisma.service.js';
 import { DojahAdapter } from './adapters/dojah.adapter.js';
 import { KYC_PROVIDER } from './constants/kyc.token.js';
 
@@ -12,12 +11,14 @@ import { KYC_PROVIDER } from './constants/kyc.token.js';
   providers: [
     KycService,
     KycRepository,
+    DojahAdapter,
     {
       provide: KYC_PROVIDER,
       useClass: DojahAdapter,
     },
+    PrismaService,
   ],
   exports: [KycService, KycRepository],
-  imports: [PrismaService],
+  imports: [],
 })
 export class KycModule {}
