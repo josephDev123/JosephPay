@@ -1,6 +1,6 @@
-# Fintech Platform
+# JosephPay
 
-Production-oriented fintech backend built with NestJS, TypeScript, PostgreSQL, Prisma, JWT authentication, Zod validation, Swagger, and Resend email delivery.
+Production-oriented JosephPay fintech backend built with NestJS, TypeScript, PostgreSQL, Prisma, JWT authentication, Zod validation, Swagger, and Resend email delivery.
 
 > **Status:** Active development. The repository currently contains foundational authentication, user, profile, wallet, email-verification, and KYC functionality. Financial transfers, ledger processing, withdrawals, webhooks, and other capabilities are planned and must not yet be treated as production-ready.
 

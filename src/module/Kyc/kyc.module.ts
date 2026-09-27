@@ -14,7 +14,7 @@ import { KYC_PROVIDER } from './constants/kyc.token.js';
     DojahAdapter,
     {
       provide: KYC_PROVIDER,
-      useClass: DojahAdapter,
+      useExisting: DojahAdapter,
     },
     PrismaService,
   ],

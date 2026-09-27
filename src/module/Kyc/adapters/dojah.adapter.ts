@@ -1,19 +1,23 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { KycIdentityType, KycProvider } from './kycs-provider-interface.js';
 import { SubmitKycDto } from '../dto/submit-kyc.dto.js';
 import { Dojah } from 'dojah-typescript-sdk';
 
 @Injectable()
 export class DojahAdapter implements KycProvider {
+  constructor(private readonly configService: ConfigService) {}
+
   async verifyKYCIdentity(
     data: Omit<SubmitKycDto, 'documentType'>,
   ): Promise<KycIdentityType> {
     const dojah = new Dojah({
-      authorization: process.env.DOJAH_SECRET_KEY,
-      appId: process.env.DOJAH_APP_ID,
+      authorization: this.configService.getOrThrow<string>('DOJAH_SECRET_KEY'),
+      appId: this.configService.getOrThrow<string>('DOJAH_APP_ID'),
+      basePath: this.configService.getOrThrow<string>('DOJAH_BASE_URL'),
     });
 
-    const result = await dojah.nigeriaKyc.getPremiumBvn({ bvn: 22222222222 });
+    const result = await dojah.nigeriaKyc.getNormalBvn({ bvn: 22222222222 });
 
     const dojahResult: KycIdentityType = {
       firstName: result.data.entity?.first_name || '',

@@ -4,6 +4,7 @@ import {
   type Kyc,
   PrismaClient,
   Wallet,
+  WalletBalance,
 } from '../../lib/prisma/generated/client.js';
 import { PrismaService } from '../../lib/prisma/prisma.service.js';
 import { type SupportedCurrency } from '../../shared/constants/currencies.js';
@@ -42,13 +43,13 @@ export class UserRepository {
         id,
       },
       include: {
-        wallets: true,
+        wallet: { include: { balances: true } },
         kyc: true,
         profile: true,
       } as never,
     }) as unknown as Promise<
       | (UserRecord & {
-          wallets: Wallet[];
+          wallet: (Wallet & { balances: WalletBalance[] }) | null;
           kyc: Kyc | null;
           profile: ProfileRecord | null;
         })

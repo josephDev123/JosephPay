@@ -1,0 +1,20 @@
+model LedgerAccount {
+  id        String                @id @default(uuid()) @db.Uuid
+  name      String
+  type      LedgerAccountType
+  ownerType LedgerAccountOwnerType @map("owner_type")
+  ownerId   String?               @map("owner_id") @db.Uuid
+  currency  Currency
+  status    LedgerAccountStatus   @default(ACTIVE)
+  createdAt DateTime              @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime              @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  walletBalance       WalletBalance?
+  entries             LedgerEntry[]
+  sourceTransactions  Transaction[] @relation("TransactionSourceAccount")
+  destinationTransactions Transaction[] @relation("TransactionDestinationAccount")
+
+  @@index([ownerType, ownerId])
+  @@index([currency, type])
+  @@map("ledger_accounts")
+}

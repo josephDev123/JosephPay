@@ -53,8 +53,12 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   EmailVerification: 'EmailVerification',
   Kyc: 'Kyc',
+  LedgerAccount: 'LedgerAccount',
+  LedgerEntry: 'LedgerEntry',
   Profile: 'Profile',
+  Transaction: 'Transaction',
   User: 'User',
+  WalletBalance: 'WalletBalance',
   Wallet: 'Wallet'
 } as const
 
@@ -112,6 +116,35 @@ export const KycScalarFieldEnum = {
 export type KycScalarFieldEnum = (typeof KycScalarFieldEnum)[keyof typeof KycScalarFieldEnum]
 
 
+export const LedgerAccountScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  type: 'type',
+  ownerType: 'ownerType',
+  ownerId: 'ownerId',
+  currency: 'currency',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LedgerAccountScalarFieldEnum = (typeof LedgerAccountScalarFieldEnum)[keyof typeof LedgerAccountScalarFieldEnum]
+
+
+export const LedgerEntryScalarFieldEnum = {
+  id: 'id',
+  transactionId: 'transactionId',
+  ledgerAccountId: 'ledgerAccountId',
+  entryType: 'entryType',
+  amount: 'amount',
+  currency: 'currency',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LedgerEntryScalarFieldEnum = (typeof LedgerEntryScalarFieldEnum)[keyof typeof LedgerEntryScalarFieldEnum]
+
+
 export const ProfileScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -133,6 +166,26 @@ export const ProfileScalarFieldEnum = {
 export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
 
 
+export const TransactionScalarFieldEnum = {
+  id: 'id',
+  reference: 'reference',
+  type: 'type',
+  status: 'status',
+  amount: 'amount',
+  currency: 'currency',
+  initiatedByUserId: 'initiatedByUserId',
+  sourceAccountId: 'sourceAccountId',
+  destinationAccountId: 'destinationAccountId',
+  idempotencyScope: 'idempotencyScope',
+  idempotencyKey: 'idempotencyKey',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
+
+
 export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
@@ -148,11 +201,23 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+export const WalletBalanceScalarFieldEnum = {
+  id: 'id',
+  walletId: 'walletId',
+  ledgerAccountId: 'ledgerAccountId',
+  currency: 'currency',
+  balance: 'balance',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WalletBalanceScalarFieldEnum = (typeof WalletBalanceScalarFieldEnum)[keyof typeof WalletBalanceScalarFieldEnum]
+
+
 export const WalletScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  currency: 'currency',
-  balance: 'balance',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

@@ -9,7 +9,7 @@ import {
 } from '../User/mappers/user.mapper.js';
 import { AuthRepository } from './AuthRepository.js';
 import type { LoginDto } from './dto/login.dto.js';
-import type { Kyc, Wallet } from '../../lib/prisma/generated/client.js';
+import type { Kyc, Wallet, WalletBalance } from '../../lib/prisma/generated/client.js';
 import type { ProfileRecord } from '../Profile/mappers/profile.mapper.js';
 import type { UserRecord } from '../User/mappers/user.mapper.js';
 
@@ -96,7 +96,7 @@ export class AuthService {
       user: mapUserProfile(
         user as UserRecord & {
           passwordHash: string | null;
-          wallets: Wallet[];
+          wallet: (Wallet & { balances: WalletBalance[] }) | null;
           kyc: Kyc | null;
           profile: ProfileRecord | null;
         },

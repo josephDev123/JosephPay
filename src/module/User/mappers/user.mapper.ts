@@ -2,6 +2,7 @@ import type {
   Kyc,
   User,
   Wallet,
+  WalletBalance,
 } from '../../../lib/prisma/generated/client.js';
 import type { SupportedCurrency } from '../../../shared/constants/currencies.js';
 import {
@@ -70,7 +71,7 @@ export interface UserProfileView extends UserView {
   profile: ProfileView | null;
 }
 
-export function mapWallet(wallet: Wallet): WalletView {
+export function mapWallet(wallet: WalletBalance): WalletView {
   return {
     id: wallet.id,
     currency: wallet.currency as SupportedCurrency,
@@ -120,7 +121,7 @@ export type UserRecord = {
 };
 
 type UserWithRelations = UserRecord & {
-  wallets: Wallet[];
+  wallet: (Wallet & { balances: WalletBalance[] }) | null;
   kyc: Kyc | null;
   profile?: ProfileRecord | null;
 };
@@ -135,7 +136,7 @@ export function mapUserProfile(user: UserWithRelations): UserProfileView {
     emailVerifiedAt: user.emailVerifiedAt,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,
-    wallets: user.wallets.map(mapWallet),
+    wallets: user.wallet?.balances.map(mapWallet) ?? [],
     kyc: mapKyc(user.kyc),
     profile: mapProfile(user.profile ?? null),
   };

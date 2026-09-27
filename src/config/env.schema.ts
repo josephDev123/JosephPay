@@ -8,6 +8,9 @@ export const envSchema = z.object({
   JWT_REFRESH_TTL: z.string().regex(/^\d+[smhd]$/),
   RESEND_API_KEY: z.string().min(1),
   RESEND_FROM_EMAIL: z.email(),
+  DOJAH_SECRET_KEY: z.string().min(1),
+  DOJAH_APP_ID: z.string().min(1),
+  DOJAH_BASE_URL: z.url(),
   PORT: z.coerce.number().default(5000),
 });
 

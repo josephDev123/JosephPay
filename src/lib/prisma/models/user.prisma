@@ -5,7 +5,8 @@ model User {
   lastName              String
   middleName            String
   passwordHash          String                  @map("password_hash")
-  wallets               Wallet[]
+  wallet                Wallet?
+  initiatedTransactions Transaction[]
   kyc                   Kyc?
   emailVerifiedAt       DateTime?               @map("email_verified_at") @db.Timestamptz(6)
   createdAt             DateTime                @default(now()) @map("created_at") @db.Timestamptz(6)

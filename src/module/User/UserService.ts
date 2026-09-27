@@ -9,6 +9,7 @@ import {
   type Kyc,
   type User,
   type Wallet,
+  type WalletBalance,
 } from '../../lib/prisma/generated/client.js';
 import { PrismaService } from '../../lib/prisma/prisma.service.js';
 import { SUPPORTED_CURRENCIES } from '../../shared/constants/currencies.js';
@@ -32,7 +33,7 @@ type RegistrationResult = {
   user: UserRecord;
   profile: ProfileRecord;
   kyc: Kyc;
-  wallets: Wallet[];
+  wallet: Wallet & { balances: WalletBalance[] };
   verificationOtp: string;
 };
 
@@ -92,7 +93,7 @@ export class UserService {
           user,
           profile,
           kyc,
-          wallets,
+          wallet: wallets,
           verificationOtp,
         } satisfies RegistrationResult;
       });
@@ -109,7 +110,7 @@ export class UserService {
       return mapUserProfile({
         ...result.user,
         profile: result.profile,
-        wallets: result.wallets,
+        wallet: result.wallet,
         kyc: result.kyc,
       });
     } catch (error) {

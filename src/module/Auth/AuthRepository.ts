@@ -4,6 +4,7 @@ import {
   PrismaClient,
   type Kyc,
   type Wallet,
+  type WalletBalance,
 } from '../../lib/prisma/generated/client.js';
 import { PrismaService } from '../../lib/prisma/prisma.service.js';
 import type { ProfileRecord } from '../Profile/mappers/profile.mapper.js';
@@ -21,14 +22,14 @@ export class AuthRepository {
         email,
       },
       include: {
-        wallets: true,
+        wallet: { include: { balances: true } },
         kyc: true,
         profile: true,
       } as never,
     }) as unknown as Promise<
       | (UserRecord & {
           passwordHash: string | null;
-          wallets: Wallet[];
+          wallet: (Wallet & { balances: WalletBalance[] }) | null;
           kyc: Kyc | null;
           profile: ProfileRecord | null;
         })

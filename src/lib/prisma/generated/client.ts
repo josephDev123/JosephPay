@@ -52,15 +52,35 @@ export type EmailVerification = Prisma.EmailVerificationModel
  */
 export type Kyc = Prisma.KycModel
 /**
+ * Model LedgerAccount
+ * 
+ */
+export type LedgerAccount = Prisma.LedgerAccountModel
+/**
+ * Model LedgerEntry
+ * 
+ */
+export type LedgerEntry = Prisma.LedgerEntryModel
+/**
  * Model Profile
  * 
  */
 export type Profile = Prisma.ProfileModel
 /**
+ * Model Transaction
+ * 
+ */
+export type Transaction = Prisma.TransactionModel
+/**
  * Model User
  * 
  */
 export type User = Prisma.UserModel
+/**
+ * Model WalletBalance
+ * 
+ */
+export type WalletBalance = Prisma.WalletBalanceModel
 /**
  * Model Wallet
  * 
