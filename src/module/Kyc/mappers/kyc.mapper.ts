@@ -4,11 +4,24 @@ export interface KycProfileView {
   id: string;
   userId: string;
   status: Kyc['status'];
-  submittedData: Kyc['submittedData'];
+  // submittedData: Kyc['submittedData'];
   reviewNote: string | null;
   reviewedAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
+
+  documentType: Kyc['documentType'];
+  firstName?: string | null;
+  middleName?: string | null;
+  lastName?: string | null;
+  dateOfBirth?: Date | null;
+  nationality?: string | null;
+  documentNumber?: string | null;
+  documentIssueDate?: Date | null;
+  documentExpiryDate?: Date | null;
+  provider?: Kyc['provider'] | null;
+  providerReference?: string | null;
+  // providerResponse: JsonValue | null;
 }
 
 export function mapKycProfile(kyc: Kyc): KycProfileView {
@@ -16,7 +29,8 @@ export function mapKycProfile(kyc: Kyc): KycProfileView {
     id: kyc.id,
     userId: kyc.userId,
     status: kyc.status,
-    submittedData: kyc.submittedData,
+    documentType: kyc.documentType,
+    // submittedData: kyc.submittedData,
     reviewNote: kyc.reviewNote,
     reviewedAt: kyc.reviewedAt,
     createdAt: kyc.createdAt,

@@ -1,0 +1,15 @@
+model WalletBalance {
+  id              String   @id @default(uuid()) @db.Uuid
+  walletId        String   @map("wallet_id") @db.Uuid
+  ledgerAccountId String   @unique @map("ledger_account_id") @db.Uuid
+  currency        Currency
+  balance         BigInt   @default(0) @db.BigInt
+  createdAt       DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt       DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  wallet        Wallet        @relation(fields: [walletId], references: [id])
+  ledgerAccount LedgerAccount @relation(fields: [ledgerAccountId], references: [id])
+
+  @@unique([walletId, currency])
+  @@map("wallet_balances")
+}

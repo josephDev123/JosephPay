@@ -1,0 +1,25 @@
+model Transaction {
+  id                   String            @id @default(uuid()) @db.Uuid
+  reference            String            @unique
+  type                 TransactionType
+  status               TransactionStatus
+  amount               BigInt            @db.BigInt
+  currency             Currency
+  initiatedByUserId    String?           @map("initiated_by_user_id") @db.Uuid
+  sourceAccountId      String?           @map("source_account_id") @db.Uuid
+  destinationAccountId String?           @map("destination_account_id") @db.Uuid
+  idempotencyScope     String?           @map("idempotency_scope")
+  idempotencyKey       String?           @map("idempotency_key")
+  metadata             Json?
+  createdAt            DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt            DateTime          @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  initiatedByUser User?         @relation(fields: [initiatedByUserId], references: [id])
+  sourceAccount  LedgerAccount? @relation("TransactionSourceAccount", fields: [sourceAccountId], references: [id])
+  destinationAccount LedgerAccount? @relation("TransactionDestinationAccount", fields: [destinationAccountId], references: [id])
+  ledgerEntries  LedgerEntry[]
+
+  @@unique([idempotencyScope, idempotencyKey])
+  @@index([initiatedByUserId, createdAt])
+  @@map("transactions")
+}

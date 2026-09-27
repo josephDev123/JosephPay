@@ -1,5 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { Currency } from '../../lib/prisma/generated/enums.js';
+import {
+  Currency,
+  LedgerAccountOwnerType,
+  LedgerAccountType,
+} from '../../lib/prisma/generated/enums.js';
 import { PrismaService } from '../../lib/prisma/prisma.service.js';
 import {
   SUPPORTED_CURRENCIES,
@@ -14,50 +18,59 @@ export class WalletRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   createWallets(userId: string, prisma: DatabaseClient = this.prisma) {
-    return Promise.all(
-      SUPPORTED_CURRENCIES.map((currency) =>
-        prisma.wallet.create({
-          data: {
-            userId,
+    return prisma.wallet.create({
+      data: {
+        userId,
+        balances: {
+          create: SUPPORTED_CURRENCIES.map((currency) => ({
             currency: currency as Currency,
             balance: 0n,
-          },
-        }),
-      ),
-    );
-  }
-
-  findWalletsByUserId(userId: string) {
-    return this.prisma.wallet.findMany({
-      where: {
-        userId,
+            ledgerAccount: {
+              create: {
+                name: `Customer wallet ${userId} ${currency}`,
+                type: LedgerAccountType.CUSTOMER_WALLET,
+                ownerType: LedgerAccountOwnerType.CUSTOMER,
+                ownerId: userId,
+                currency: currency as Currency,
+              },
+            },
+          })),
+        },
       },
-      orderBy: {
-        currency: 'asc',
-      },
+      include: { balances: true },
     });
   }
 
-  upsertWalletBalance(
+  async findWalletsByUserId(userId: string) {
+    const wallet = await this.prisma.wallet.findUnique({
+      where: { userId },
+      include: { balances: true },
+    });
+
+    return wallet?.balances ?? [];
+  }
+
+  async upsertWalletBalance(
     userId: string,
     currency: SupportedCurrency,
     balance: bigint,
   ) {
-    return this.prisma.wallet.upsert({
+    const wallet = await this.prisma.wallet.findUnique({
+      where: { userId },
+    });
+
+    if (!wallet) {
+      throw new Error(`Wallet not found for user ${userId}`);
+    }
+
+    return this.prisma.walletBalance.update({
       where: {
-        userId_currency: {
-          userId,
+        walletId_currency: {
+          walletId: wallet.id,
           currency: currency as Currency,
         },
       },
-      create: {
-        userId,
-        currency: currency as Currency,
-        balance,
-      },
-      update: {
-        balance,
-      },
+      data: { balance },
     });
   }
 }

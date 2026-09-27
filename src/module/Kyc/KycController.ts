@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import {
   ApiBody,
+  ApiCookieAuth,
   ApiCreatedResponse,
   ApiOkResponse,
   ApiOperation,
@@ -27,13 +28,17 @@ import {
 import {
   KycResponseDto,
   ReviewKycRequestDto,
+  SubmitKycRequestDto,
 } from '../../docs/swagger.models.js';
+import { Public } from '../../shared/decorators/auth.public.decorator.js';
 
 @ApiTags('KYC')
+@ApiCookieAuth('cookieAuth')
 @Controller('api/v1/kyc')
 export class KycController {
   constructor(private readonly kycService: KycService) {}
 
+  @Public()
   @Post(':userId')
   @ApiOperation({ summary: 'Submit KYC information for a user' })
   @ApiParam({
@@ -42,14 +47,7 @@ export class KycController {
     example: '7d4ef0d2-0b37-4b1d-a9fd-81d1d4ce9c4f',
   })
   @ApiBody({
-    schema: {
-      type: 'object',
-      additionalProperties: true,
-      example: {
-        bvn: '12345678901',
-        documentType: 'NIN',
-      },
-    },
+    type: SubmitKycRequestDto,
   })
   @ApiCreatedResponse({
     type: KycResponseDto,

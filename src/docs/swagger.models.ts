@@ -331,15 +331,17 @@ export class KycDto {
   status!: keyof typeof KycStatus;
 
   @ApiProperty({
-    type: 'object',
-    additionalProperties: true,
-    nullable: true,
-    example: {
-      bvn: '12345678901',
-      documentType: 'NIN',
-    },
+    enum: [
+      'NIN',
+      'PASSPORT',
+      'BVN',
+      'DRIVERS_LICENSE',
+      'VOTERS_CARD',
+      'NATIONAL_ID_CARD',
+    ],
+    example: 'BVN',
   })
-  submittedData!: Record<string, unknown> | null;
+  documentType!: string;
 
   @ApiPropertyOptional({
     example: 'Verified by compliance team',
@@ -417,8 +419,31 @@ export class ReviewKycRequestDto {
 
   @ApiPropertyOptional({
     example: 'All submitted documents are valid.',
+    minLength: 2,
+    maxLength: 500,
   })
   reviewNote?: string;
+}
+
+export class SubmitKycRequestDto {
+  @ApiProperty({
+    description: 'The identity value to verify with the KYC provider.',
+    example: '12345678901',
+  })
+  value!: string;
+
+  @ApiProperty({
+    enum: [
+      'NIN',
+      'PASSPORT',
+      'BVN',
+      'DRIVERS_LICENSE',
+      'VOTERS_CARD',
+      'NATIONAL_ID_CARD',
+    ],
+    example: 'BVN',
+  })
+  documentType!: string;
 }
 
 export class KycResponseDto {
@@ -436,4 +461,95 @@ export class KycResponseDto {
     type: () => KycDto,
   })
   data!: KycDto;
+}
+
+export class LedgerEntryResponseDto {
+  @ApiProperty({ example: '4c8e5f7e-5ac8-4f39-a2af-2d5c5b9df5d1' })
+  id!: string;
+
+  @ApiProperty({ example: 'DEBIT', enum: ['DEBIT', 'CREDIT'] })
+  entryType!: 'DEBIT' | 'CREDIT';
+
+  @ApiProperty({ example: '2000000', description: 'Amount in minor currency units.' })
+  amount!: string;
+
+  @ApiProperty({ example: 'NGN', enum: ['NGN', 'USD'] })
+  currency!: 'NGN' | 'USD';
+
+  @ApiProperty({ example: '2026-09-27T10:00:00.000Z', format: 'date-time' })
+  createdAt!: string;
+}
+
+export class TransactionDto {
+  @ApiProperty({ example: 'a1b2c3d4-e5f6-4789-9012-345678901234' })
+  id!: string;
+
+  @ApiProperty({ example: 'TRF-20260927-8F92K' })
+  reference!: string;
+
+  @ApiProperty({ example: 'TRANSFER', enum: ['TRANSFER', 'DEPOSIT', 'WITHDRAWAL', 'PAYMENT', 'REFUND', 'FEE', 'REVERSAL'] })
+  type!: string;
+
+  @ApiProperty({ example: 'SUCCESS', enum: ['PENDING', 'PROCESSING', 'SUCCESS', 'FAILED', 'REVERSED', 'CANCELLED'] })
+  status!: string;
+
+  @ApiProperty({ example: '2000000', description: 'Amount in minor currency units.' })
+  amount!: string;
+
+  @ApiProperty({ example: 'NGN', enum: ['NGN', 'USD'] })
+  currency!: 'NGN' | 'USD';
+
+  @ApiPropertyOptional({ example: '4c8e5f7e-5ac8-4f39-a2af-2d5c5b9df5d1', nullable: true })
+  sourceAccountId!: string | null;
+
+  @ApiPropertyOptional({ example: '9d8c7b6a-5f4e-4321-9012-345678901234', nullable: true })
+  destinationAccountId!: string | null;
+
+  @ApiProperty({ type: () => [LedgerEntryResponseDto] })
+  ledgerEntries!: LedgerEntryResponseDto[];
+
+  @ApiProperty({ example: '2026-09-27T10:00:00.000Z', format: 'date-time' })
+  createdAt!: string;
+
+  @ApiProperty({ example: '2026-09-27T10:00:00.000Z', format: 'date-time' })
+  updatedAt!: string;
+}
+
+export class TransactionResponseDto {
+  @ApiProperty({ example: true })
+  success!: true;
+
+  @ApiProperty({ example: 'Transaction fetched successfully' })
+  message!: string;
+
+  @ApiProperty({ type: () => TransactionDto })
+  data!: TransactionDto;
+}
+
+export class TransactionListResponseDto {
+  @ApiProperty({ example: true })
+  success!: true;
+
+  @ApiProperty({ example: 'Transactions fetched successfully' })
+  message!: string;
+
+  @ApiProperty({ type: () => [TransactionDto] })
+  data!: TransactionDto[];
+}
+
+export class TransferRequestDto {
+  @ApiProperty({ example: '9d8c7b6a-5f4e-4321-9012-345678901234', format: 'uuid' })
+  destinationUserId!: string;
+
+  @ApiProperty({ example: 'NGN', enum: ['NGN', 'USD'] })
+  currency!: 'NGN' | 'USD';
+
+  @ApiProperty({ example: '2000000', description: 'Amount in minor currency units.' })
+  amount!: string;
+
+  @ApiProperty({ example: 'transfer-request-123', minLength: 8, maxLength: 128 })
+  idempotencyKey!: string;
+}
+
+export class TransferResponseDto extends TransactionResponseDto {
 }

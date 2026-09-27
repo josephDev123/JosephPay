@@ -9,7 +9,10 @@ import { KycModule } from './module/Kyc/kyc.module.js';
 import { ProfileModule } from './module/Profile/profile.module.js';
 import { UserModule } from './module/User/user.module.js';
 import { WalletModule } from './module/Wallet/wallet.module.js';
-import { ClientsModule, Transport } from '@nestjs/microservices';
+import { LedgerModule } from './module/Ledger/ledger.module.js';
+import { TransactionModule } from './module/Transaction/transaction.module.js';
+import { TransferModule } from './module/Transfer/transfer.module.js';
+// import { ClientsModule, Transport } from '@nestjs/microservices';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { HttpExceptionHandler } from './shared/exception/HttpExceptionHandler.js';
 import { AuthGuard } from './shared/guards/auth.guard.js';
@@ -24,19 +27,19 @@ import { getAppConfig } from './shared/lib/app-config.js';
       validate: Envalidate,
     }),
 
-    ClientsModule.register([
-      {
-        name: 'MATH_SERVICE',
-        transport: Transport.RMQ,
-        options: {
-          urls: ['amqp://localhost:5672'],
-          queue: 'cats_queue',
-          queueOptions: {
-            durable: false,
-          },
-        },
-      },
-    ]),
+    // ClientsModule.register([
+    //   {
+    //     name: 'MATH_SERVICE',
+    //     transport: Transport.RMQ,
+    //     options: {
+    //       urls: ['amqp://localhost:5672'],
+    //       queue: 'cats_queue',
+    //       queueOptions: {
+    //         durable: false,
+    //       },
+    //     },
+    //   },
+    // ]),
 
     PrismaModule,
     KycModule,
@@ -44,6 +47,9 @@ import { getAppConfig } from './shared/lib/app-config.js';
     UserModule,
     AuthModule,
     WalletModule,
+    LedgerModule,
+    TransactionModule,
+    TransferModule,
   ],
   controllers: [AppController],
   providers: [

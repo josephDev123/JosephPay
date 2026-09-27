@@ -399,8 +399,12 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   EmailVerification: 'EmailVerification',
   Kyc: 'Kyc',
+  LedgerAccount: 'LedgerAccount',
+  LedgerEntry: 'LedgerEntry',
   Profile: 'Profile',
+  Transaction: 'Transaction',
   User: 'User',
+  WalletBalance: 'WalletBalance',
   Wallet: 'Wallet'
 } as const
 
@@ -417,7 +421,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "emailVerification" | "kyc" | "profile" | "user" | "wallet"
+    modelProps: "emailVerification" | "kyc" | "ledgerAccount" | "ledgerEntry" | "profile" | "transaction" | "user" | "walletBalance" | "wallet"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -569,6 +573,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    LedgerAccount: {
+      payload: Prisma.$LedgerAccountPayload<ExtArgs>
+      fields: Prisma.LedgerAccountFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LedgerAccountFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerAccountPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LedgerAccountFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerAccountPayload>
+        }
+        findFirst: {
+          args: Prisma.LedgerAccountFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerAccountPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LedgerAccountFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerAccountPayload>
+        }
+        findMany: {
+          args: Prisma.LedgerAccountFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerAccountPayload>[]
+        }
+        create: {
+          args: Prisma.LedgerAccountCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerAccountPayload>
+        }
+        createMany: {
+          args: Prisma.LedgerAccountCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LedgerAccountCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerAccountPayload>[]
+        }
+        delete: {
+          args: Prisma.LedgerAccountDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerAccountPayload>
+        }
+        update: {
+          args: Prisma.LedgerAccountUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerAccountPayload>
+        }
+        deleteMany: {
+          args: Prisma.LedgerAccountDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LedgerAccountUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LedgerAccountUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerAccountPayload>[]
+        }
+        upsert: {
+          args: Prisma.LedgerAccountUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerAccountPayload>
+        }
+        aggregate: {
+          args: Prisma.LedgerAccountAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLedgerAccount>
+        }
+        groupBy: {
+          args: Prisma.LedgerAccountGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LedgerAccountGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LedgerAccountCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LedgerAccountCountAggregateOutputType> | number
+        }
+      }
+    }
+    LedgerEntry: {
+      payload: Prisma.$LedgerEntryPayload<ExtArgs>
+      fields: Prisma.LedgerEntryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LedgerEntryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerEntryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LedgerEntryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerEntryPayload>
+        }
+        findFirst: {
+          args: Prisma.LedgerEntryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerEntryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LedgerEntryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerEntryPayload>
+        }
+        findMany: {
+          args: Prisma.LedgerEntryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerEntryPayload>[]
+        }
+        create: {
+          args: Prisma.LedgerEntryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerEntryPayload>
+        }
+        createMany: {
+          args: Prisma.LedgerEntryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LedgerEntryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerEntryPayload>[]
+        }
+        delete: {
+          args: Prisma.LedgerEntryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerEntryPayload>
+        }
+        update: {
+          args: Prisma.LedgerEntryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerEntryPayload>
+        }
+        deleteMany: {
+          args: Prisma.LedgerEntryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LedgerEntryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LedgerEntryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerEntryPayload>[]
+        }
+        upsert: {
+          args: Prisma.LedgerEntryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerEntryPayload>
+        }
+        aggregate: {
+          args: Prisma.LedgerEntryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLedgerEntry>
+        }
+        groupBy: {
+          args: Prisma.LedgerEntryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LedgerEntryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LedgerEntryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LedgerEntryCountAggregateOutputType> | number
+        }
+      }
+    }
     Profile: {
       payload: Prisma.$ProfilePayload<ExtArgs>
       fields: Prisma.ProfileFieldRefs
@@ -643,6 +795,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Transaction: {
+      payload: Prisma.$TransactionPayload<ExtArgs>
+      fields: Prisma.TransactionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TransactionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransactionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TransactionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransactionPayload>
+        }
+        findFirst: {
+          args: Prisma.TransactionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransactionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TransactionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransactionPayload>
+        }
+        findMany: {
+          args: Prisma.TransactionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransactionPayload>[]
+        }
+        create: {
+          args: Prisma.TransactionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransactionPayload>
+        }
+        createMany: {
+          args: Prisma.TransactionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TransactionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransactionPayload>[]
+        }
+        delete: {
+          args: Prisma.TransactionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransactionPayload>
+        }
+        update: {
+          args: Prisma.TransactionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransactionPayload>
+        }
+        deleteMany: {
+          args: Prisma.TransactionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TransactionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TransactionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransactionPayload>[]
+        }
+        upsert: {
+          args: Prisma.TransactionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransactionPayload>
+        }
+        aggregate: {
+          args: Prisma.TransactionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTransaction>
+        }
+        groupBy: {
+          args: Prisma.TransactionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TransactionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TransactionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TransactionCountAggregateOutputType> | number
+        }
+      }
+    }
     User: {
       payload: Prisma.$UserPayload<ExtArgs>
       fields: Prisma.UserFieldRefs
@@ -714,6 +940,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UserCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number
+        }
+      }
+    }
+    WalletBalance: {
+      payload: Prisma.$WalletBalancePayload<ExtArgs>
+      fields: Prisma.WalletBalanceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WalletBalanceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WalletBalancePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WalletBalanceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WalletBalancePayload>
+        }
+        findFirst: {
+          args: Prisma.WalletBalanceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WalletBalancePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WalletBalanceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WalletBalancePayload>
+        }
+        findMany: {
+          args: Prisma.WalletBalanceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WalletBalancePayload>[]
+        }
+        create: {
+          args: Prisma.WalletBalanceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WalletBalancePayload>
+        }
+        createMany: {
+          args: Prisma.WalletBalanceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WalletBalanceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WalletBalancePayload>[]
+        }
+        delete: {
+          args: Prisma.WalletBalanceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WalletBalancePayload>
+        }
+        update: {
+          args: Prisma.WalletBalanceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WalletBalancePayload>
+        }
+        deleteMany: {
+          args: Prisma.WalletBalanceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WalletBalanceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WalletBalanceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WalletBalancePayload>[]
+        }
+        upsert: {
+          args: Prisma.WalletBalanceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WalletBalancePayload>
+        }
+        aggregate: {
+          args: Prisma.WalletBalanceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWalletBalance>
+        }
+        groupBy: {
+          args: Prisma.WalletBalanceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WalletBalanceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WalletBalanceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WalletBalanceCountAggregateOutputType> | number
         }
       }
     }
@@ -848,7 +1148,17 @@ export const KycScalarFieldEnum = {
   userId: 'userId',
   documentType: 'documentType',
   status: 'status',
-  submittedData: 'submittedData',
+  firstName: 'firstName',
+  middleName: 'middleName',
+  lastName: 'lastName',
+  dateOfBirth: 'dateOfBirth',
+  nationality: 'nationality',
+  documentNumber: 'documentNumber',
+  documentIssueDate: 'documentIssueDate',
+  documentExpiryDate: 'documentExpiryDate',
+  provider: 'provider',
+  providerReference: 'providerReference',
+  providerResponse: 'providerResponse',
   reviewNote: 'reviewNote',
   reviewedAt: 'reviewedAt',
   createdAt: 'createdAt',
@@ -856,6 +1166,35 @@ export const KycScalarFieldEnum = {
 } as const
 
 export type KycScalarFieldEnum = (typeof KycScalarFieldEnum)[keyof typeof KycScalarFieldEnum]
+
+
+export const LedgerAccountScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  type: 'type',
+  ownerType: 'ownerType',
+  ownerId: 'ownerId',
+  currency: 'currency',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LedgerAccountScalarFieldEnum = (typeof LedgerAccountScalarFieldEnum)[keyof typeof LedgerAccountScalarFieldEnum]
+
+
+export const LedgerEntryScalarFieldEnum = {
+  id: 'id',
+  transactionId: 'transactionId',
+  ledgerAccountId: 'ledgerAccountId',
+  entryType: 'entryType',
+  amount: 'amount',
+  currency: 'currency',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LedgerEntryScalarFieldEnum = (typeof LedgerEntryScalarFieldEnum)[keyof typeof LedgerEntryScalarFieldEnum]
 
 
 export const ProfileScalarFieldEnum = {
@@ -879,6 +1218,26 @@ export const ProfileScalarFieldEnum = {
 export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
 
 
+export const TransactionScalarFieldEnum = {
+  id: 'id',
+  reference: 'reference',
+  type: 'type',
+  status: 'status',
+  amount: 'amount',
+  currency: 'currency',
+  initiatedByUserId: 'initiatedByUserId',
+  sourceAccountId: 'sourceAccountId',
+  destinationAccountId: 'destinationAccountId',
+  idempotencyScope: 'idempotencyScope',
+  idempotencyKey: 'idempotencyKey',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
+
+
 export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
@@ -894,11 +1253,23 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+export const WalletBalanceScalarFieldEnum = {
+  id: 'id',
+  walletId: 'walletId',
+  ledgerAccountId: 'ledgerAccountId',
+  currency: 'currency',
+  balance: 'balance',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WalletBalanceScalarFieldEnum = (typeof WalletBalanceScalarFieldEnum)[keyof typeof WalletBalanceScalarFieldEnum]
+
+
 export const WalletScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  currency: 'currency',
-  balance: 'balance',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1024,6 +1395,20 @@ export type ListEnumKycStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
 
 
 /**
+ * Reference to a field of type 'KycProvider'
+ */
+export type EnumKycProviderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'KycProvider'>
+    
+
+
+/**
+ * Reference to a field of type 'KycProvider[]'
+ */
+export type ListEnumKycProviderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'KycProvider[]'>
+    
+
+
+/**
  * Reference to a field of type 'Json'
  */
 export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
@@ -1038,16 +1423,30 @@ export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
 
 
 /**
- * Reference to a field of type 'Gender'
+ * Reference to a field of type 'LedgerAccountType'
  */
-export type EnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender'>
+export type EnumLedgerAccountTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LedgerAccountType'>
     
 
 
 /**
- * Reference to a field of type 'Gender[]'
+ * Reference to a field of type 'LedgerAccountType[]'
  */
-export type ListEnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender[]'>
+export type ListEnumLedgerAccountTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LedgerAccountType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'LedgerAccountOwnerType'
+ */
+export type EnumLedgerAccountOwnerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LedgerAccountOwnerType'>
+    
+
+
+/**
+ * Reference to a field of type 'LedgerAccountOwnerType[]'
+ */
+export type ListEnumLedgerAccountOwnerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LedgerAccountOwnerType[]'>
     
 
 
@@ -1066,6 +1465,34 @@ export type ListEnumCurrencyFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
 
 
 /**
+ * Reference to a field of type 'LedgerAccountStatus'
+ */
+export type EnumLedgerAccountStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LedgerAccountStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'LedgerAccountStatus[]'
+ */
+export type ListEnumLedgerAccountStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LedgerAccountStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'LedgerEntryType'
+ */
+export type EnumLedgerEntryTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LedgerEntryType'>
+    
+
+
+/**
+ * Reference to a field of type 'LedgerEntryType[]'
+ */
+export type ListEnumLedgerEntryTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LedgerEntryType[]'>
+    
+
+
+/**
  * Reference to a field of type 'BigInt'
  */
 export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
@@ -1076,6 +1503,62 @@ export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
  * Reference to a field of type 'BigInt[]'
  */
 export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Gender'
+ */
+export type EnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender'>
+    
+
+
+/**
+ * Reference to a field of type 'Gender[]'
+ */
+export type ListEnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender[]'>
+    
+
+
+/**
+ * Reference to a field of type 'TransactionType'
+ */
+export type EnumTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionType'>
+    
+
+
+/**
+ * Reference to a field of type 'TransactionType[]'
+ */
+export type ListEnumTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'TransactionStatus'
+ */
+export type EnumTransactionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'TransactionStatus[]'
+ */
+export type ListEnumTransactionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'WalletStatus'
+ */
+export type EnumWalletStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WalletStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'WalletStatus[]'
+ */
+export type ListEnumWalletStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WalletStatus[]'>
     
 
 
@@ -1245,8 +1728,12 @@ export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaC
 export type GlobalOmitConfig = {
   emailVerification?: Prisma.EmailVerificationOmit
   kyc?: Prisma.KycOmit
+  ledgerAccount?: Prisma.LedgerAccountOmit
+  ledgerEntry?: Prisma.LedgerEntryOmit
   profile?: Prisma.ProfileOmit
+  transaction?: Prisma.TransactionOmit
   user?: Prisma.UserOmit
+  walletBalance?: Prisma.WalletBalanceOmit
   wallet?: Prisma.WalletOmit
 }
 

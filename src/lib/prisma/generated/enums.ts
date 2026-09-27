@@ -17,6 +17,82 @@ export const Currency = {
 export type Currency = (typeof Currency)[keyof typeof Currency]
 
 
+export const WalletStatus = {
+  ACTIVE: 'ACTIVE',
+  SUSPENDED: 'SUSPENDED',
+  CLOSED: 'CLOSED'
+} as const
+
+export type WalletStatus = (typeof WalletStatus)[keyof typeof WalletStatus]
+
+
+export const LedgerAccountType = {
+  CUSTOMER_WALLET: 'CUSTOMER_WALLET',
+  BANK: 'BANK',
+  CASH: 'CASH',
+  REVENUE: 'REVENUE',
+  EXPENSE: 'EXPENSE',
+  PAYABLE: 'PAYABLE',
+  RECEIVABLE: 'RECEIVABLE',
+  OPENING_BALANCE: 'OPENING_BALANCE'
+} as const
+
+export type LedgerAccountType = (typeof LedgerAccountType)[keyof typeof LedgerAccountType]
+
+
+export const LedgerAccountOwnerType = {
+  CUSTOMER: 'CUSTOMER',
+  SYSTEM: 'SYSTEM',
+  MERCHANT: 'MERCHANT',
+  BANK: 'BANK'
+} as const
+
+export type LedgerAccountOwnerType = (typeof LedgerAccountOwnerType)[keyof typeof LedgerAccountOwnerType]
+
+
+export const LedgerAccountStatus = {
+  ACTIVE: 'ACTIVE',
+  SUSPENDED: 'SUSPENDED',
+  CLOSED: 'CLOSED'
+} as const
+
+export type LedgerAccountStatus = (typeof LedgerAccountStatus)[keyof typeof LedgerAccountStatus]
+
+
+export const TransactionType = {
+  DEPOSIT: 'DEPOSIT',
+  WITHDRAWAL: 'WITHDRAWAL',
+  TRANSFER: 'TRANSFER',
+  PAYMENT: 'PAYMENT',
+  REFUND: 'REFUND',
+  FEE: 'FEE',
+  REVERSAL: 'REVERSAL',
+  OPENING_BALANCE: 'OPENING_BALANCE'
+} as const
+
+export type TransactionType = (typeof TransactionType)[keyof typeof TransactionType]
+
+
+export const TransactionStatus = {
+  PENDING: 'PENDING',
+  PROCESSING: 'PROCESSING',
+  SUCCESS: 'SUCCESS',
+  FAILED: 'FAILED',
+  REVERSED: 'REVERSED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type TransactionStatus = (typeof TransactionStatus)[keyof typeof TransactionStatus]
+
+
+export const LedgerEntryType = {
+  DEBIT: 'DEBIT',
+  CREDIT: 'CREDIT'
+} as const
+
+export type LedgerEntryType = (typeof LedgerEntryType)[keyof typeof LedgerEntryType]
+
+
 export const KycStatus = {
   PENDING: 'PENDING',
   UNDER_REVIEW: 'UNDER_REVIEW',
@@ -37,6 +113,15 @@ export const KycDocumentType = {
 } as const
 
 export type KycDocumentType = (typeof KycDocumentType)[keyof typeof KycDocumentType]
+
+
+export const KycProvider = {
+  DOJAH: 'DOJAH',
+  PREMBLY: 'PREMBLY',
+  MANUAL: 'MANUAL'
+} as const
+
+export type KycProvider = (typeof KycProvider)[keyof typeof KycProvider]
 
 
 export const Gender = {

@@ -3,3 +3,57 @@ enum Currency {
   USD
 }
 
+enum WalletStatus {
+  ACTIVE
+  SUSPENDED
+  CLOSED
+}
+
+enum LedgerAccountType {
+  CUSTOMER_WALLET
+  BANK
+  CASH
+  REVENUE
+  EXPENSE
+  PAYABLE
+  RECEIVABLE
+  OPENING_BALANCE
+}
+
+enum LedgerAccountOwnerType {
+  CUSTOMER
+  SYSTEM
+  MERCHANT
+  BANK
+}
+
+enum LedgerAccountStatus {
+  ACTIVE
+  SUSPENDED
+  CLOSED
+}
+
+enum TransactionType {
+  DEPOSIT
+  WITHDRAWAL
+  TRANSFER
+  PAYMENT
+  REFUND
+  FEE
+  REVERSAL
+  OPENING_BALANCE
+}
+
+enum TransactionStatus {
+  PENDING
+  PROCESSING
+  SUCCESS
+  FAILED
+  REVERSED
+  CANCELLED
+}
+
+enum LedgerEntryType {
+  DEBIT
+  CREDIT
+}

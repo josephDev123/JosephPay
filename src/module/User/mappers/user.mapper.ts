@@ -1,4 +1,9 @@
-import type { Kyc, User, Wallet } from '../../../lib/prisma/generated/client.js';
+import type {
+  Kyc,
+  User,
+  Wallet,
+  WalletBalance,
+} from '../../../lib/prisma/generated/client.js';
 import type { SupportedCurrency } from '../../../shared/constants/currencies.js';
 import {
   mapProfile,
@@ -14,15 +19,39 @@ export interface WalletView {
   updatedAt: Date;
 }
 
+// export interface KycView {
+//   id: string;
+//   userId: string;
+//   status: Kyc['status'];
+//   submittedData: Kyc['submittedData'];
+//   reviewNote: string | null;
+//   reviewedAt: Date | null;
+//   createdAt: Date;
+//   updatedAt: Date;
+// }
+
 export interface KycView {
   id: string;
   userId: string;
   status: Kyc['status'];
-  submittedData: Kyc['submittedData'];
+  // submittedData: Kyc['submittedData'];
   reviewNote: string | null;
   reviewedAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
+
+  documentType: Kyc['documentType'];
+  firstName?: string | null;
+  middleName?: string | null;
+  lastName?: string | null;
+  dateOfBirth?: Date | null;
+  nationality?: string | null;
+  documentNumber?: string | null;
+  documentIssueDate?: Date | null;
+  documentExpiryDate?: Date | null;
+  provider?: Kyc['provider'] | null;
+  providerReference?: string | null;
+  // providerResponse: JsonValue | null;
 }
 
 export interface UserView {
@@ -42,7 +71,7 @@ export interface UserProfileView extends UserView {
   profile: ProfileView | null;
 }
 
-export function mapWallet(wallet: Wallet): WalletView {
+export function mapWallet(wallet: WalletBalance): WalletView {
   return {
     id: wallet.id,
     currency: wallet.currency as SupportedCurrency,
@@ -61,11 +90,22 @@ export function mapKyc(kyc: Kyc | null): KycView | null {
     id: kyc.id,
     userId: kyc.userId,
     status: kyc.status,
-    submittedData: kyc.submittedData,
+    // submittedData: kyc.submittedData,
+    documentType: kyc.documentType,
     reviewNote: kyc.reviewNote,
     reviewedAt: kyc.reviewedAt,
     createdAt: kyc.createdAt,
     updatedAt: kyc.updatedAt,
+    firstName: kyc.firstName,
+    lastName: kyc.lastName,
+    dateOfBirth: kyc.dateOfBirth,
+    documentExpiryDate: kyc.documentExpiryDate,
+    documentIssueDate: kyc.documentIssueDate,
+    documentNumber: kyc.documentNumber,
+    middleName: kyc.middleName,
+    nationality: kyc.nationality,
+    provider: kyc.provider,
+    providerReference: kyc.providerReference,
   };
 }
 
@@ -81,7 +121,7 @@ export type UserRecord = {
 };
 
 type UserWithRelations = UserRecord & {
-  wallets: Wallet[];
+  wallet: (Wallet & { balances: WalletBalance[] }) | null;
   kyc: Kyc | null;
   profile?: ProfileRecord | null;
 };
@@ -96,7 +136,7 @@ export function mapUserProfile(user: UserWithRelations): UserProfileView {
     emailVerifiedAt: user.emailVerifiedAt,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,
-    wallets: user.wallets.map(mapWallet),
+    wallets: user.wallet?.balances.map(mapWallet) ?? [],
     kyc: mapKyc(user.kyc),
     profile: mapProfile(user.profile ?? null),
   };
