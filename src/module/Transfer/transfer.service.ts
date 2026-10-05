@@ -1,5 +1,13 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
-import { LedgerEntryType, Prisma, TransactionStatus } from '../../lib/prisma/generated/client.js';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import {
+  LedgerEntryType,
+  Prisma,
+  TransactionStatus,
+} from '../../lib/prisma/generated/client.js';
 import { PrismaService } from '../../lib/prisma/prisma.service.js';
 import { LedgerService } from '../Ledger/ledger.service.js';
 import { TransactionService } from '../Transaction/transaction.service.js';
@@ -38,15 +46,26 @@ export class TransferService {
 
       const wallets = await database.wallet.findMany({
         where: { userId: { in: [input.fromUserId, input.toUserId] } },
-        include: { balances: { where: { currency: input.currency }, include: { ledgerAccount: true } } },
+        include: {
+          balances: {
+            where: { currency: input.currency },
+            include: { ledgerAccount: true },
+          },
+        },
       });
-      const sender = wallets.find((wallet) => wallet.userId === input.fromUserId);
-      const recipient = wallets.find((wallet) => wallet.userId === input.toUserId);
+      const sender = wallets.find(
+        (wallet) => wallet.userId === input.fromUserId,
+      );
+      const recipient = wallets.find(
+        (wallet) => wallet.userId === input.toUserId,
+      );
       const senderBalance = sender?.balances[0];
       const recipientBalance = recipient?.balances[0];
 
       if (!senderBalance || !recipientBalance) {
-        throw new NotFoundException('Required wallet currency balance was not found');
+        throw new NotFoundException(
+          'Required wallet currency balance was not found',
+        );
       }
 
       const balanceIds = [senderBalance.id, recipientBalance.id].sort();
@@ -59,11 +78,17 @@ export class TransferService {
       const lockedBalances = await database.walletBalance.findMany({
         where: { id: { in: balanceIds } },
       });
-      const lockedSenderBalance = lockedBalances.find((balance) => balance.id === senderBalance.id);
-      const lockedRecipientBalance = lockedBalances.find((balance) => balance.id === recipientBalance.id);
+      const lockedSenderBalance = lockedBalances.find(
+        (balance) => balance.id === senderBalance.id,
+      );
+      const lockedRecipientBalance = lockedBalances.find(
+        (balance) => balance.id === recipientBalance.id,
+      );
 
       if (!lockedSenderBalance || !lockedRecipientBalance) {
-        throw new NotFoundException('Required wallet currency balance was not found');
+        throw new NotFoundException(
+          'Required wallet currency balance was not found',
+        );
       }
       if (lockedSenderBalance.balance < input.amount) {
         throw new ConflictException('Insufficient wallet balance');
