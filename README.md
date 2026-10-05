@@ -2,7 +2,7 @@
 
 Production-oriented JosephPay fintech backend built with NestJS, TypeScript, PostgreSQL, Prisma, JWT authentication, Zod validation, Swagger, and Resend email delivery.
 
-> **Status:** Active development. The repository currently contains foundational authentication, user, profile, wallet, email-verification, and KYC functionality. Financial transfers, ledger processing, withdrawals, webhooks, and other capabilities are planned and must not yet be treated as production-ready.
+> **Status:** Active development. The repository currently contains authentication, user, profile, wallet, email-verification, KYC, wallet-balance, ledger, transaction, and user-to-user transfer functionality. Withdrawals, deposits, webhooks, and other capabilities remain planned and must not yet be treated as production-ready.
 
 ## Technology stack
 
@@ -25,6 +25,10 @@ Implemented API areas include:
 - Email verification and verification-email resend
 - User profile retrieval
 - NGN and USD wallet creation
+- Per-currency wallet balances backed by ledger accounts
+- Double-entry ledger posting for wallet transfers
+- Atomic, idempotent user-to-user transfers with row-level balance locking
+- Transaction history listing and individual transaction retrieval
 - KYC submission, retrieval, and review
 - Global authentication guard with public-route support
 - Prisma migrations and generated Prisma client
@@ -54,12 +58,15 @@ src/
 
 Business logic belongs in services, database access belongs in repositories, and controllers are responsible for transport concerns such as validation and response formatting.
 
+The financial modules are split into `Ledger`, `Transaction`, and `Transfer`. Wallet creation provisions NGN and USD balances and their corresponding customer ledger accounts.
+
 ## Prerequisites
 
 - Node.js compatible with the installed NestJS and TypeScript versions
 - npm
 - PostgreSQL
 - A Resend account and API key for email verification
+- Dojah credentials and base URL for KYC verification
 
 RabbitMQ support is present as groundwork, but the current listener is disabled and is not required for the basic HTTP application startup.
 
@@ -81,6 +88,9 @@ RabbitMQ support is present as groundwork, but the current listener is disabled 
    JWT_REFRESH_TTL=7d
    RESEND_API_KEY=re_your_api_key
    RESEND_FROM_EMAIL=no-reply@example.com
+   DOJAH_SECRET_KEY=your_dojah_secret_key
+   DOJAH_APP_ID=your_dojah_app_id
+   DOJAH_BASE_URL=https://api.dojah.io
    PORT=5000
    ```
 
@@ -119,6 +129,9 @@ Current routes include:
 | Users    | GET    | `/api/v1/users`                     | Required       |
 | Profiles | GET    | `/api/v1/users/profile`             | Required       |
 | Wallets  | POST   | `/api/v1/wallet`                    | Required       |
+| Transfers | POST  | `/api/v1/transfers`                 | Required       |
+| Transactions | GET | `/api/v1/transactions`              | Required       |
+| Transactions | GET | `/api/v1/transactions/:transactionId` | Required     |
 | KYC      | POST   | `/api/v1/kyc/:userId`               | Required       |
 | KYC      | GET    | `/api/v1/kyc/:userId`               | Required       |
 | KYC      | PATCH  | `/api/v1/kyc/:userId/review`        | Required       |
@@ -146,18 +159,46 @@ Errors follow this shape:
 
 Authentication cookies are HTTP-only. Swagger is configured to send credentials when testing protected endpoints.
 
+### Transfers and transactions
+
+Transfers move funds between two users' wallet balances in the requested currency. The request amount must be a positive integer string representing the smallest currency unit, for example `10050` for ₦100.50. Each transfer requires an idempotency key; repeating the same request for the same authenticated user returns the existing transaction instead of processing it again.
+
+Example request:
+
+```json
+{
+  "destinationUserId": "9d8c7b6a-5f4e-4321-9012-345678901234",
+  "currency": "NGN",
+  "amount": "10050",
+  "idempotencyKey": "send-2026-09-27-001"
+}
+```
+
+Transfer processing runs inside one database transaction. It locks both wallet balances in a deterministic order, creates a transaction record, posts matching debit and credit ledger entries, updates the cached balances, and marks the transaction successful. A transfer fails when the destination or currency balance is missing, the sender has insufficient funds, the amount is invalid, or the source and destination users are the same.
+
+Transaction amounts and ledger-entry amounts are serialized as strings in API responses because they are stored as PostgreSQL `BIGINT` values.
+
 ## Database and money-handling rules
 
 - PostgreSQL is the source of truth.
 - IDs are UUIDs and database fields use snake_case mappings.
+- Wallets contain one `WalletBalance` per supported currency, and each balance is linked to a customer `LedgerAccount`.
+- `Transaction` records describe financial operations, while `LedgerEntry` records provide the debit and credit postings for each operation.
 - Monetary values are stored as integers in the smallest currency unit; floating-point arithmetic must not be used for money.
 - Wallet balances are cached values and must only change as part of a financial transaction.
-- Future financial movements must use atomic database transactions and double-entry ledger entries.
+- Financial movements use atomic database transactions and double-entry ledger entries.
 - Ledger entries and audit records must be immutable.
 - Financial endpoints must support idempotency and return the original result for duplicate requests.
 - Financial data must not be cascade-deleted.
 - Wallet balances cannot become negative.
 - Users cannot withdraw until KYC is verified.
+
+The wallet-ledger schema is applied through the Prisma migration `20260927110000_wallet_ledger_refactor`. Generate the client and apply development migrations with:
+
+```bash
+npx prisma generate --schema src/lib/prisma
+npx prisma migrate dev --schema src/lib/prisma
+```
 
 For the project's detailed standards, see [API_GUIDELINES.md](API_GUIDELINES.md), [BUSINESS_RULES.md](BUSINESS_RULES.md), [DATABASE_GUIDELINES.md](DATABASE_GUIDELINES.md), and [AGENTS.md](AGENTS.md).
 
@@ -188,8 +229,8 @@ Run tests after changes to services, validation, authentication, database access
 
 Planned areas include:
 
-- Double-entry ledger and transaction history
-- Idempotent transfers, funding, withdrawals, refunds, and settlements
+- Deposits, withdrawals, refunds, and settlements with the same ledger and idempotency guarantees
+- Idempotent funding, withdrawals, refunds, and settlements
 - Refresh-token session management and revocation
 - Role-based access control and administrative workflows
 - Webhook verification, persistence, and queue-based processing
