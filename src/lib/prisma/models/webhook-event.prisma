@@ -1,0 +1,15 @@
+model WebhookEvent {
+  id               String          @id @default(uuid()) @db.Uuid
+  provider         PaymentProvider
+  eventReference   String          @map("event_reference")
+  eventType        String          @map("event_type")
+  payload          Json
+  signatureValid   Boolean         @map("signature_valid")
+  processingStatus String          @default("RECEIVED") @map("processing_status")
+  processedAt      DateTime?       @map("processed_at") @db.Timestamptz(6)
+  createdAt        DateTime        @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt        DateTime        @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@unique([provider, eventReference])
+  @@map("webhook_events")
+}

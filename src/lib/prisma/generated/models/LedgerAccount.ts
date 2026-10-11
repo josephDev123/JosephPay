@@ -439,10 +439,6 @@ export type EnumLedgerAccountOwnerTypeFieldUpdateOperationsInput = {
   set?: $Enums.LedgerAccountOwnerType
 }
 
-export type EnumCurrencyFieldUpdateOperationsInput = {
-  set?: $Enums.Currency
-}
-
 export type EnumLedgerAccountStatusFieldUpdateOperationsInput = {
   set?: $Enums.LedgerAccountStatus
 }

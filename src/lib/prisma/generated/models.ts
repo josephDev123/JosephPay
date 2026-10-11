@@ -8,6 +8,7 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/Collection.js'
 export type * from './models/EmailVerification.js'
 export type * from './models/Kyc.js'
 export type * from './models/LedgerAccount.js'
@@ -17,4 +18,5 @@ export type * from './models/Transaction.js'
 export type * from './models/User.js'
 export type * from './models/WalletBalance.js'
 export type * from './models/Wallet.js'
+export type * from './models/WebhookEvent.js'
 export type * from './commonInputTypes.js'

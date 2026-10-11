@@ -1,0 +1,33 @@
+model Collection {
+  id                String           @id @default(uuid()) @db.Uuid
+  reference         String           @unique
+  merchantUserId    String           @map("merchant_user_id") @db.Uuid
+  transactionId     String           @unique @map("transaction_id") @db.Uuid
+  amount            BigInt           @db.BigInt
+  currency          Currency
+  status            CollectionStatus @default(PENDING)
+  provider          PaymentProvider
+  providerReference String?          @map("provider_reference")
+  paymentUrl        String?          @map("payment_url")
+  customerEmail     String           @map("customer_email")
+  customerName      String?          @map("customer_name")
+  idempotencyScope  String           @map("idempotency_scope")
+  idempotencyKey    String           @map("idempotency_key")
+  providerResponse  Json?            @map("provider_response")
+  metadata          Json?
+  paidAt            DateTime?        @map("paid_at") @db.Timestamptz(6)
+  expiresAt         DateTime?        @map("expires_at") @db.Timestamptz(6)
+  failureCode       String?          @map("failure_code")
+  failureMessage    String?          @map("failure_message")
+  createdAt         DateTime         @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt         DateTime         @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  merchantUser      User              @relation(fields: [merchantUserId], references: [id])
+  transaction       Transaction       @relation(fields: [transactionId], references: [id])
+
+  @@unique([idempotencyScope, idempotencyKey])
+  @@unique([provider, providerReference])
+  @@index([merchantUserId, createdAt])
+  @@index([status, createdAt])
+  @@map("collections")
+}

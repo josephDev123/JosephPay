@@ -288,6 +288,7 @@ export type TransactionWhereInput = {
   sourceAccount?: Prisma.XOR<Prisma.LedgerAccountNullableScalarRelationFilter, Prisma.LedgerAccountWhereInput> | null
   destinationAccount?: Prisma.XOR<Prisma.LedgerAccountNullableScalarRelationFilter, Prisma.LedgerAccountWhereInput> | null
   ledgerEntries?: Prisma.LedgerEntryListRelationFilter
+  collection?: Prisma.XOR<Prisma.CollectionNullableScalarRelationFilter, Prisma.CollectionWhereInput> | null
 }
 
 export type TransactionOrderByWithRelationInput = {
@@ -309,6 +310,7 @@ export type TransactionOrderByWithRelationInput = {
   sourceAccount?: Prisma.LedgerAccountOrderByWithRelationInput
   destinationAccount?: Prisma.LedgerAccountOrderByWithRelationInput
   ledgerEntries?: Prisma.LedgerEntryOrderByRelationAggregateInput
+  collection?: Prisma.CollectionOrderByWithRelationInput
 }
 
 export type TransactionWhereUniqueInput = Prisma.AtLeast<{
@@ -334,6 +336,7 @@ export type TransactionWhereUniqueInput = Prisma.AtLeast<{
   sourceAccount?: Prisma.XOR<Prisma.LedgerAccountNullableScalarRelationFilter, Prisma.LedgerAccountWhereInput> | null
   destinationAccount?: Prisma.XOR<Prisma.LedgerAccountNullableScalarRelationFilter, Prisma.LedgerAccountWhereInput> | null
   ledgerEntries?: Prisma.LedgerEntryListRelationFilter
+  collection?: Prisma.XOR<Prisma.CollectionNullableScalarRelationFilter, Prisma.CollectionWhereInput> | null
 }, "id" | "reference" | "idempotencyScope_idempotencyKey">
 
 export type TransactionOrderByWithAggregationInput = {
@@ -394,6 +397,7 @@ export type TransactionCreateInput = {
   sourceAccount?: Prisma.LedgerAccountCreateNestedOneWithoutSourceTransactionsInput
   destinationAccount?: Prisma.LedgerAccountCreateNestedOneWithoutDestinationTransactionsInput
   ledgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutTransactionInput
+  collection?: Prisma.CollectionCreateNestedOneWithoutTransactionInput
 }
 
 export type TransactionUncheckedCreateInput = {
@@ -412,6 +416,7 @@ export type TransactionUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   ledgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutTransactionInput
+  collection?: Prisma.CollectionUncheckedCreateNestedOneWithoutTransactionInput
 }
 
 export type TransactionUpdateInput = {
@@ -430,6 +435,7 @@ export type TransactionUpdateInput = {
   sourceAccount?: Prisma.LedgerAccountUpdateOneWithoutSourceTransactionsNestedInput
   destinationAccount?: Prisma.LedgerAccountUpdateOneWithoutDestinationTransactionsNestedInput
   ledgerEntries?: Prisma.LedgerEntryUpdateManyWithoutTransactionNestedInput
+  collection?: Prisma.CollectionUpdateOneWithoutTransactionNestedInput
 }
 
 export type TransactionUncheckedUpdateInput = {
@@ -448,6 +454,7 @@ export type TransactionUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ledgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutTransactionNestedInput
+  collection?: Prisma.CollectionUncheckedUpdateOneWithoutTransactionNestedInput
 }
 
 export type TransactionCreateManyInput = {
@@ -498,6 +505,11 @@ export type TransactionUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type TransactionScalarRelationFilter = {
+  is?: Prisma.TransactionWhereInput
+  isNot?: Prisma.TransactionWhereInput
+}
+
 export type TransactionListRelationFilter = {
   every?: Prisma.TransactionWhereInput
   some?: Prisma.TransactionWhereInput
@@ -506,11 +518,6 @@ export type TransactionListRelationFilter = {
 
 export type TransactionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type TransactionScalarRelationFilter = {
-  is?: Prisma.TransactionWhereInput
-  isNot?: Prisma.TransactionWhereInput
 }
 
 export type TransactionIdempotencyScopeIdempotencyKeyCompoundUniqueInput = {
@@ -573,6 +580,20 @@ export type TransactionMinOrderByAggregateInput = {
 
 export type TransactionSumOrderByAggregateInput = {
   amount?: Prisma.SortOrder
+}
+
+export type TransactionCreateNestedOneWithoutCollectionInput = {
+  create?: Prisma.XOR<Prisma.TransactionCreateWithoutCollectionInput, Prisma.TransactionUncheckedCreateWithoutCollectionInput>
+  connectOrCreate?: Prisma.TransactionCreateOrConnectWithoutCollectionInput
+  connect?: Prisma.TransactionWhereUniqueInput
+}
+
+export type TransactionUpdateOneRequiredWithoutCollectionNestedInput = {
+  create?: Prisma.XOR<Prisma.TransactionCreateWithoutCollectionInput, Prisma.TransactionUncheckedCreateWithoutCollectionInput>
+  connectOrCreate?: Prisma.TransactionCreateOrConnectWithoutCollectionInput
+  upsert?: Prisma.TransactionUpsertWithoutCollectionInput
+  connect?: Prisma.TransactionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TransactionUpdateToOneWithWhereWithoutCollectionInput, Prisma.TransactionUpdateWithoutCollectionInput>, Prisma.TransactionUncheckedUpdateWithoutCollectionInput>
 }
 
 export type TransactionCreateNestedManyWithoutSourceAccountInput = {
@@ -723,6 +744,94 @@ export type TransactionUncheckedUpdateManyWithoutInitiatedByUserNestedInput = {
   deleteMany?: Prisma.TransactionScalarWhereInput | Prisma.TransactionScalarWhereInput[]
 }
 
+export type TransactionCreateWithoutCollectionInput = {
+  id?: string
+  reference: string
+  type: $Enums.TransactionType
+  status: $Enums.TransactionStatus
+  amount: bigint | number
+  currency: $Enums.Currency
+  idempotencyScope?: string | null
+  idempotencyKey?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  initiatedByUser?: Prisma.UserCreateNestedOneWithoutInitiatedTransactionsInput
+  sourceAccount?: Prisma.LedgerAccountCreateNestedOneWithoutSourceTransactionsInput
+  destinationAccount?: Prisma.LedgerAccountCreateNestedOneWithoutDestinationTransactionsInput
+  ledgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutTransactionInput
+}
+
+export type TransactionUncheckedCreateWithoutCollectionInput = {
+  id?: string
+  reference: string
+  type: $Enums.TransactionType
+  status: $Enums.TransactionStatus
+  amount: bigint | number
+  currency: $Enums.Currency
+  initiatedByUserId?: string | null
+  sourceAccountId?: string | null
+  destinationAccountId?: string | null
+  idempotencyScope?: string | null
+  idempotencyKey?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  ledgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutTransactionInput
+}
+
+export type TransactionCreateOrConnectWithoutCollectionInput = {
+  where: Prisma.TransactionWhereUniqueInput
+  create: Prisma.XOR<Prisma.TransactionCreateWithoutCollectionInput, Prisma.TransactionUncheckedCreateWithoutCollectionInput>
+}
+
+export type TransactionUpsertWithoutCollectionInput = {
+  update: Prisma.XOR<Prisma.TransactionUpdateWithoutCollectionInput, Prisma.TransactionUncheckedUpdateWithoutCollectionInput>
+  create: Prisma.XOR<Prisma.TransactionCreateWithoutCollectionInput, Prisma.TransactionUncheckedCreateWithoutCollectionInput>
+  where?: Prisma.TransactionWhereInput
+}
+
+export type TransactionUpdateToOneWithWhereWithoutCollectionInput = {
+  where?: Prisma.TransactionWhereInput
+  data: Prisma.XOR<Prisma.TransactionUpdateWithoutCollectionInput, Prisma.TransactionUncheckedUpdateWithoutCollectionInput>
+}
+
+export type TransactionUpdateWithoutCollectionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  reference?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+  status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
+  amount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  idempotencyScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  initiatedByUser?: Prisma.UserUpdateOneWithoutInitiatedTransactionsNestedInput
+  sourceAccount?: Prisma.LedgerAccountUpdateOneWithoutSourceTransactionsNestedInput
+  destinationAccount?: Prisma.LedgerAccountUpdateOneWithoutDestinationTransactionsNestedInput
+  ledgerEntries?: Prisma.LedgerEntryUpdateManyWithoutTransactionNestedInput
+}
+
+export type TransactionUncheckedUpdateWithoutCollectionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  reference?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+  status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
+  amount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  initiatedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  destinationAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ledgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutTransactionNestedInput
+}
+
 export type TransactionCreateWithoutSourceAccountInput = {
   id?: string
   reference: string
@@ -738,6 +847,7 @@ export type TransactionCreateWithoutSourceAccountInput = {
   initiatedByUser?: Prisma.UserCreateNestedOneWithoutInitiatedTransactionsInput
   destinationAccount?: Prisma.LedgerAccountCreateNestedOneWithoutDestinationTransactionsInput
   ledgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutTransactionInput
+  collection?: Prisma.CollectionCreateNestedOneWithoutTransactionInput
 }
 
 export type TransactionUncheckedCreateWithoutSourceAccountInput = {
@@ -755,6 +865,7 @@ export type TransactionUncheckedCreateWithoutSourceAccountInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   ledgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutTransactionInput
+  collection?: Prisma.CollectionUncheckedCreateNestedOneWithoutTransactionInput
 }
 
 export type TransactionCreateOrConnectWithoutSourceAccountInput = {
@@ -782,6 +893,7 @@ export type TransactionCreateWithoutDestinationAccountInput = {
   initiatedByUser?: Prisma.UserCreateNestedOneWithoutInitiatedTransactionsInput
   sourceAccount?: Prisma.LedgerAccountCreateNestedOneWithoutSourceTransactionsInput
   ledgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutTransactionInput
+  collection?: Prisma.CollectionCreateNestedOneWithoutTransactionInput
 }
 
 export type TransactionUncheckedCreateWithoutDestinationAccountInput = {
@@ -799,6 +911,7 @@ export type TransactionUncheckedCreateWithoutDestinationAccountInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   ledgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutTransactionInput
+  collection?: Prisma.CollectionUncheckedCreateNestedOneWithoutTransactionInput
 }
 
 export type TransactionCreateOrConnectWithoutDestinationAccountInput = {
@@ -878,6 +991,7 @@ export type TransactionCreateWithoutLedgerEntriesInput = {
   initiatedByUser?: Prisma.UserCreateNestedOneWithoutInitiatedTransactionsInput
   sourceAccount?: Prisma.LedgerAccountCreateNestedOneWithoutSourceTransactionsInput
   destinationAccount?: Prisma.LedgerAccountCreateNestedOneWithoutDestinationTransactionsInput
+  collection?: Prisma.CollectionCreateNestedOneWithoutTransactionInput
 }
 
 export type TransactionUncheckedCreateWithoutLedgerEntriesInput = {
@@ -895,6 +1009,7 @@ export type TransactionUncheckedCreateWithoutLedgerEntriesInput = {
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
+  collection?: Prisma.CollectionUncheckedCreateNestedOneWithoutTransactionInput
 }
 
 export type TransactionCreateOrConnectWithoutLedgerEntriesInput = {
@@ -928,6 +1043,7 @@ export type TransactionUpdateWithoutLedgerEntriesInput = {
   initiatedByUser?: Prisma.UserUpdateOneWithoutInitiatedTransactionsNestedInput
   sourceAccount?: Prisma.LedgerAccountUpdateOneWithoutSourceTransactionsNestedInput
   destinationAccount?: Prisma.LedgerAccountUpdateOneWithoutDestinationTransactionsNestedInput
+  collection?: Prisma.CollectionUpdateOneWithoutTransactionNestedInput
 }
 
 export type TransactionUncheckedUpdateWithoutLedgerEntriesInput = {
@@ -945,6 +1061,7 @@ export type TransactionUncheckedUpdateWithoutLedgerEntriesInput = {
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  collection?: Prisma.CollectionUncheckedUpdateOneWithoutTransactionNestedInput
 }
 
 export type TransactionCreateWithoutInitiatedByUserInput = {
@@ -962,6 +1079,7 @@ export type TransactionCreateWithoutInitiatedByUserInput = {
   sourceAccount?: Prisma.LedgerAccountCreateNestedOneWithoutSourceTransactionsInput
   destinationAccount?: Prisma.LedgerAccountCreateNestedOneWithoutDestinationTransactionsInput
   ledgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutTransactionInput
+  collection?: Prisma.CollectionCreateNestedOneWithoutTransactionInput
 }
 
 export type TransactionUncheckedCreateWithoutInitiatedByUserInput = {
@@ -979,6 +1097,7 @@ export type TransactionUncheckedCreateWithoutInitiatedByUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   ledgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutTransactionInput
+  collection?: Prisma.CollectionUncheckedCreateNestedOneWithoutTransactionInput
 }
 
 export type TransactionCreateOrConnectWithoutInitiatedByUserInput = {
@@ -1054,6 +1173,7 @@ export type TransactionUpdateWithoutSourceAccountInput = {
   initiatedByUser?: Prisma.UserUpdateOneWithoutInitiatedTransactionsNestedInput
   destinationAccount?: Prisma.LedgerAccountUpdateOneWithoutDestinationTransactionsNestedInput
   ledgerEntries?: Prisma.LedgerEntryUpdateManyWithoutTransactionNestedInput
+  collection?: Prisma.CollectionUpdateOneWithoutTransactionNestedInput
 }
 
 export type TransactionUncheckedUpdateWithoutSourceAccountInput = {
@@ -1071,6 +1191,7 @@ export type TransactionUncheckedUpdateWithoutSourceAccountInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ledgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutTransactionNestedInput
+  collection?: Prisma.CollectionUncheckedUpdateOneWithoutTransactionNestedInput
 }
 
 export type TransactionUncheckedUpdateManyWithoutSourceAccountInput = {
@@ -1104,6 +1225,7 @@ export type TransactionUpdateWithoutDestinationAccountInput = {
   initiatedByUser?: Prisma.UserUpdateOneWithoutInitiatedTransactionsNestedInput
   sourceAccount?: Prisma.LedgerAccountUpdateOneWithoutSourceTransactionsNestedInput
   ledgerEntries?: Prisma.LedgerEntryUpdateManyWithoutTransactionNestedInput
+  collection?: Prisma.CollectionUpdateOneWithoutTransactionNestedInput
 }
 
 export type TransactionUncheckedUpdateWithoutDestinationAccountInput = {
@@ -1121,6 +1243,7 @@ export type TransactionUncheckedUpdateWithoutDestinationAccountInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ledgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutTransactionNestedInput
+  collection?: Prisma.CollectionUncheckedUpdateOneWithoutTransactionNestedInput
 }
 
 export type TransactionUncheckedUpdateManyWithoutDestinationAccountInput = {
@@ -1170,6 +1293,7 @@ export type TransactionUpdateWithoutInitiatedByUserInput = {
   sourceAccount?: Prisma.LedgerAccountUpdateOneWithoutSourceTransactionsNestedInput
   destinationAccount?: Prisma.LedgerAccountUpdateOneWithoutDestinationTransactionsNestedInput
   ledgerEntries?: Prisma.LedgerEntryUpdateManyWithoutTransactionNestedInput
+  collection?: Prisma.CollectionUpdateOneWithoutTransactionNestedInput
 }
 
 export type TransactionUncheckedUpdateWithoutInitiatedByUserInput = {
@@ -1187,6 +1311,7 @@ export type TransactionUncheckedUpdateWithoutInitiatedByUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ledgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutTransactionNestedInput
+  collection?: Prisma.CollectionUncheckedUpdateOneWithoutTransactionNestedInput
 }
 
 export type TransactionUncheckedUpdateManyWithoutInitiatedByUserInput = {
@@ -1255,6 +1380,7 @@ export type TransactionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   sourceAccount?: boolean | Prisma.Transaction$sourceAccountArgs<ExtArgs>
   destinationAccount?: boolean | Prisma.Transaction$destinationAccountArgs<ExtArgs>
   ledgerEntries?: boolean | Prisma.Transaction$ledgerEntriesArgs<ExtArgs>
+  collection?: boolean | Prisma.Transaction$collectionArgs<ExtArgs>
   _count?: boolean | Prisma.TransactionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["transaction"]>
 
@@ -1321,6 +1447,7 @@ export type TransactionInclude<ExtArgs extends runtime.Types.Extensions.Internal
   sourceAccount?: boolean | Prisma.Transaction$sourceAccountArgs<ExtArgs>
   destinationAccount?: boolean | Prisma.Transaction$destinationAccountArgs<ExtArgs>
   ledgerEntries?: boolean | Prisma.Transaction$ledgerEntriesArgs<ExtArgs>
+  collection?: boolean | Prisma.Transaction$collectionArgs<ExtArgs>
   _count?: boolean | Prisma.TransactionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TransactionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1341,6 +1468,7 @@ export type $TransactionPayload<ExtArgs extends runtime.Types.Extensions.Interna
     sourceAccount: Prisma.$LedgerAccountPayload<ExtArgs> | null
     destinationAccount: Prisma.$LedgerAccountPayload<ExtArgs> | null
     ledgerEntries: Prisma.$LedgerEntryPayload<ExtArgs>[]
+    collection: Prisma.$CollectionPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1755,6 +1883,7 @@ export interface Prisma__TransactionClient<T, Null = never, ExtArgs extends runt
   sourceAccount<T extends Prisma.Transaction$sourceAccountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Transaction$sourceAccountArgs<ExtArgs>>): Prisma.Prisma__LedgerAccountClient<runtime.Types.Result.GetResult<Prisma.$LedgerAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   destinationAccount<T extends Prisma.Transaction$destinationAccountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Transaction$destinationAccountArgs<ExtArgs>>): Prisma.Prisma__LedgerAccountClient<runtime.Types.Result.GetResult<Prisma.$LedgerAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   ledgerEntries<T extends Prisma.Transaction$ledgerEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Transaction$ledgerEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LedgerEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  collection<T extends Prisma.Transaction$collectionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Transaction$collectionArgs<ExtArgs>>): Prisma.Prisma__CollectionClient<runtime.Types.Result.GetResult<Prisma.$CollectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2277,6 +2406,25 @@ export type Transaction$ledgerEntriesArgs<ExtArgs extends runtime.Types.Extensio
   take?: number
   skip?: number
   distinct?: Prisma.LedgerEntryScalarFieldEnum | Prisma.LedgerEntryScalarFieldEnum[]
+}
+
+/**
+ * Transaction.collection
+ */
+export type Transaction$collectionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Collection
+   */
+  select?: Prisma.CollectionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Collection
+   */
+  omit?: Prisma.CollectionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CollectionInclude<ExtArgs> | null
+  where?: Prisma.CollectionWhereInput
 }
 
 /**

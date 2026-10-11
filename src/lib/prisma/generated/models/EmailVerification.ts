@@ -400,14 +400,6 @@ export type EmailVerificationNullableScalarRelationFilter = {
   isNot?: Prisma.EmailVerificationWhereInput | null
 }
 
-export type StringFieldUpdateOperationsInput = {
-  set?: string
-}
-
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
 export type IntFieldUpdateOperationsInput = {
   set?: number
   increment?: number
