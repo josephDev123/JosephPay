@@ -553,3 +553,60 @@ export class TransferRequestDto {
 
 export class TransferResponseDto extends TransactionResponseDto {
 }
+
+export class CollectionRequestDto {
+  @ApiProperty({ example: '2500000', description: 'Amount in minor currency units.' })
+  amount!: string;
+
+  @ApiProperty({ example: 'NGN', enum: ['NGN', 'USD'] })
+  currency!: 'NGN' | 'USD';
+
+  @ApiProperty({ example: 'customer@example.com', format: 'email' })
+  customerEmail!: string;
+
+  @ApiPropertyOptional({ example: 'Ada Lovelace' })
+  customerName?: string;
+
+  @ApiPropertyOptional({ example: 'PAYSTACK', enum: ['PAYSTACK', 'STRIPE', 'FLUTTERWAVE'], default: 'PAYSTACK' })
+  provider?: 'PAYSTACK' | 'STRIPE' | 'FLUTTERWAVE';
+
+  @ApiProperty({ example: 'collection-request-123', minLength: 8, maxLength: 128 })
+  idempotencyKey!: string;
+}
+
+export class CollectionDto {
+  @ApiProperty({ example: 'f2d9d8b1-74f3-4c42-bf9a-cc2c6c5e4d11', format: 'uuid' })
+  id!: string;
+
+  @ApiProperty({ example: 'COL-7A2F91C4E9D3' })
+  reference!: string;
+
+  @ApiProperty({ example: '2500000' })
+  amount!: string;
+
+  @ApiProperty({ example: 'NGN', enum: ['NGN', 'USD'] })
+  currency!: 'NGN' | 'USD';
+
+  @ApiProperty({ example: 'PROCESSING', enum: ['PENDING', 'PROCESSING', 'SUCCESS', 'FAILED', 'EXPIRED', 'REVERSED'] })
+  status!: string;
+
+  @ApiProperty({ example: 'PAYSTACK', enum: ['PAYSTACK', 'STRIPE', 'FLUTTERWAVE'] })
+  provider!: string;
+
+  @ApiPropertyOptional({ example: 'https://checkout.paystack.com/example', nullable: true })
+  paymentUrl!: string | null;
+
+  @ApiProperty({ example: 'customer@example.com', format: 'email' })
+  customerEmail!: string;
+}
+
+export class CollectionResponseDto {
+  @ApiProperty({ example: true })
+  success!: true;
+
+  @ApiProperty({ example: 'Collection initialized successfully' })
+  message!: string;
+
+  @ApiProperty({ type: () => CollectionDto })
+  data!: CollectionDto;
+}

@@ -18,6 +18,11 @@ export { Prisma }
 export * as $Enums from './enums.js'
 export * from './enums.js';
 /**
+ * Model Collection
+ * 
+ */
+export type Collection = Prisma.CollectionModel
+/**
  * Model EmailVerification
  * 
  */
@@ -62,3 +67,8 @@ export type WalletBalance = Prisma.WalletBalanceModel
  * 
  */
 export type Wallet = Prisma.WalletModel
+/**
+ * Model WebhookEvent
+ * 
+ */
+export type WebhookEvent = Prisma.WebhookEventModel

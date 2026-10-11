@@ -11,6 +11,7 @@ export const envSchema = z.object({
   DOJAH_SECRET_KEY: z.string().min(1),
   DOJAH_APP_ID: z.string().min(1),
   DOJAH_BASE_URL: z.url(),
+  PAYSTACK_SECRET_KEY: z.string().min(1).optional(),
   PORT: z.coerce.number().default(5000),
 });
 

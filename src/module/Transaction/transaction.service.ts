@@ -24,12 +24,12 @@ export class TransactionService {
     database: Prisma.TransactionClient,
     input: {
       reference: string;
-      type: 'TRANSFER';
+      type: 'COLLECTION' | 'TRANSFER';
       amount: bigint;
       currency: 'NGN' | 'USD';
       initiatedByUserId: string;
-      sourceAccountId: string;
-      destinationAccountId: string;
+      sourceAccountId?: string;
+      destinationAccountId?: string;
       idempotencyScope: string;
       idempotencyKey: string;
     },

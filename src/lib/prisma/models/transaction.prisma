@@ -18,6 +18,7 @@ model Transaction {
   sourceAccount  LedgerAccount? @relation("TransactionSourceAccount", fields: [sourceAccountId], references: [id])
   destinationAccount LedgerAccount? @relation("TransactionDestinationAccount", fields: [destinationAccountId], references: [id])
   ledgerEntries  LedgerEntry[]
+  collection     Collection?
 
   @@unique([idempotencyScope, idempotencyKey])
   @@index([initiatedByUserId, createdAt])

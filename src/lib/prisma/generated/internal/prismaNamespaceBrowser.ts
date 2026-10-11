@@ -51,6 +51,7 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  Collection: 'Collection',
   EmailVerification: 'EmailVerification',
   Kyc: 'Kyc',
   LedgerAccount: 'LedgerAccount',
@@ -59,7 +60,8 @@ export const ModelName = {
   Transaction: 'Transaction',
   User: 'User',
   WalletBalance: 'WalletBalance',
-  Wallet: 'Wallet'
+  Wallet: 'Wallet',
+  WebhookEvent: 'WebhookEvent'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -76,6 +78,34 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const CollectionScalarFieldEnum = {
+  id: 'id',
+  reference: 'reference',
+  merchantUserId: 'merchantUserId',
+  transactionId: 'transactionId',
+  amount: 'amount',
+  currency: 'currency',
+  status: 'status',
+  provider: 'provider',
+  providerReference: 'providerReference',
+  paymentUrl: 'paymentUrl',
+  customerEmail: 'customerEmail',
+  customerName: 'customerName',
+  idempotencyScope: 'idempotencyScope',
+  idempotencyKey: 'idempotencyKey',
+  providerResponse: 'providerResponse',
+  metadata: 'metadata',
+  paidAt: 'paidAt',
+  expiresAt: 'expiresAt',
+  failureCode: 'failureCode',
+  failureMessage: 'failureMessage',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CollectionScalarFieldEnum = (typeof CollectionScalarFieldEnum)[keyof typeof CollectionScalarFieldEnum]
 
 
 export const EmailVerificationScalarFieldEnum = {
@@ -225,6 +255,22 @@ export const WalletScalarFieldEnum = {
 export type WalletScalarFieldEnum = (typeof WalletScalarFieldEnum)[keyof typeof WalletScalarFieldEnum]
 
 
+export const WebhookEventScalarFieldEnum = {
+  id: 'id',
+  provider: 'provider',
+  eventReference: 'eventReference',
+  eventType: 'eventType',
+  payload: 'payload',
+  signatureValid: 'signatureValid',
+  processingStatus: 'processingStatus',
+  processedAt: 'processedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WebhookEventScalarFieldEnum = (typeof WebhookEventScalarFieldEnum)[keyof typeof WebhookEventScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -239,6 +285,13 @@ export const NullableJsonNullValueInput = {
 } as const
 
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
