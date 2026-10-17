@@ -216,7 +216,6 @@ export type UserWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   wallet?: Prisma.XOR<Prisma.WalletNullableScalarRelationFilter, Prisma.WalletWhereInput> | null
   initiatedTransactions?: Prisma.TransactionListRelationFilter
-  collections?: Prisma.CollectionListRelationFilter
   kyc?: Prisma.XOR<Prisma.KycNullableScalarRelationFilter, Prisma.KycWhereInput> | null
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   emailVerification?: Prisma.XOR<Prisma.EmailVerificationNullableScalarRelationFilter, Prisma.EmailVerificationWhereInput> | null
@@ -234,7 +233,6 @@ export type UserOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   wallet?: Prisma.WalletOrderByWithRelationInput
   initiatedTransactions?: Prisma.TransactionOrderByRelationAggregateInput
-  collections?: Prisma.CollectionOrderByRelationAggregateInput
   kyc?: Prisma.KycOrderByWithRelationInput
   profile?: Prisma.ProfileOrderByWithRelationInput
   emailVerification?: Prisma.EmailVerificationOrderByWithRelationInput
@@ -255,7 +253,6 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   wallet?: Prisma.XOR<Prisma.WalletNullableScalarRelationFilter, Prisma.WalletWhereInput> | null
   initiatedTransactions?: Prisma.TransactionListRelationFilter
-  collections?: Prisma.CollectionListRelationFilter
   kyc?: Prisma.XOR<Prisma.KycNullableScalarRelationFilter, Prisma.KycWhereInput> | null
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   emailVerification?: Prisma.XOR<Prisma.EmailVerificationNullableScalarRelationFilter, Prisma.EmailVerificationWhereInput> | null
@@ -303,7 +300,6 @@ export type UserCreateInput = {
   updatedAt?: Date | string
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
   initiatedTransactions?: Prisma.TransactionCreateNestedManyWithoutInitiatedByUserInput
-  collections?: Prisma.CollectionCreateNestedManyWithoutMerchantUserInput
   kyc?: Prisma.KycCreateNestedOneWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   emailVerification?: Prisma.EmailVerificationCreateNestedOneWithoutUserInput
@@ -321,7 +317,6 @@ export type UserUncheckedCreateInput = {
   updatedAt?: Date | string
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
   initiatedTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutInitiatedByUserInput
-  collections?: Prisma.CollectionUncheckedCreateNestedManyWithoutMerchantUserInput
   kyc?: Prisma.KycUncheckedCreateNestedOneWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   emailVerification?: Prisma.EmailVerificationUncheckedCreateNestedOneWithoutUserInput
@@ -339,7 +334,6 @@ export type UserUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
   initiatedTransactions?: Prisma.TransactionUpdateManyWithoutInitiatedByUserNestedInput
-  collections?: Prisma.CollectionUpdateManyWithoutMerchantUserNestedInput
   kyc?: Prisma.KycUpdateOneWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   emailVerification?: Prisma.EmailVerificationUpdateOneWithoutUserNestedInput
@@ -357,7 +351,6 @@ export type UserUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
   initiatedTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutInitiatedByUserNestedInput
-  collections?: Prisma.CollectionUncheckedUpdateManyWithoutMerchantUserNestedInput
   kyc?: Prisma.KycUncheckedUpdateOneWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   emailVerification?: Prisma.EmailVerificationUncheckedUpdateOneWithoutUserNestedInput
@@ -445,20 +438,6 @@ export type UserMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
-export type UserCreateNestedOneWithoutCollectionsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutCollectionsInput, Prisma.UserUncheckedCreateWithoutCollectionsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCollectionsInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutCollectionsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutCollectionsInput, Prisma.UserUncheckedCreateWithoutCollectionsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCollectionsInput
-  upsert?: Prisma.UserUpsertWithoutCollectionsInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCollectionsInput, Prisma.UserUpdateWithoutCollectionsInput>, Prisma.UserUncheckedUpdateWithoutCollectionsInput>
-}
-
 export type UserCreateNestedOneWithoutEmailVerificationInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutEmailVerificationInput, Prisma.UserUncheckedCreateWithoutEmailVerificationInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutEmailVerificationInput
@@ -531,90 +510,6 @@ export type UserUpdateOneRequiredWithoutWalletNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutWalletInput, Prisma.UserUpdateWithoutWalletInput>, Prisma.UserUncheckedUpdateWithoutWalletInput>
 }
 
-export type UserCreateWithoutCollectionsInput = {
-  id?: string
-  email: string
-  firstName: string
-  lastName: string
-  middleName: string
-  passwordHash: string
-  emailVerifiedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
-  initiatedTransactions?: Prisma.TransactionCreateNestedManyWithoutInitiatedByUserInput
-  kyc?: Prisma.KycCreateNestedOneWithoutUserInput
-  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
-  emailVerification?: Prisma.EmailVerificationCreateNestedOneWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutCollectionsInput = {
-  id?: string
-  email: string
-  firstName: string
-  lastName: string
-  middleName: string
-  passwordHash: string
-  emailVerifiedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
-  initiatedTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutInitiatedByUserInput
-  kyc?: Prisma.KycUncheckedCreateNestedOneWithoutUserInput
-  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
-  emailVerification?: Prisma.EmailVerificationUncheckedCreateNestedOneWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutCollectionsInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutCollectionsInput, Prisma.UserUncheckedCreateWithoutCollectionsInput>
-}
-
-export type UserUpsertWithoutCollectionsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutCollectionsInput, Prisma.UserUncheckedUpdateWithoutCollectionsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutCollectionsInput, Prisma.UserUncheckedCreateWithoutCollectionsInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutCollectionsInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutCollectionsInput, Prisma.UserUncheckedUpdateWithoutCollectionsInput>
-}
-
-export type UserUpdateWithoutCollectionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
-  middleName?: Prisma.StringFieldUpdateOperationsInput | string
-  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
-  initiatedTransactions?: Prisma.TransactionUpdateManyWithoutInitiatedByUserNestedInput
-  kyc?: Prisma.KycUpdateOneWithoutUserNestedInput
-  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
-  emailVerification?: Prisma.EmailVerificationUpdateOneWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutCollectionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  firstName?: Prisma.StringFieldUpdateOperationsInput | string
-  lastName?: Prisma.StringFieldUpdateOperationsInput | string
-  middleName?: Prisma.StringFieldUpdateOperationsInput | string
-  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
-  initiatedTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutInitiatedByUserNestedInput
-  kyc?: Prisma.KycUncheckedUpdateOneWithoutUserNestedInput
-  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
-  emailVerification?: Prisma.EmailVerificationUncheckedUpdateOneWithoutUserNestedInput
-}
-
 export type UserCreateWithoutEmailVerificationInput = {
   id?: string
   email: string
@@ -627,7 +522,6 @@ export type UserCreateWithoutEmailVerificationInput = {
   updatedAt?: Date | string
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
   initiatedTransactions?: Prisma.TransactionCreateNestedManyWithoutInitiatedByUserInput
-  collections?: Prisma.CollectionCreateNestedManyWithoutMerchantUserInput
   kyc?: Prisma.KycCreateNestedOneWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
 }
@@ -644,7 +538,6 @@ export type UserUncheckedCreateWithoutEmailVerificationInput = {
   updatedAt?: Date | string
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
   initiatedTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutInitiatedByUserInput
-  collections?: Prisma.CollectionUncheckedCreateNestedManyWithoutMerchantUserInput
   kyc?: Prisma.KycUncheckedCreateNestedOneWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
 }
@@ -677,7 +570,6 @@ export type UserUpdateWithoutEmailVerificationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
   initiatedTransactions?: Prisma.TransactionUpdateManyWithoutInitiatedByUserNestedInput
-  collections?: Prisma.CollectionUpdateManyWithoutMerchantUserNestedInput
   kyc?: Prisma.KycUpdateOneWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
 }
@@ -694,7 +586,6 @@ export type UserUncheckedUpdateWithoutEmailVerificationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
   initiatedTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutInitiatedByUserNestedInput
-  collections?: Prisma.CollectionUncheckedUpdateManyWithoutMerchantUserNestedInput
   kyc?: Prisma.KycUncheckedUpdateOneWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
 }
@@ -711,7 +602,6 @@ export type UserCreateWithoutKycInput = {
   updatedAt?: Date | string
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
   initiatedTransactions?: Prisma.TransactionCreateNestedManyWithoutInitiatedByUserInput
-  collections?: Prisma.CollectionCreateNestedManyWithoutMerchantUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   emailVerification?: Prisma.EmailVerificationCreateNestedOneWithoutUserInput
 }
@@ -728,7 +618,6 @@ export type UserUncheckedCreateWithoutKycInput = {
   updatedAt?: Date | string
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
   initiatedTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutInitiatedByUserInput
-  collections?: Prisma.CollectionUncheckedCreateNestedManyWithoutMerchantUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   emailVerification?: Prisma.EmailVerificationUncheckedCreateNestedOneWithoutUserInput
 }
@@ -761,7 +650,6 @@ export type UserUpdateWithoutKycInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
   initiatedTransactions?: Prisma.TransactionUpdateManyWithoutInitiatedByUserNestedInput
-  collections?: Prisma.CollectionUpdateManyWithoutMerchantUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   emailVerification?: Prisma.EmailVerificationUpdateOneWithoutUserNestedInput
 }
@@ -778,7 +666,6 @@ export type UserUncheckedUpdateWithoutKycInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
   initiatedTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutInitiatedByUserNestedInput
-  collections?: Prisma.CollectionUncheckedUpdateManyWithoutMerchantUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   emailVerification?: Prisma.EmailVerificationUncheckedUpdateOneWithoutUserNestedInput
 }
@@ -795,7 +682,6 @@ export type UserCreateWithoutProfileInput = {
   updatedAt?: Date | string
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
   initiatedTransactions?: Prisma.TransactionCreateNestedManyWithoutInitiatedByUserInput
-  collections?: Prisma.CollectionCreateNestedManyWithoutMerchantUserInput
   kyc?: Prisma.KycCreateNestedOneWithoutUserInput
   emailVerification?: Prisma.EmailVerificationCreateNestedOneWithoutUserInput
 }
@@ -812,7 +698,6 @@ export type UserUncheckedCreateWithoutProfileInput = {
   updatedAt?: Date | string
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
   initiatedTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutInitiatedByUserInput
-  collections?: Prisma.CollectionUncheckedCreateNestedManyWithoutMerchantUserInput
   kyc?: Prisma.KycUncheckedCreateNestedOneWithoutUserInput
   emailVerification?: Prisma.EmailVerificationUncheckedCreateNestedOneWithoutUserInput
 }
@@ -845,7 +730,6 @@ export type UserUpdateWithoutProfileInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
   initiatedTransactions?: Prisma.TransactionUpdateManyWithoutInitiatedByUserNestedInput
-  collections?: Prisma.CollectionUpdateManyWithoutMerchantUserNestedInput
   kyc?: Prisma.KycUpdateOneWithoutUserNestedInput
   emailVerification?: Prisma.EmailVerificationUpdateOneWithoutUserNestedInput
 }
@@ -862,7 +746,6 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
   initiatedTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutInitiatedByUserNestedInput
-  collections?: Prisma.CollectionUncheckedUpdateManyWithoutMerchantUserNestedInput
   kyc?: Prisma.KycUncheckedUpdateOneWithoutUserNestedInput
   emailVerification?: Prisma.EmailVerificationUncheckedUpdateOneWithoutUserNestedInput
 }
@@ -878,7 +761,6 @@ export type UserCreateWithoutInitiatedTransactionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
-  collections?: Prisma.CollectionCreateNestedManyWithoutMerchantUserInput
   kyc?: Prisma.KycCreateNestedOneWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   emailVerification?: Prisma.EmailVerificationCreateNestedOneWithoutUserInput
@@ -895,7 +777,6 @@ export type UserUncheckedCreateWithoutInitiatedTransactionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
-  collections?: Prisma.CollectionUncheckedCreateNestedManyWithoutMerchantUserInput
   kyc?: Prisma.KycUncheckedCreateNestedOneWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   emailVerification?: Prisma.EmailVerificationUncheckedCreateNestedOneWithoutUserInput
@@ -928,7 +809,6 @@ export type UserUpdateWithoutInitiatedTransactionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
-  collections?: Prisma.CollectionUpdateManyWithoutMerchantUserNestedInput
   kyc?: Prisma.KycUpdateOneWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   emailVerification?: Prisma.EmailVerificationUpdateOneWithoutUserNestedInput
@@ -945,7 +825,6 @@ export type UserUncheckedUpdateWithoutInitiatedTransactionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
-  collections?: Prisma.CollectionUncheckedUpdateManyWithoutMerchantUserNestedInput
   kyc?: Prisma.KycUncheckedUpdateOneWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   emailVerification?: Prisma.EmailVerificationUncheckedUpdateOneWithoutUserNestedInput
@@ -962,7 +841,6 @@ export type UserCreateWithoutWalletInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   initiatedTransactions?: Prisma.TransactionCreateNestedManyWithoutInitiatedByUserInput
-  collections?: Prisma.CollectionCreateNestedManyWithoutMerchantUserInput
   kyc?: Prisma.KycCreateNestedOneWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   emailVerification?: Prisma.EmailVerificationCreateNestedOneWithoutUserInput
@@ -979,7 +857,6 @@ export type UserUncheckedCreateWithoutWalletInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   initiatedTransactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutInitiatedByUserInput
-  collections?: Prisma.CollectionUncheckedCreateNestedManyWithoutMerchantUserInput
   kyc?: Prisma.KycUncheckedCreateNestedOneWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
   emailVerification?: Prisma.EmailVerificationUncheckedCreateNestedOneWithoutUserInput
@@ -1012,7 +889,6 @@ export type UserUpdateWithoutWalletInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   initiatedTransactions?: Prisma.TransactionUpdateManyWithoutInitiatedByUserNestedInput
-  collections?: Prisma.CollectionUpdateManyWithoutMerchantUserNestedInput
   kyc?: Prisma.KycUpdateOneWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   emailVerification?: Prisma.EmailVerificationUpdateOneWithoutUserNestedInput
@@ -1029,7 +905,6 @@ export type UserUncheckedUpdateWithoutWalletInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   initiatedTransactions?: Prisma.TransactionUncheckedUpdateManyWithoutInitiatedByUserNestedInput
-  collections?: Prisma.CollectionUncheckedUpdateManyWithoutMerchantUserNestedInput
   kyc?: Prisma.KycUncheckedUpdateOneWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
   emailVerification?: Prisma.EmailVerificationUncheckedUpdateOneWithoutUserNestedInput
@@ -1042,12 +917,10 @@ export type UserUncheckedUpdateWithoutWalletInput = {
 
 export type UserCountOutputType = {
   initiatedTransactions: number
-  collections: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   initiatedTransactions?: boolean | UserCountOutputTypeCountInitiatedTransactionsArgs
-  collections?: boolean | UserCountOutputTypeCountCollectionsArgs
 }
 
 /**
@@ -1067,13 +940,6 @@ export type UserCountOutputTypeCountInitiatedTransactionsArgs<ExtArgs extends ru
   where?: Prisma.TransactionWhereInput
 }
 
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountCollectionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.CollectionWhereInput
-}
-
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1087,7 +953,6 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   wallet?: boolean | Prisma.User$walletArgs<ExtArgs>
   initiatedTransactions?: boolean | Prisma.User$initiatedTransactionsArgs<ExtArgs>
-  collections?: boolean | Prisma.User$collectionsArgs<ExtArgs>
   kyc?: boolean | Prisma.User$kycArgs<ExtArgs>
   profile?: boolean | Prisma.User$profileArgs<ExtArgs>
   emailVerification?: boolean | Prisma.User$emailVerificationArgs<ExtArgs>
@@ -1134,7 +999,6 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   wallet?: boolean | Prisma.User$walletArgs<ExtArgs>
   initiatedTransactions?: boolean | Prisma.User$initiatedTransactionsArgs<ExtArgs>
-  collections?: boolean | Prisma.User$collectionsArgs<ExtArgs>
   kyc?: boolean | Prisma.User$kycArgs<ExtArgs>
   profile?: boolean | Prisma.User$profileArgs<ExtArgs>
   emailVerification?: boolean | Prisma.User$emailVerificationArgs<ExtArgs>
@@ -1148,7 +1012,6 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     wallet: Prisma.$WalletPayload<ExtArgs> | null
     initiatedTransactions: Prisma.$TransactionPayload<ExtArgs>[]
-    collections: Prisma.$CollectionPayload<ExtArgs>[]
     kyc: Prisma.$KycPayload<ExtArgs> | null
     profile: Prisma.$ProfilePayload<ExtArgs> | null
     emailVerification: Prisma.$EmailVerificationPayload<ExtArgs> | null
@@ -1559,7 +1422,6 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   wallet<T extends Prisma.User$walletArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$walletArgs<ExtArgs>>): Prisma.Prisma__WalletClient<runtime.Types.Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   initiatedTransactions<T extends Prisma.User$initiatedTransactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$initiatedTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  collections<T extends Prisma.User$collectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$collectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CollectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   kyc<T extends Prisma.User$kycArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$kycArgs<ExtArgs>>): Prisma.Prisma__KycClient<runtime.Types.Result.GetResult<Prisma.$KycPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   profile<T extends Prisma.User$profileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$profileArgs<ExtArgs>>): Prisma.Prisma__ProfileClient<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   emailVerification<T extends Prisma.User$emailVerificationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$emailVerificationArgs<ExtArgs>>): Prisma.Prisma__EmailVerificationClient<runtime.Types.Result.GetResult<Prisma.$EmailVerificationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -2034,30 +1896,6 @@ export type User$initiatedTransactionsArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   distinct?: Prisma.TransactionScalarFieldEnum | Prisma.TransactionScalarFieldEnum[]
-}
-
-/**
- * User.collections
- */
-export type User$collectionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Collection
-   */
-  select?: Prisma.CollectionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Collection
-   */
-  omit?: Prisma.CollectionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.CollectionInclude<ExtArgs> | null
-  where?: Prisma.CollectionWhereInput
-  orderBy?: Prisma.CollectionOrderByWithRelationInput | Prisma.CollectionOrderByWithRelationInput[]
-  cursor?: Prisma.CollectionWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.CollectionScalarFieldEnum | Prisma.CollectionScalarFieldEnum[]
 }
 
 /**

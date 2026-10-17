@@ -24,9 +24,10 @@ export class TransactionService {
     database: Prisma.TransactionClient,
     input: {
       reference: string;
-      type: 'COLLECTION' | 'TRANSFER';
+      type: 'DEPOSIT' | 'TRANSFER';
       amount: bigint;
       currency: 'NGN' | 'USD';
+      description?: string;
       initiatedByUserId: string;
       sourceAccountId?: string;
       destinationAccountId?: string;

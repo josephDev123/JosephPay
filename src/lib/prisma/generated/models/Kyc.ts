@@ -622,6 +622,14 @@ export type EnumKycStatusFieldUpdateOperationsInput = {
   set?: $Enums.KycStatus
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type NullableEnumKycProviderFieldUpdateOperationsInput = {
   set?: $Enums.KycProvider | null
 }

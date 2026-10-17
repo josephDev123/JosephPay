@@ -41,6 +41,16 @@ export type TransactionMinAggregateOutputType = {
   status: $Enums.TransactionStatus | null
   amount: bigint | null
   currency: $Enums.Currency | null
+  description: string | null
+  provider: $Enums.PaymentProvider | null
+  providerReference: string | null
+  paymentUrl: string | null
+  customerEmail: string | null
+  customerName: string | null
+  paidAt: Date | null
+  expiresAt: Date | null
+  failureCode: string | null
+  failureMessage: string | null
   initiatedByUserId: string | null
   sourceAccountId: string | null
   destinationAccountId: string | null
@@ -57,6 +67,16 @@ export type TransactionMaxAggregateOutputType = {
   status: $Enums.TransactionStatus | null
   amount: bigint | null
   currency: $Enums.Currency | null
+  description: string | null
+  provider: $Enums.PaymentProvider | null
+  providerReference: string | null
+  paymentUrl: string | null
+  customerEmail: string | null
+  customerName: string | null
+  paidAt: Date | null
+  expiresAt: Date | null
+  failureCode: string | null
+  failureMessage: string | null
   initiatedByUserId: string | null
   sourceAccountId: string | null
   destinationAccountId: string | null
@@ -73,6 +93,17 @@ export type TransactionCountAggregateOutputType = {
   status: number
   amount: number
   currency: number
+  description: number
+  provider: number
+  providerReference: number
+  paymentUrl: number
+  customerEmail: number
+  customerName: number
+  providerResponse: number
+  paidAt: number
+  expiresAt: number
+  failureCode: number
+  failureMessage: number
   initiatedByUserId: number
   sourceAccountId: number
   destinationAccountId: number
@@ -100,6 +131,16 @@ export type TransactionMinAggregateInputType = {
   status?: true
   amount?: true
   currency?: true
+  description?: true
+  provider?: true
+  providerReference?: true
+  paymentUrl?: true
+  customerEmail?: true
+  customerName?: true
+  paidAt?: true
+  expiresAt?: true
+  failureCode?: true
+  failureMessage?: true
   initiatedByUserId?: true
   sourceAccountId?: true
   destinationAccountId?: true
@@ -116,6 +157,16 @@ export type TransactionMaxAggregateInputType = {
   status?: true
   amount?: true
   currency?: true
+  description?: true
+  provider?: true
+  providerReference?: true
+  paymentUrl?: true
+  customerEmail?: true
+  customerName?: true
+  paidAt?: true
+  expiresAt?: true
+  failureCode?: true
+  failureMessage?: true
   initiatedByUserId?: true
   sourceAccountId?: true
   destinationAccountId?: true
@@ -132,6 +183,17 @@ export type TransactionCountAggregateInputType = {
   status?: true
   amount?: true
   currency?: true
+  description?: true
+  provider?: true
+  providerReference?: true
+  paymentUrl?: true
+  customerEmail?: true
+  customerName?: true
+  providerResponse?: true
+  paidAt?: true
+  expiresAt?: true
+  failureCode?: true
+  failureMessage?: true
   initiatedByUserId?: true
   sourceAccountId?: true
   destinationAccountId?: true
@@ -236,6 +298,17 @@ export type TransactionGroupByOutputType = {
   status: $Enums.TransactionStatus
   amount: bigint
   currency: $Enums.Currency
+  description: string | null
+  provider: $Enums.PaymentProvider | null
+  providerReference: string | null
+  paymentUrl: string | null
+  customerEmail: string | null
+  customerName: string | null
+  providerResponse: runtime.JsonValue | null
+  paidAt: Date | null
+  expiresAt: Date | null
+  failureCode: string | null
+  failureMessage: string | null
   initiatedByUserId: string | null
   sourceAccountId: string | null
   destinationAccountId: string | null
@@ -276,6 +349,17 @@ export type TransactionWhereInput = {
   status?: Prisma.EnumTransactionStatusFilter<"Transaction"> | $Enums.TransactionStatus
   amount?: Prisma.BigIntFilter<"Transaction"> | bigint | number
   currency?: Prisma.EnumCurrencyFilter<"Transaction"> | $Enums.Currency
+  description?: Prisma.StringNullableFilter<"Transaction"> | string | null
+  provider?: Prisma.EnumPaymentProviderNullableFilter<"Transaction"> | $Enums.PaymentProvider | null
+  providerReference?: Prisma.StringNullableFilter<"Transaction"> | string | null
+  paymentUrl?: Prisma.StringNullableFilter<"Transaction"> | string | null
+  customerEmail?: Prisma.StringNullableFilter<"Transaction"> | string | null
+  customerName?: Prisma.StringNullableFilter<"Transaction"> | string | null
+  providerResponse?: Prisma.JsonNullableFilter<"Transaction">
+  paidAt?: Prisma.DateTimeNullableFilter<"Transaction"> | Date | string | null
+  expiresAt?: Prisma.DateTimeNullableFilter<"Transaction"> | Date | string | null
+  failureCode?: Prisma.StringNullableFilter<"Transaction"> | string | null
+  failureMessage?: Prisma.StringNullableFilter<"Transaction"> | string | null
   initiatedByUserId?: Prisma.UuidNullableFilter<"Transaction"> | string | null
   sourceAccountId?: Prisma.UuidNullableFilter<"Transaction"> | string | null
   destinationAccountId?: Prisma.UuidNullableFilter<"Transaction"> | string | null
@@ -288,7 +372,6 @@ export type TransactionWhereInput = {
   sourceAccount?: Prisma.XOR<Prisma.LedgerAccountNullableScalarRelationFilter, Prisma.LedgerAccountWhereInput> | null
   destinationAccount?: Prisma.XOR<Prisma.LedgerAccountNullableScalarRelationFilter, Prisma.LedgerAccountWhereInput> | null
   ledgerEntries?: Prisma.LedgerEntryListRelationFilter
-  collection?: Prisma.XOR<Prisma.CollectionNullableScalarRelationFilter, Prisma.CollectionWhereInput> | null
 }
 
 export type TransactionOrderByWithRelationInput = {
@@ -298,6 +381,17 @@ export type TransactionOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   currency?: Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
+  provider?: Prisma.SortOrderInput | Prisma.SortOrder
+  providerReference?: Prisma.SortOrderInput | Prisma.SortOrder
+  paymentUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerEmail?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerName?: Prisma.SortOrderInput | Prisma.SortOrder
+  providerResponse?: Prisma.SortOrderInput | Prisma.SortOrder
+  paidAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  expiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  failureCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  failureMessage?: Prisma.SortOrderInput | Prisma.SortOrder
   initiatedByUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   sourceAccountId?: Prisma.SortOrderInput | Prisma.SortOrder
   destinationAccountId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -310,13 +404,13 @@ export type TransactionOrderByWithRelationInput = {
   sourceAccount?: Prisma.LedgerAccountOrderByWithRelationInput
   destinationAccount?: Prisma.LedgerAccountOrderByWithRelationInput
   ledgerEntries?: Prisma.LedgerEntryOrderByRelationAggregateInput
-  collection?: Prisma.CollectionOrderByWithRelationInput
 }
 
 export type TransactionWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   reference?: string
   idempotencyScope_idempotencyKey?: Prisma.TransactionIdempotencyScopeIdempotencyKeyCompoundUniqueInput
+  provider_providerReference?: Prisma.TransactionProviderProviderReferenceCompoundUniqueInput
   AND?: Prisma.TransactionWhereInput | Prisma.TransactionWhereInput[]
   OR?: Prisma.TransactionWhereInput[]
   NOT?: Prisma.TransactionWhereInput | Prisma.TransactionWhereInput[]
@@ -324,6 +418,17 @@ export type TransactionWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumTransactionStatusFilter<"Transaction"> | $Enums.TransactionStatus
   amount?: Prisma.BigIntFilter<"Transaction"> | bigint | number
   currency?: Prisma.EnumCurrencyFilter<"Transaction"> | $Enums.Currency
+  description?: Prisma.StringNullableFilter<"Transaction"> | string | null
+  provider?: Prisma.EnumPaymentProviderNullableFilter<"Transaction"> | $Enums.PaymentProvider | null
+  providerReference?: Prisma.StringNullableFilter<"Transaction"> | string | null
+  paymentUrl?: Prisma.StringNullableFilter<"Transaction"> | string | null
+  customerEmail?: Prisma.StringNullableFilter<"Transaction"> | string | null
+  customerName?: Prisma.StringNullableFilter<"Transaction"> | string | null
+  providerResponse?: Prisma.JsonNullableFilter<"Transaction">
+  paidAt?: Prisma.DateTimeNullableFilter<"Transaction"> | Date | string | null
+  expiresAt?: Prisma.DateTimeNullableFilter<"Transaction"> | Date | string | null
+  failureCode?: Prisma.StringNullableFilter<"Transaction"> | string | null
+  failureMessage?: Prisma.StringNullableFilter<"Transaction"> | string | null
   initiatedByUserId?: Prisma.UuidNullableFilter<"Transaction"> | string | null
   sourceAccountId?: Prisma.UuidNullableFilter<"Transaction"> | string | null
   destinationAccountId?: Prisma.UuidNullableFilter<"Transaction"> | string | null
@@ -336,8 +441,7 @@ export type TransactionWhereUniqueInput = Prisma.AtLeast<{
   sourceAccount?: Prisma.XOR<Prisma.LedgerAccountNullableScalarRelationFilter, Prisma.LedgerAccountWhereInput> | null
   destinationAccount?: Prisma.XOR<Prisma.LedgerAccountNullableScalarRelationFilter, Prisma.LedgerAccountWhereInput> | null
   ledgerEntries?: Prisma.LedgerEntryListRelationFilter
-  collection?: Prisma.XOR<Prisma.CollectionNullableScalarRelationFilter, Prisma.CollectionWhereInput> | null
-}, "id" | "reference" | "idempotencyScope_idempotencyKey">
+}, "id" | "reference" | "idempotencyScope_idempotencyKey" | "provider_providerReference">
 
 export type TransactionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -346,6 +450,17 @@ export type TransactionOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   currency?: Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
+  provider?: Prisma.SortOrderInput | Prisma.SortOrder
+  providerReference?: Prisma.SortOrderInput | Prisma.SortOrder
+  paymentUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerEmail?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerName?: Prisma.SortOrderInput | Prisma.SortOrder
+  providerResponse?: Prisma.SortOrderInput | Prisma.SortOrder
+  paidAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  expiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  failureCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  failureMessage?: Prisma.SortOrderInput | Prisma.SortOrder
   initiatedByUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   sourceAccountId?: Prisma.SortOrderInput | Prisma.SortOrder
   destinationAccountId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -371,6 +486,17 @@ export type TransactionScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumTransactionStatusWithAggregatesFilter<"Transaction"> | $Enums.TransactionStatus
   amount?: Prisma.BigIntWithAggregatesFilter<"Transaction"> | bigint | number
   currency?: Prisma.EnumCurrencyWithAggregatesFilter<"Transaction"> | $Enums.Currency
+  description?: Prisma.StringNullableWithAggregatesFilter<"Transaction"> | string | null
+  provider?: Prisma.EnumPaymentProviderNullableWithAggregatesFilter<"Transaction"> | $Enums.PaymentProvider | null
+  providerReference?: Prisma.StringNullableWithAggregatesFilter<"Transaction"> | string | null
+  paymentUrl?: Prisma.StringNullableWithAggregatesFilter<"Transaction"> | string | null
+  customerEmail?: Prisma.StringNullableWithAggregatesFilter<"Transaction"> | string | null
+  customerName?: Prisma.StringNullableWithAggregatesFilter<"Transaction"> | string | null
+  providerResponse?: Prisma.JsonNullableWithAggregatesFilter<"Transaction">
+  paidAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Transaction"> | Date | string | null
+  expiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Transaction"> | Date | string | null
+  failureCode?: Prisma.StringNullableWithAggregatesFilter<"Transaction"> | string | null
+  failureMessage?: Prisma.StringNullableWithAggregatesFilter<"Transaction"> | string | null
   initiatedByUserId?: Prisma.UuidNullableWithAggregatesFilter<"Transaction"> | string | null
   sourceAccountId?: Prisma.UuidNullableWithAggregatesFilter<"Transaction"> | string | null
   destinationAccountId?: Prisma.UuidNullableWithAggregatesFilter<"Transaction"> | string | null
@@ -388,6 +514,17 @@ export type TransactionCreateInput = {
   status: $Enums.TransactionStatus
   amount: bigint | number
   currency: $Enums.Currency
+  description?: string | null
+  provider?: $Enums.PaymentProvider | null
+  providerReference?: string | null
+  paymentUrl?: string | null
+  customerEmail?: string | null
+  customerName?: string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Date | string | null
+  expiresAt?: Date | string | null
+  failureCode?: string | null
+  failureMessage?: string | null
   idempotencyScope?: string | null
   idempotencyKey?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -397,7 +534,6 @@ export type TransactionCreateInput = {
   sourceAccount?: Prisma.LedgerAccountCreateNestedOneWithoutSourceTransactionsInput
   destinationAccount?: Prisma.LedgerAccountCreateNestedOneWithoutDestinationTransactionsInput
   ledgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutTransactionInput
-  collection?: Prisma.CollectionCreateNestedOneWithoutTransactionInput
 }
 
 export type TransactionUncheckedCreateInput = {
@@ -407,6 +543,17 @@ export type TransactionUncheckedCreateInput = {
   status: $Enums.TransactionStatus
   amount: bigint | number
   currency: $Enums.Currency
+  description?: string | null
+  provider?: $Enums.PaymentProvider | null
+  providerReference?: string | null
+  paymentUrl?: string | null
+  customerEmail?: string | null
+  customerName?: string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Date | string | null
+  expiresAt?: Date | string | null
+  failureCode?: string | null
+  failureMessage?: string | null
   initiatedByUserId?: string | null
   sourceAccountId?: string | null
   destinationAccountId?: string | null
@@ -416,7 +563,6 @@ export type TransactionUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   ledgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutTransactionInput
-  collection?: Prisma.CollectionUncheckedCreateNestedOneWithoutTransactionInput
 }
 
 export type TransactionUpdateInput = {
@@ -426,6 +572,17 @@ export type TransactionUpdateInput = {
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   amount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.NullableEnumPaymentProviderFieldUpdateOperationsInput | $Enums.PaymentProvider | null
+  providerReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -435,7 +592,6 @@ export type TransactionUpdateInput = {
   sourceAccount?: Prisma.LedgerAccountUpdateOneWithoutSourceTransactionsNestedInput
   destinationAccount?: Prisma.LedgerAccountUpdateOneWithoutDestinationTransactionsNestedInput
   ledgerEntries?: Prisma.LedgerEntryUpdateManyWithoutTransactionNestedInput
-  collection?: Prisma.CollectionUpdateOneWithoutTransactionNestedInput
 }
 
 export type TransactionUncheckedUpdateInput = {
@@ -445,6 +601,17 @@ export type TransactionUncheckedUpdateInput = {
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   amount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.NullableEnumPaymentProviderFieldUpdateOperationsInput | $Enums.PaymentProvider | null
+  providerReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   initiatedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -454,7 +621,6 @@ export type TransactionUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ledgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutTransactionNestedInput
-  collection?: Prisma.CollectionUncheckedUpdateOneWithoutTransactionNestedInput
 }
 
 export type TransactionCreateManyInput = {
@@ -464,6 +630,17 @@ export type TransactionCreateManyInput = {
   status: $Enums.TransactionStatus
   amount: bigint | number
   currency: $Enums.Currency
+  description?: string | null
+  provider?: $Enums.PaymentProvider | null
+  providerReference?: string | null
+  paymentUrl?: string | null
+  customerEmail?: string | null
+  customerName?: string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Date | string | null
+  expiresAt?: Date | string | null
+  failureCode?: string | null
+  failureMessage?: string | null
   initiatedByUserId?: string | null
   sourceAccountId?: string | null
   destinationAccountId?: string | null
@@ -481,6 +658,17 @@ export type TransactionUpdateManyMutationInput = {
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   amount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.NullableEnumPaymentProviderFieldUpdateOperationsInput | $Enums.PaymentProvider | null
+  providerReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -495,6 +683,17 @@ export type TransactionUncheckedUpdateManyInput = {
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   amount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.NullableEnumPaymentProviderFieldUpdateOperationsInput | $Enums.PaymentProvider | null
+  providerReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   initiatedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -503,11 +702,6 @@ export type TransactionUncheckedUpdateManyInput = {
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type TransactionScalarRelationFilter = {
-  is?: Prisma.TransactionWhereInput
-  isNot?: Prisma.TransactionWhereInput
 }
 
 export type TransactionListRelationFilter = {
@@ -520,9 +714,19 @@ export type TransactionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type TransactionScalarRelationFilter = {
+  is?: Prisma.TransactionWhereInput
+  isNot?: Prisma.TransactionWhereInput
+}
+
 export type TransactionIdempotencyScopeIdempotencyKeyCompoundUniqueInput = {
   idempotencyScope: string
   idempotencyKey: string
+}
+
+export type TransactionProviderProviderReferenceCompoundUniqueInput = {
+  provider: $Enums.PaymentProvider
+  providerReference: string
 }
 
 export type TransactionCountOrderByAggregateInput = {
@@ -532,6 +736,17 @@ export type TransactionCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   currency?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  providerReference?: Prisma.SortOrder
+  paymentUrl?: Prisma.SortOrder
+  customerEmail?: Prisma.SortOrder
+  customerName?: Prisma.SortOrder
+  providerResponse?: Prisma.SortOrder
+  paidAt?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrder
+  failureCode?: Prisma.SortOrder
+  failureMessage?: Prisma.SortOrder
   initiatedByUserId?: Prisma.SortOrder
   sourceAccountId?: Prisma.SortOrder
   destinationAccountId?: Prisma.SortOrder
@@ -553,6 +768,16 @@ export type TransactionMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   currency?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  providerReference?: Prisma.SortOrder
+  paymentUrl?: Prisma.SortOrder
+  customerEmail?: Prisma.SortOrder
+  customerName?: Prisma.SortOrder
+  paidAt?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrder
+  failureCode?: Prisma.SortOrder
+  failureMessage?: Prisma.SortOrder
   initiatedByUserId?: Prisma.SortOrder
   sourceAccountId?: Prisma.SortOrder
   destinationAccountId?: Prisma.SortOrder
@@ -569,6 +794,16 @@ export type TransactionMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   currency?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  providerReference?: Prisma.SortOrder
+  paymentUrl?: Prisma.SortOrder
+  customerEmail?: Prisma.SortOrder
+  customerName?: Prisma.SortOrder
+  paidAt?: Prisma.SortOrder
+  expiresAt?: Prisma.SortOrder
+  failureCode?: Prisma.SortOrder
+  failureMessage?: Prisma.SortOrder
   initiatedByUserId?: Prisma.SortOrder
   sourceAccountId?: Prisma.SortOrder
   destinationAccountId?: Prisma.SortOrder
@@ -580,20 +815,6 @@ export type TransactionMinOrderByAggregateInput = {
 
 export type TransactionSumOrderByAggregateInput = {
   amount?: Prisma.SortOrder
-}
-
-export type TransactionCreateNestedOneWithoutCollectionInput = {
-  create?: Prisma.XOR<Prisma.TransactionCreateWithoutCollectionInput, Prisma.TransactionUncheckedCreateWithoutCollectionInput>
-  connectOrCreate?: Prisma.TransactionCreateOrConnectWithoutCollectionInput
-  connect?: Prisma.TransactionWhereUniqueInput
-}
-
-export type TransactionUpdateOneRequiredWithoutCollectionNestedInput = {
-  create?: Prisma.XOR<Prisma.TransactionCreateWithoutCollectionInput, Prisma.TransactionUncheckedCreateWithoutCollectionInput>
-  connectOrCreate?: Prisma.TransactionCreateOrConnectWithoutCollectionInput
-  upsert?: Prisma.TransactionUpsertWithoutCollectionInput
-  connect?: Prisma.TransactionWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.TransactionUpdateToOneWithWhereWithoutCollectionInput, Prisma.TransactionUpdateWithoutCollectionInput>, Prisma.TransactionUncheckedUpdateWithoutCollectionInput>
 }
 
 export type TransactionCreateNestedManyWithoutSourceAccountInput = {
@@ -702,6 +923,10 @@ export type EnumTransactionStatusFieldUpdateOperationsInput = {
   set?: $Enums.TransactionStatus
 }
 
+export type NullableEnumPaymentProviderFieldUpdateOperationsInput = {
+  set?: $Enums.PaymentProvider | null
+}
+
 export type TransactionCreateNestedManyWithoutInitiatedByUserInput = {
   create?: Prisma.XOR<Prisma.TransactionCreateWithoutInitiatedByUserInput, Prisma.TransactionUncheckedCreateWithoutInitiatedByUserInput> | Prisma.TransactionCreateWithoutInitiatedByUserInput[] | Prisma.TransactionUncheckedCreateWithoutInitiatedByUserInput[]
   connectOrCreate?: Prisma.TransactionCreateOrConnectWithoutInitiatedByUserInput | Prisma.TransactionCreateOrConnectWithoutInitiatedByUserInput[]
@@ -744,94 +969,6 @@ export type TransactionUncheckedUpdateManyWithoutInitiatedByUserNestedInput = {
   deleteMany?: Prisma.TransactionScalarWhereInput | Prisma.TransactionScalarWhereInput[]
 }
 
-export type TransactionCreateWithoutCollectionInput = {
-  id?: string
-  reference: string
-  type: $Enums.TransactionType
-  status: $Enums.TransactionStatus
-  amount: bigint | number
-  currency: $Enums.Currency
-  idempotencyScope?: string | null
-  idempotencyKey?: string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  initiatedByUser?: Prisma.UserCreateNestedOneWithoutInitiatedTransactionsInput
-  sourceAccount?: Prisma.LedgerAccountCreateNestedOneWithoutSourceTransactionsInput
-  destinationAccount?: Prisma.LedgerAccountCreateNestedOneWithoutDestinationTransactionsInput
-  ledgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutTransactionInput
-}
-
-export type TransactionUncheckedCreateWithoutCollectionInput = {
-  id?: string
-  reference: string
-  type: $Enums.TransactionType
-  status: $Enums.TransactionStatus
-  amount: bigint | number
-  currency: $Enums.Currency
-  initiatedByUserId?: string | null
-  sourceAccountId?: string | null
-  destinationAccountId?: string | null
-  idempotencyScope?: string | null
-  idempotencyKey?: string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  ledgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutTransactionInput
-}
-
-export type TransactionCreateOrConnectWithoutCollectionInput = {
-  where: Prisma.TransactionWhereUniqueInput
-  create: Prisma.XOR<Prisma.TransactionCreateWithoutCollectionInput, Prisma.TransactionUncheckedCreateWithoutCollectionInput>
-}
-
-export type TransactionUpsertWithoutCollectionInput = {
-  update: Prisma.XOR<Prisma.TransactionUpdateWithoutCollectionInput, Prisma.TransactionUncheckedUpdateWithoutCollectionInput>
-  create: Prisma.XOR<Prisma.TransactionCreateWithoutCollectionInput, Prisma.TransactionUncheckedCreateWithoutCollectionInput>
-  where?: Prisma.TransactionWhereInput
-}
-
-export type TransactionUpdateToOneWithWhereWithoutCollectionInput = {
-  where?: Prisma.TransactionWhereInput
-  data: Prisma.XOR<Prisma.TransactionUpdateWithoutCollectionInput, Prisma.TransactionUncheckedUpdateWithoutCollectionInput>
-}
-
-export type TransactionUpdateWithoutCollectionInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  reference?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
-  status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
-  amount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
-  idempotencyScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  initiatedByUser?: Prisma.UserUpdateOneWithoutInitiatedTransactionsNestedInput
-  sourceAccount?: Prisma.LedgerAccountUpdateOneWithoutSourceTransactionsNestedInput
-  destinationAccount?: Prisma.LedgerAccountUpdateOneWithoutDestinationTransactionsNestedInput
-  ledgerEntries?: Prisma.LedgerEntryUpdateManyWithoutTransactionNestedInput
-}
-
-export type TransactionUncheckedUpdateWithoutCollectionInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  reference?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
-  status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
-  amount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
-  currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
-  initiatedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sourceAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  destinationAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idempotencyScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  ledgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutTransactionNestedInput
-}
-
 export type TransactionCreateWithoutSourceAccountInput = {
   id?: string
   reference: string
@@ -839,6 +976,17 @@ export type TransactionCreateWithoutSourceAccountInput = {
   status: $Enums.TransactionStatus
   amount: bigint | number
   currency: $Enums.Currency
+  description?: string | null
+  provider?: $Enums.PaymentProvider | null
+  providerReference?: string | null
+  paymentUrl?: string | null
+  customerEmail?: string | null
+  customerName?: string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Date | string | null
+  expiresAt?: Date | string | null
+  failureCode?: string | null
+  failureMessage?: string | null
   idempotencyScope?: string | null
   idempotencyKey?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -847,7 +995,6 @@ export type TransactionCreateWithoutSourceAccountInput = {
   initiatedByUser?: Prisma.UserCreateNestedOneWithoutInitiatedTransactionsInput
   destinationAccount?: Prisma.LedgerAccountCreateNestedOneWithoutDestinationTransactionsInput
   ledgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutTransactionInput
-  collection?: Prisma.CollectionCreateNestedOneWithoutTransactionInput
 }
 
 export type TransactionUncheckedCreateWithoutSourceAccountInput = {
@@ -857,6 +1004,17 @@ export type TransactionUncheckedCreateWithoutSourceAccountInput = {
   status: $Enums.TransactionStatus
   amount: bigint | number
   currency: $Enums.Currency
+  description?: string | null
+  provider?: $Enums.PaymentProvider | null
+  providerReference?: string | null
+  paymentUrl?: string | null
+  customerEmail?: string | null
+  customerName?: string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Date | string | null
+  expiresAt?: Date | string | null
+  failureCode?: string | null
+  failureMessage?: string | null
   initiatedByUserId?: string | null
   destinationAccountId?: string | null
   idempotencyScope?: string | null
@@ -865,7 +1023,6 @@ export type TransactionUncheckedCreateWithoutSourceAccountInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   ledgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutTransactionInput
-  collection?: Prisma.CollectionUncheckedCreateNestedOneWithoutTransactionInput
 }
 
 export type TransactionCreateOrConnectWithoutSourceAccountInput = {
@@ -885,6 +1042,17 @@ export type TransactionCreateWithoutDestinationAccountInput = {
   status: $Enums.TransactionStatus
   amount: bigint | number
   currency: $Enums.Currency
+  description?: string | null
+  provider?: $Enums.PaymentProvider | null
+  providerReference?: string | null
+  paymentUrl?: string | null
+  customerEmail?: string | null
+  customerName?: string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Date | string | null
+  expiresAt?: Date | string | null
+  failureCode?: string | null
+  failureMessage?: string | null
   idempotencyScope?: string | null
   idempotencyKey?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -893,7 +1061,6 @@ export type TransactionCreateWithoutDestinationAccountInput = {
   initiatedByUser?: Prisma.UserCreateNestedOneWithoutInitiatedTransactionsInput
   sourceAccount?: Prisma.LedgerAccountCreateNestedOneWithoutSourceTransactionsInput
   ledgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutTransactionInput
-  collection?: Prisma.CollectionCreateNestedOneWithoutTransactionInput
 }
 
 export type TransactionUncheckedCreateWithoutDestinationAccountInput = {
@@ -903,6 +1070,17 @@ export type TransactionUncheckedCreateWithoutDestinationAccountInput = {
   status: $Enums.TransactionStatus
   amount: bigint | number
   currency: $Enums.Currency
+  description?: string | null
+  provider?: $Enums.PaymentProvider | null
+  providerReference?: string | null
+  paymentUrl?: string | null
+  customerEmail?: string | null
+  customerName?: string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Date | string | null
+  expiresAt?: Date | string | null
+  failureCode?: string | null
+  failureMessage?: string | null
   initiatedByUserId?: string | null
   sourceAccountId?: string | null
   idempotencyScope?: string | null
@@ -911,7 +1089,6 @@ export type TransactionUncheckedCreateWithoutDestinationAccountInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   ledgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutTransactionInput
-  collection?: Prisma.CollectionUncheckedCreateNestedOneWithoutTransactionInput
 }
 
 export type TransactionCreateOrConnectWithoutDestinationAccountInput = {
@@ -950,6 +1127,17 @@ export type TransactionScalarWhereInput = {
   status?: Prisma.EnumTransactionStatusFilter<"Transaction"> | $Enums.TransactionStatus
   amount?: Prisma.BigIntFilter<"Transaction"> | bigint | number
   currency?: Prisma.EnumCurrencyFilter<"Transaction"> | $Enums.Currency
+  description?: Prisma.StringNullableFilter<"Transaction"> | string | null
+  provider?: Prisma.EnumPaymentProviderNullableFilter<"Transaction"> | $Enums.PaymentProvider | null
+  providerReference?: Prisma.StringNullableFilter<"Transaction"> | string | null
+  paymentUrl?: Prisma.StringNullableFilter<"Transaction"> | string | null
+  customerEmail?: Prisma.StringNullableFilter<"Transaction"> | string | null
+  customerName?: Prisma.StringNullableFilter<"Transaction"> | string | null
+  providerResponse?: Prisma.JsonNullableFilter<"Transaction">
+  paidAt?: Prisma.DateTimeNullableFilter<"Transaction"> | Date | string | null
+  expiresAt?: Prisma.DateTimeNullableFilter<"Transaction"> | Date | string | null
+  failureCode?: Prisma.StringNullableFilter<"Transaction"> | string | null
+  failureMessage?: Prisma.StringNullableFilter<"Transaction"> | string | null
   initiatedByUserId?: Prisma.UuidNullableFilter<"Transaction"> | string | null
   sourceAccountId?: Prisma.UuidNullableFilter<"Transaction"> | string | null
   destinationAccountId?: Prisma.UuidNullableFilter<"Transaction"> | string | null
@@ -983,6 +1171,17 @@ export type TransactionCreateWithoutLedgerEntriesInput = {
   status: $Enums.TransactionStatus
   amount: bigint | number
   currency: $Enums.Currency
+  description?: string | null
+  provider?: $Enums.PaymentProvider | null
+  providerReference?: string | null
+  paymentUrl?: string | null
+  customerEmail?: string | null
+  customerName?: string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Date | string | null
+  expiresAt?: Date | string | null
+  failureCode?: string | null
+  failureMessage?: string | null
   idempotencyScope?: string | null
   idempotencyKey?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -991,7 +1190,6 @@ export type TransactionCreateWithoutLedgerEntriesInput = {
   initiatedByUser?: Prisma.UserCreateNestedOneWithoutInitiatedTransactionsInput
   sourceAccount?: Prisma.LedgerAccountCreateNestedOneWithoutSourceTransactionsInput
   destinationAccount?: Prisma.LedgerAccountCreateNestedOneWithoutDestinationTransactionsInput
-  collection?: Prisma.CollectionCreateNestedOneWithoutTransactionInput
 }
 
 export type TransactionUncheckedCreateWithoutLedgerEntriesInput = {
@@ -1001,6 +1199,17 @@ export type TransactionUncheckedCreateWithoutLedgerEntriesInput = {
   status: $Enums.TransactionStatus
   amount: bigint | number
   currency: $Enums.Currency
+  description?: string | null
+  provider?: $Enums.PaymentProvider | null
+  providerReference?: string | null
+  paymentUrl?: string | null
+  customerEmail?: string | null
+  customerName?: string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Date | string | null
+  expiresAt?: Date | string | null
+  failureCode?: string | null
+  failureMessage?: string | null
   initiatedByUserId?: string | null
   sourceAccountId?: string | null
   destinationAccountId?: string | null
@@ -1009,7 +1218,6 @@ export type TransactionUncheckedCreateWithoutLedgerEntriesInput = {
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
-  collection?: Prisma.CollectionUncheckedCreateNestedOneWithoutTransactionInput
 }
 
 export type TransactionCreateOrConnectWithoutLedgerEntriesInput = {
@@ -1035,6 +1243,17 @@ export type TransactionUpdateWithoutLedgerEntriesInput = {
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   amount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.NullableEnumPaymentProviderFieldUpdateOperationsInput | $Enums.PaymentProvider | null
+  providerReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1043,7 +1262,6 @@ export type TransactionUpdateWithoutLedgerEntriesInput = {
   initiatedByUser?: Prisma.UserUpdateOneWithoutInitiatedTransactionsNestedInput
   sourceAccount?: Prisma.LedgerAccountUpdateOneWithoutSourceTransactionsNestedInput
   destinationAccount?: Prisma.LedgerAccountUpdateOneWithoutDestinationTransactionsNestedInput
-  collection?: Prisma.CollectionUpdateOneWithoutTransactionNestedInput
 }
 
 export type TransactionUncheckedUpdateWithoutLedgerEntriesInput = {
@@ -1053,6 +1271,17 @@ export type TransactionUncheckedUpdateWithoutLedgerEntriesInput = {
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   amount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.NullableEnumPaymentProviderFieldUpdateOperationsInput | $Enums.PaymentProvider | null
+  providerReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   initiatedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1061,7 +1290,6 @@ export type TransactionUncheckedUpdateWithoutLedgerEntriesInput = {
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  collection?: Prisma.CollectionUncheckedUpdateOneWithoutTransactionNestedInput
 }
 
 export type TransactionCreateWithoutInitiatedByUserInput = {
@@ -1071,6 +1299,17 @@ export type TransactionCreateWithoutInitiatedByUserInput = {
   status: $Enums.TransactionStatus
   amount: bigint | number
   currency: $Enums.Currency
+  description?: string | null
+  provider?: $Enums.PaymentProvider | null
+  providerReference?: string | null
+  paymentUrl?: string | null
+  customerEmail?: string | null
+  customerName?: string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Date | string | null
+  expiresAt?: Date | string | null
+  failureCode?: string | null
+  failureMessage?: string | null
   idempotencyScope?: string | null
   idempotencyKey?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1079,7 +1318,6 @@ export type TransactionCreateWithoutInitiatedByUserInput = {
   sourceAccount?: Prisma.LedgerAccountCreateNestedOneWithoutSourceTransactionsInput
   destinationAccount?: Prisma.LedgerAccountCreateNestedOneWithoutDestinationTransactionsInput
   ledgerEntries?: Prisma.LedgerEntryCreateNestedManyWithoutTransactionInput
-  collection?: Prisma.CollectionCreateNestedOneWithoutTransactionInput
 }
 
 export type TransactionUncheckedCreateWithoutInitiatedByUserInput = {
@@ -1089,6 +1327,17 @@ export type TransactionUncheckedCreateWithoutInitiatedByUserInput = {
   status: $Enums.TransactionStatus
   amount: bigint | number
   currency: $Enums.Currency
+  description?: string | null
+  provider?: $Enums.PaymentProvider | null
+  providerReference?: string | null
+  paymentUrl?: string | null
+  customerEmail?: string | null
+  customerName?: string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Date | string | null
+  expiresAt?: Date | string | null
+  failureCode?: string | null
+  failureMessage?: string | null
   sourceAccountId?: string | null
   destinationAccountId?: string | null
   idempotencyScope?: string | null
@@ -1097,7 +1346,6 @@ export type TransactionUncheckedCreateWithoutInitiatedByUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   ledgerEntries?: Prisma.LedgerEntryUncheckedCreateNestedManyWithoutTransactionInput
-  collection?: Prisma.CollectionUncheckedCreateNestedOneWithoutTransactionInput
 }
 
 export type TransactionCreateOrConnectWithoutInitiatedByUserInput = {
@@ -1133,6 +1381,17 @@ export type TransactionCreateManySourceAccountInput = {
   status: $Enums.TransactionStatus
   amount: bigint | number
   currency: $Enums.Currency
+  description?: string | null
+  provider?: $Enums.PaymentProvider | null
+  providerReference?: string | null
+  paymentUrl?: string | null
+  customerEmail?: string | null
+  customerName?: string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Date | string | null
+  expiresAt?: Date | string | null
+  failureCode?: string | null
+  failureMessage?: string | null
   initiatedByUserId?: string | null
   destinationAccountId?: string | null
   idempotencyScope?: string | null
@@ -1149,6 +1408,17 @@ export type TransactionCreateManyDestinationAccountInput = {
   status: $Enums.TransactionStatus
   amount: bigint | number
   currency: $Enums.Currency
+  description?: string | null
+  provider?: $Enums.PaymentProvider | null
+  providerReference?: string | null
+  paymentUrl?: string | null
+  customerEmail?: string | null
+  customerName?: string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Date | string | null
+  expiresAt?: Date | string | null
+  failureCode?: string | null
+  failureMessage?: string | null
   initiatedByUserId?: string | null
   sourceAccountId?: string | null
   idempotencyScope?: string | null
@@ -1165,6 +1435,17 @@ export type TransactionUpdateWithoutSourceAccountInput = {
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   amount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.NullableEnumPaymentProviderFieldUpdateOperationsInput | $Enums.PaymentProvider | null
+  providerReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1173,7 +1454,6 @@ export type TransactionUpdateWithoutSourceAccountInput = {
   initiatedByUser?: Prisma.UserUpdateOneWithoutInitiatedTransactionsNestedInput
   destinationAccount?: Prisma.LedgerAccountUpdateOneWithoutDestinationTransactionsNestedInput
   ledgerEntries?: Prisma.LedgerEntryUpdateManyWithoutTransactionNestedInput
-  collection?: Prisma.CollectionUpdateOneWithoutTransactionNestedInput
 }
 
 export type TransactionUncheckedUpdateWithoutSourceAccountInput = {
@@ -1183,6 +1463,17 @@ export type TransactionUncheckedUpdateWithoutSourceAccountInput = {
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   amount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.NullableEnumPaymentProviderFieldUpdateOperationsInput | $Enums.PaymentProvider | null
+  providerReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   initiatedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1191,7 +1482,6 @@ export type TransactionUncheckedUpdateWithoutSourceAccountInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ledgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutTransactionNestedInput
-  collection?: Prisma.CollectionUncheckedUpdateOneWithoutTransactionNestedInput
 }
 
 export type TransactionUncheckedUpdateManyWithoutSourceAccountInput = {
@@ -1201,6 +1491,17 @@ export type TransactionUncheckedUpdateManyWithoutSourceAccountInput = {
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   amount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.NullableEnumPaymentProviderFieldUpdateOperationsInput | $Enums.PaymentProvider | null
+  providerReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   initiatedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1217,6 +1518,17 @@ export type TransactionUpdateWithoutDestinationAccountInput = {
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   amount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.NullableEnumPaymentProviderFieldUpdateOperationsInput | $Enums.PaymentProvider | null
+  providerReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1225,7 +1537,6 @@ export type TransactionUpdateWithoutDestinationAccountInput = {
   initiatedByUser?: Prisma.UserUpdateOneWithoutInitiatedTransactionsNestedInput
   sourceAccount?: Prisma.LedgerAccountUpdateOneWithoutSourceTransactionsNestedInput
   ledgerEntries?: Prisma.LedgerEntryUpdateManyWithoutTransactionNestedInput
-  collection?: Prisma.CollectionUpdateOneWithoutTransactionNestedInput
 }
 
 export type TransactionUncheckedUpdateWithoutDestinationAccountInput = {
@@ -1235,6 +1546,17 @@ export type TransactionUncheckedUpdateWithoutDestinationAccountInput = {
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   amount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.NullableEnumPaymentProviderFieldUpdateOperationsInput | $Enums.PaymentProvider | null
+  providerReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   initiatedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1243,7 +1565,6 @@ export type TransactionUncheckedUpdateWithoutDestinationAccountInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ledgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutTransactionNestedInput
-  collection?: Prisma.CollectionUncheckedUpdateOneWithoutTransactionNestedInput
 }
 
 export type TransactionUncheckedUpdateManyWithoutDestinationAccountInput = {
@@ -1253,6 +1574,17 @@ export type TransactionUncheckedUpdateManyWithoutDestinationAccountInput = {
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   amount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.NullableEnumPaymentProviderFieldUpdateOperationsInput | $Enums.PaymentProvider | null
+  providerReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   initiatedByUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1269,6 +1601,17 @@ export type TransactionCreateManyInitiatedByUserInput = {
   status: $Enums.TransactionStatus
   amount: bigint | number
   currency: $Enums.Currency
+  description?: string | null
+  provider?: $Enums.PaymentProvider | null
+  providerReference?: string | null
+  paymentUrl?: string | null
+  customerEmail?: string | null
+  customerName?: string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Date | string | null
+  expiresAt?: Date | string | null
+  failureCode?: string | null
+  failureMessage?: string | null
   sourceAccountId?: string | null
   destinationAccountId?: string | null
   idempotencyScope?: string | null
@@ -1285,6 +1628,17 @@ export type TransactionUpdateWithoutInitiatedByUserInput = {
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   amount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.NullableEnumPaymentProviderFieldUpdateOperationsInput | $Enums.PaymentProvider | null
+  providerReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1293,7 +1647,6 @@ export type TransactionUpdateWithoutInitiatedByUserInput = {
   sourceAccount?: Prisma.LedgerAccountUpdateOneWithoutSourceTransactionsNestedInput
   destinationAccount?: Prisma.LedgerAccountUpdateOneWithoutDestinationTransactionsNestedInput
   ledgerEntries?: Prisma.LedgerEntryUpdateManyWithoutTransactionNestedInput
-  collection?: Prisma.CollectionUpdateOneWithoutTransactionNestedInput
 }
 
 export type TransactionUncheckedUpdateWithoutInitiatedByUserInput = {
@@ -1303,6 +1656,17 @@ export type TransactionUncheckedUpdateWithoutInitiatedByUserInput = {
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   amount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.NullableEnumPaymentProviderFieldUpdateOperationsInput | $Enums.PaymentProvider | null
+  providerReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1311,7 +1675,6 @@ export type TransactionUncheckedUpdateWithoutInitiatedByUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ledgerEntries?: Prisma.LedgerEntryUncheckedUpdateManyWithoutTransactionNestedInput
-  collection?: Prisma.CollectionUncheckedUpdateOneWithoutTransactionNestedInput
 }
 
 export type TransactionUncheckedUpdateManyWithoutInitiatedByUserInput = {
@@ -1321,6 +1684,17 @@ export type TransactionUncheckedUpdateManyWithoutInitiatedByUserInput = {
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   amount?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   currency?: Prisma.EnumCurrencyFieldUpdateOperationsInput | $Enums.Currency
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.NullableEnumPaymentProviderFieldUpdateOperationsInput | $Enums.PaymentProvider | null
+  providerReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  providerResponse?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failureCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  failureMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   destinationAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyScope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1368,6 +1742,17 @@ export type TransactionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   status?: boolean
   amount?: boolean
   currency?: boolean
+  description?: boolean
+  provider?: boolean
+  providerReference?: boolean
+  paymentUrl?: boolean
+  customerEmail?: boolean
+  customerName?: boolean
+  providerResponse?: boolean
+  paidAt?: boolean
+  expiresAt?: boolean
+  failureCode?: boolean
+  failureMessage?: boolean
   initiatedByUserId?: boolean
   sourceAccountId?: boolean
   destinationAccountId?: boolean
@@ -1380,7 +1765,6 @@ export type TransactionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   sourceAccount?: boolean | Prisma.Transaction$sourceAccountArgs<ExtArgs>
   destinationAccount?: boolean | Prisma.Transaction$destinationAccountArgs<ExtArgs>
   ledgerEntries?: boolean | Prisma.Transaction$ledgerEntriesArgs<ExtArgs>
-  collection?: boolean | Prisma.Transaction$collectionArgs<ExtArgs>
   _count?: boolean | Prisma.TransactionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["transaction"]>
 
@@ -1391,6 +1775,17 @@ export type TransactionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   status?: boolean
   amount?: boolean
   currency?: boolean
+  description?: boolean
+  provider?: boolean
+  providerReference?: boolean
+  paymentUrl?: boolean
+  customerEmail?: boolean
+  customerName?: boolean
+  providerResponse?: boolean
+  paidAt?: boolean
+  expiresAt?: boolean
+  failureCode?: boolean
+  failureMessage?: boolean
   initiatedByUserId?: boolean
   sourceAccountId?: boolean
   destinationAccountId?: boolean
@@ -1411,6 +1806,17 @@ export type TransactionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   status?: boolean
   amount?: boolean
   currency?: boolean
+  description?: boolean
+  provider?: boolean
+  providerReference?: boolean
+  paymentUrl?: boolean
+  customerEmail?: boolean
+  customerName?: boolean
+  providerResponse?: boolean
+  paidAt?: boolean
+  expiresAt?: boolean
+  failureCode?: boolean
+  failureMessage?: boolean
   initiatedByUserId?: boolean
   sourceAccountId?: boolean
   destinationAccountId?: boolean
@@ -1431,6 +1837,17 @@ export type TransactionSelectScalar = {
   status?: boolean
   amount?: boolean
   currency?: boolean
+  description?: boolean
+  provider?: boolean
+  providerReference?: boolean
+  paymentUrl?: boolean
+  customerEmail?: boolean
+  customerName?: boolean
+  providerResponse?: boolean
+  paidAt?: boolean
+  expiresAt?: boolean
+  failureCode?: boolean
+  failureMessage?: boolean
   initiatedByUserId?: boolean
   sourceAccountId?: boolean
   destinationAccountId?: boolean
@@ -1441,13 +1858,12 @@ export type TransactionSelectScalar = {
   updatedAt?: boolean
 }
 
-export type TransactionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "reference" | "type" | "status" | "amount" | "currency" | "initiatedByUserId" | "sourceAccountId" | "destinationAccountId" | "idempotencyScope" | "idempotencyKey" | "metadata" | "createdAt" | "updatedAt", ExtArgs["result"]["transaction"]>
+export type TransactionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "reference" | "type" | "status" | "amount" | "currency" | "description" | "provider" | "providerReference" | "paymentUrl" | "customerEmail" | "customerName" | "providerResponse" | "paidAt" | "expiresAt" | "failureCode" | "failureMessage" | "initiatedByUserId" | "sourceAccountId" | "destinationAccountId" | "idempotencyScope" | "idempotencyKey" | "metadata" | "createdAt" | "updatedAt", ExtArgs["result"]["transaction"]>
 export type TransactionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   initiatedByUser?: boolean | Prisma.Transaction$initiatedByUserArgs<ExtArgs>
   sourceAccount?: boolean | Prisma.Transaction$sourceAccountArgs<ExtArgs>
   destinationAccount?: boolean | Prisma.Transaction$destinationAccountArgs<ExtArgs>
   ledgerEntries?: boolean | Prisma.Transaction$ledgerEntriesArgs<ExtArgs>
-  collection?: boolean | Prisma.Transaction$collectionArgs<ExtArgs>
   _count?: boolean | Prisma.TransactionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TransactionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1468,7 +1884,6 @@ export type $TransactionPayload<ExtArgs extends runtime.Types.Extensions.Interna
     sourceAccount: Prisma.$LedgerAccountPayload<ExtArgs> | null
     destinationAccount: Prisma.$LedgerAccountPayload<ExtArgs> | null
     ledgerEntries: Prisma.$LedgerEntryPayload<ExtArgs>[]
-    collection: Prisma.$CollectionPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1477,6 +1892,17 @@ export type $TransactionPayload<ExtArgs extends runtime.Types.Extensions.Interna
     status: $Enums.TransactionStatus
     amount: bigint
     currency: $Enums.Currency
+    description: string | null
+    provider: $Enums.PaymentProvider | null
+    providerReference: string | null
+    paymentUrl: string | null
+    customerEmail: string | null
+    customerName: string | null
+    providerResponse: runtime.JsonValue | null
+    paidAt: Date | null
+    expiresAt: Date | null
+    failureCode: string | null
+    failureMessage: string | null
     initiatedByUserId: string | null
     sourceAccountId: string | null
     destinationAccountId: string | null
@@ -1883,7 +2309,6 @@ export interface Prisma__TransactionClient<T, Null = never, ExtArgs extends runt
   sourceAccount<T extends Prisma.Transaction$sourceAccountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Transaction$sourceAccountArgs<ExtArgs>>): Prisma.Prisma__LedgerAccountClient<runtime.Types.Result.GetResult<Prisma.$LedgerAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   destinationAccount<T extends Prisma.Transaction$destinationAccountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Transaction$destinationAccountArgs<ExtArgs>>): Prisma.Prisma__LedgerAccountClient<runtime.Types.Result.GetResult<Prisma.$LedgerAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   ledgerEntries<T extends Prisma.Transaction$ledgerEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Transaction$ledgerEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LedgerEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  collection<T extends Prisma.Transaction$collectionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Transaction$collectionArgs<ExtArgs>>): Prisma.Prisma__CollectionClient<runtime.Types.Result.GetResult<Prisma.$CollectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1919,6 +2344,17 @@ export interface TransactionFieldRefs {
   readonly status: Prisma.FieldRef<"Transaction", 'TransactionStatus'>
   readonly amount: Prisma.FieldRef<"Transaction", 'BigInt'>
   readonly currency: Prisma.FieldRef<"Transaction", 'Currency'>
+  readonly description: Prisma.FieldRef<"Transaction", 'String'>
+  readonly provider: Prisma.FieldRef<"Transaction", 'PaymentProvider'>
+  readonly providerReference: Prisma.FieldRef<"Transaction", 'String'>
+  readonly paymentUrl: Prisma.FieldRef<"Transaction", 'String'>
+  readonly customerEmail: Prisma.FieldRef<"Transaction", 'String'>
+  readonly customerName: Prisma.FieldRef<"Transaction", 'String'>
+  readonly providerResponse: Prisma.FieldRef<"Transaction", 'Json'>
+  readonly paidAt: Prisma.FieldRef<"Transaction", 'DateTime'>
+  readonly expiresAt: Prisma.FieldRef<"Transaction", 'DateTime'>
+  readonly failureCode: Prisma.FieldRef<"Transaction", 'String'>
+  readonly failureMessage: Prisma.FieldRef<"Transaction", 'String'>
   readonly initiatedByUserId: Prisma.FieldRef<"Transaction", 'String'>
   readonly sourceAccountId: Prisma.FieldRef<"Transaction", 'String'>
   readonly destinationAccountId: Prisma.FieldRef<"Transaction", 'String'>
@@ -2406,25 +2842,6 @@ export type Transaction$ledgerEntriesArgs<ExtArgs extends runtime.Types.Extensio
   take?: number
   skip?: number
   distinct?: Prisma.LedgerEntryScalarFieldEnum | Prisma.LedgerEntryScalarFieldEnum[]
-}
-
-/**
- * Transaction.collection
- */
-export type Transaction$collectionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Collection
-   */
-  select?: Prisma.CollectionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Collection
-   */
-  omit?: Prisma.CollectionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.CollectionInclude<ExtArgs> | null
-  where?: Prisma.CollectionWhereInput
 }
 
 /**

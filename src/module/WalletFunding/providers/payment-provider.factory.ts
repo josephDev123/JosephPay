@@ -6,9 +6,10 @@ import { PaystackProvider } from './paystack.provider.js';
 @Injectable()
 export class PaymentProviderFactory {
   constructor(private readonly paystack: PaystackProvider) {}
-
   get(provider: PaymentProvider): PaymentProviderClient {
     if (provider === 'PAYSTACK') return this.paystack;
-    throw new NotImplementedException(`${provider} payment provider is not implemented yet`);
+    throw new NotImplementedException(
+      `${provider} payment provider is not implemented yet`,
+    );
   }
 }

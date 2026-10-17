@@ -1,0 +1,13 @@
+ALTER TYPE "CollectionStatus" RENAME TO "WalletFundingStatus";
+ALTER TABLE "collections" RENAME TO "wallet_fundings";
+ALTER TABLE "wallet_fundings" RENAME COLUMN "merchant_user_id" TO "user_id";
+ALTER INDEX "collections_reference_key" RENAME TO "wallet_fundings_reference_key";
+ALTER INDEX "collections_transaction_id_key" RENAME TO "wallet_fundings_transaction_id_key";
+ALTER INDEX "collections_idempotency_scope_idempotency_key_key" RENAME TO "wallet_fundings_idempotency_scope_idempotency_key_key";
+ALTER INDEX "collections_provider_provider_reference_key" RENAME TO "wallet_fundings_provider_provider_reference_key";
+ALTER INDEX "collections_status_created_at_idx" RENAME TO "wallet_fundings_status_created_at_idx";
+ALTER INDEX "collections_merchant_user_id_created_at_idx" RENAME TO "wallet_fundings_user_id_created_at_idx";
+ALTER TABLE "wallet_fundings" DROP CONSTRAINT "collections_merchant_user_id_fkey";
+ALTER TABLE "wallet_fundings" ADD CONSTRAINT "wallet_fundings_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "wallet_fundings" DROP CONSTRAINT "collections_transaction_id_fkey";
+ALTER TABLE "wallet_fundings" ADD CONSTRAINT "wallet_fundings_transaction_id_fkey" FOREIGN KEY ("transaction_id") REFERENCES "transactions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -1,4 +1,7 @@
-import type { Currency, PaymentProvider } from '../../../lib/prisma/generated/client.js';
+import type {
+  Currency,
+  PaymentProvider,
+} from '../../../lib/prisma/generated/client.js';
 
 export type InitializePaymentInput = {
   reference: string;
@@ -26,7 +29,10 @@ export type ProviderVerificationResult = {
 
 export interface PaymentProviderClient {
   readonly name: PaymentProvider;
-  initialize(input: InitializePaymentInput): Promise<ProviderInitializationResult>;
+
+  initialize(
+    input: InitializePaymentInput,
+  ): Promise<ProviderInitializationResult>;
+
   verify(reference: string): Promise<ProviderVerificationResult>;
-  verifyWebhookSignature(rawBody: Buffer, signature: string): boolean;
 }

@@ -12,7 +12,8 @@ import { WalletModule } from './module/Wallet/wallet.module.js';
 import { LedgerModule } from './module/Ledger/ledger.module.js';
 import { TransactionModule } from './module/Transaction/transaction.module.js';
 import { TransferModule } from './module/Transfer/transfer.module.js';
-import { CollectionModule } from './module/Collection/collection.module.js';
+import { WalletFundingModule } from './module/WalletFunding/wallet-funding.module.js';
+import { WebhookModule } from './module/Webhook/webhook.module.js';
 // import { ClientsModule, Transport } from '@nestjs/microservices';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { HttpExceptionHandler } from './shared/exception/HttpExceptionHandler.js';
@@ -51,7 +52,8 @@ import { getAppConfig } from './shared/lib/app-config.js';
     LedgerModule,
     TransactionModule,
     TransferModule,
-    CollectionModule,
+    WalletFundingModule,
+    WebhookModule,
   ],
   controllers: [AppController],
   providers: [
