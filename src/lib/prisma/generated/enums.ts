@@ -60,7 +60,6 @@ export type LedgerAccountStatus = (typeof LedgerAccountStatus)[keyof typeof Ledg
 
 
 export const TransactionType = {
-  COLLECTION: 'COLLECTION',
   DEPOSIT: 'DEPOSIT',
   WITHDRAWAL: 'WITHDRAWAL',
   TRANSFER: 'TRANSFER',
@@ -72,18 +71,6 @@ export const TransactionType = {
 } as const
 
 export type TransactionType = (typeof TransactionType)[keyof typeof TransactionType]
-
-
-export const CollectionStatus = {
-  PENDING: 'PENDING',
-  PROCESSING: 'PROCESSING',
-  SUCCESS: 'SUCCESS',
-  FAILED: 'FAILED',
-  EXPIRED: 'EXPIRED',
-  REVERSED: 'REVERSED'
-} as const
-
-export type CollectionStatus = (typeof CollectionStatus)[keyof typeof CollectionStatus]
 
 
 export const PaymentProvider = {

@@ -415,6 +415,10 @@ export type WebhookEventMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type EnumPaymentProviderFieldUpdateOperationsInput = {
+  set?: $Enums.PaymentProvider
+}
+
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }

@@ -34,7 +34,6 @@ enum LedgerAccountStatus {
 }
 
 enum TransactionType {
-  COLLECTION
   DEPOSIT
   WITHDRAWAL
   TRANSFER
@@ -43,15 +42,6 @@ enum TransactionType {
   FEE
   REVERSAL
   OPENING_BALANCE
-}
-
-enum CollectionStatus {
-  PENDING
-  PROCESSING
-  SUCCESS
-  FAILED
-  EXPIRED
-  REVERSED
 }
 
 enum PaymentProvider {

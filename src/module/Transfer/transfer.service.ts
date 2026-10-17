@@ -99,6 +99,7 @@ export class TransferService {
         type: 'TRANSFER',
         amount: input.amount,
         currency: input.currency,
+        description: `Transfer to ${input.toUserId}`,
         initiatedByUserId: input.fromUserId,
         sourceAccountId: lockedSenderBalance.ledgerAccountId,
         destinationAccountId: lockedRecipientBalance.ledgerAccountId,

@@ -475,6 +475,14 @@ export type EnumLedgerEntryTypeFieldUpdateOperationsInput = {
   set?: $Enums.LedgerEntryType
 }
 
+export type BigIntFieldUpdateOperationsInput = {
+  set?: bigint | number
+  increment?: bigint | number
+  decrement?: bigint | number
+  multiply?: bigint | number
+  divide?: bigint | number
+}
+
 export type LedgerEntryCreateNestedManyWithoutTransactionInput = {
   create?: Prisma.XOR<Prisma.LedgerEntryCreateWithoutTransactionInput, Prisma.LedgerEntryUncheckedCreateWithoutTransactionInput> | Prisma.LedgerEntryCreateWithoutTransactionInput[] | Prisma.LedgerEntryUncheckedCreateWithoutTransactionInput[]
   connectOrCreate?: Prisma.LedgerEntryCreateOrConnectWithoutTransactionInput | Prisma.LedgerEntryCreateOrConnectWithoutTransactionInput[]

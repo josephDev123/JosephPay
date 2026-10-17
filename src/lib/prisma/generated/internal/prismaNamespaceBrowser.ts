@@ -51,7 +51,6 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  Collection: 'Collection',
   EmailVerification: 'EmailVerification',
   Kyc: 'Kyc',
   LedgerAccount: 'LedgerAccount',
@@ -78,34 +77,6 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
-
-
-export const CollectionScalarFieldEnum = {
-  id: 'id',
-  reference: 'reference',
-  merchantUserId: 'merchantUserId',
-  transactionId: 'transactionId',
-  amount: 'amount',
-  currency: 'currency',
-  status: 'status',
-  provider: 'provider',
-  providerReference: 'providerReference',
-  paymentUrl: 'paymentUrl',
-  customerEmail: 'customerEmail',
-  customerName: 'customerName',
-  idempotencyScope: 'idempotencyScope',
-  idempotencyKey: 'idempotencyKey',
-  providerResponse: 'providerResponse',
-  metadata: 'metadata',
-  paidAt: 'paidAt',
-  expiresAt: 'expiresAt',
-  failureCode: 'failureCode',
-  failureMessage: 'failureMessage',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type CollectionScalarFieldEnum = (typeof CollectionScalarFieldEnum)[keyof typeof CollectionScalarFieldEnum]
 
 
 export const EmailVerificationScalarFieldEnum = {
@@ -203,6 +174,17 @@ export const TransactionScalarFieldEnum = {
   status: 'status',
   amount: 'amount',
   currency: 'currency',
+  description: 'description',
+  provider: 'provider',
+  providerReference: 'providerReference',
+  paymentUrl: 'paymentUrl',
+  customerEmail: 'customerEmail',
+  customerName: 'customerName',
+  providerResponse: 'providerResponse',
+  paidAt: 'paidAt',
+  expiresAt: 'expiresAt',
+  failureCode: 'failureCode',
+  failureMessage: 'failureMessage',
   initiatedByUserId: 'initiatedByUserId',
   sourceAccountId: 'sourceAccountId',
   destinationAccountId: 'destinationAccountId',
