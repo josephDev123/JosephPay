@@ -95,12 +95,17 @@ export class WalletFundingService {
     const transaction = await this.prisma.transaction.findFirst({
       where: { provider, providerReference },
     });
-    if (!transaction) throw new NotFoundException('Wallet funding transaction not found');
+
+    if (!transaction)
+      throw new NotFoundException('Wallet funding transaction not found');
+
     const verified = await this.providers
       .get(provider)
       .verify(providerReference);
+
     if (verified.status !== 'SUCCESS')
       return { accepted: true, status: verified.status };
+
     if (
       verified.amount !== transaction.amount ||
       verified.currency !== transaction.currency
@@ -108,9 +113,14 @@ export class WalletFundingService {
       throw new ConflictException(
         'Provider payment does not match wallet funding',
       );
+
     await this.prisma.$transaction(async (db) => {
-      const locked = await db.transaction.findUnique({ where: { id: transaction.id } });
+      const locked = await db.transaction.findUnique({
+        where: { id: transaction.id },
+      });
+
       if (!locked || locked.status === TransactionStatus.SUCCESS) return;
+
       const source = await db.ledgerAccount.findFirst({
         where: {
           ownerType: LedgerAccountOwnerType.SYSTEM,
@@ -119,14 +129,20 @@ export class WalletFundingService {
           status: 'ACTIVE',
         },
       });
+
       const destination = await db.walletBalance.findFirst({
-        where: { wallet: { userId: locked.initiatedByUserId! }, currency: locked.currency },
+        where: {
+          wallet: { userId: locked.initiatedByUserId! },
+          currency: locked.currency,
+        },
         include: { ledgerAccount: true },
       });
+
       if (!source || !destination)
         throw new NotFoundException(
           'Wallet funding ledger accounts are not configured',
         );
+
       await this.ledger.postBalanced(db, locked.id, [
         {
           ledgerAccountId: source.id,
@@ -141,6 +157,7 @@ export class WalletFundingService {
           currency: locked.currency,
         },
       ]);
+
       await db.transaction.update({
         where: { id: locked.id },
         data: {
@@ -152,6 +169,7 @@ export class WalletFundingService {
         },
       });
     });
+
     return { accepted: true, status: 'SUCCESS' };
   }
 }
