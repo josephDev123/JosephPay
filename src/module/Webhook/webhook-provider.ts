@@ -12,10 +12,12 @@ export interface WebhookProviderAdapter {
   readonly provider: PaymentProvider;
 
   canHandle(headers: Record<string, string | string[] | undefined>): boolean;
+
   verify(
     rawBody: Buffer,
     headers: Record<string, string | string[] | undefined>,
   ): boolean;
+
   normalize(payload: any): NormalizedWebhook;
 }
 
