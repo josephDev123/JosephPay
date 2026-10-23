@@ -591,3 +591,26 @@ export class WalletFundingRequestDto {
   @ApiProperty({ example: 'funding-request-123', minLength: 8, maxLength: 128 })
   idempotencyKey!: string;
 }
+
+export class WebhookResponseDataDto {
+  @ApiProperty({ example: true })
+  accepted!: true;
+
+  @ApiProperty({
+    example: false,
+    description:
+      'True when the provider webhook was already stored and processed.',
+  })
+  duplicate!: boolean;
+}
+
+export class WebhookResponseDto {
+  @ApiProperty({ example: true })
+  success!: true;
+
+  @ApiProperty({ example: 'Webhook accepted' })
+  message!: string;
+
+  @ApiProperty({ type: () => WebhookResponseDataDto })
+  data!: WebhookResponseDataDto;
+}

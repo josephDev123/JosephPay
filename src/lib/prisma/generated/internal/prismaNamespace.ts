@@ -1245,6 +1245,7 @@ export type KycScalarFieldEnum = (typeof KycScalarFieldEnum)[keyof typeof KycSca
 
 export const LedgerAccountScalarFieldEnum = {
   id: 'id',
+  code: 'code',
   name: 'name',
   type: 'type',
   ownerType: 'ownerType',
