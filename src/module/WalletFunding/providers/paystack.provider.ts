@@ -10,7 +10,9 @@ import type {
 @Injectable()
 export class PaystackProvider implements PaymentProviderClient {
   readonly name = 'PAYSTACK' as const;
+
   private readonly baseUrl = 'https://api.paystack.co';
+
   private headers() {
     const key = process.env.PAYSTACK_SECRET_KEY;
     if (!key)
@@ -22,6 +24,7 @@ export class PaystackProvider implements PaymentProviderClient {
       'Content-Type': 'application/json',
     };
   }
+
   async initialize(
     input: InitializePaymentInput,
   ): Promise<ProviderInitializationResult> {

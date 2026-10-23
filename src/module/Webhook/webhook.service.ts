@@ -37,6 +37,7 @@ export class WebhookService {
       .catch(() => null);
 
     if (!event) return { accepted: true, duplicate: true };
+    console.log('hand over to complete and verify the transaction');
 
     if (
       normalized.providerReference &&

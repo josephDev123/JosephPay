@@ -109,7 +109,18 @@ RabbitMQ support is present as groundwork, but the current listener is disabled 
    npx prisma migrate dev --schema src/lib/prisma
    ```
 
-4. Start the development server:
+4. Provision the system ledger accounts required for Paystack wallet funding:
+
+   ```bash
+   npm run prisma:seed-system-accounts
+   ```
+
+   This idempotently creates the `PAYSTACK_CLEARING_NGN` and
+   `PAYSTACK_CLEARING_USD` system ledger accounts. These are ledger accounts,
+   not customer wallets, and they must exist before a successful funding
+   webhook can post its double-entry transaction.
+
+5. Start the development server:
 
    ```bash
    npm run start:dev
@@ -206,7 +217,26 @@ Example request:
 
 The transaction starts in `PROCESSING` and is only marked `SUCCESS` after the provider webhook is signature-verified and the payment amount and currency are verified. Ledger entries and the wallet balance are updated atomically. Repeated funding requests with the same idempotency key return the original transaction.
 
+Paystack wallet funding uses amounts in the smallest currency unit. The
+Paystack `charge.success` webhook must contain the same provider reference,
+amount, and currency as the initialized transaction. The funding workflow
+posts a debit to the matching Paystack system ledger account and a credit to
+the customer wallet ledger account. The transaction row is locked while the
+ledger posting is performed so concurrent webhook deliveries cannot post the
+same funding twice.
+
 All payment providers send callbacks to the single public endpoint `POST /api/v1/webhooks`. The webhook module identifies the provider from provider-specific signature headers, verifies the raw request body, persists the webhook event for deduplication, and delegates payment settlement to the wallet-funding workflow. Webhook controllers do not accept provider identity from the request body.
+
+For Paystack, configure the webhook URL as:
+
+```text
+POST /api/v1/webhooks
+Header: x-paystack-signature: <Paystack HMAC-SHA512 signature>
+```
+
+The endpoint is public but rejects requests with an invalid signature. Repeated
+events are acknowledged as duplicates and do not create additional ledger
+entries.
 
 ## Database and money-handling rules
 
@@ -229,6 +259,7 @@ The wallet-ledger schema is applied through the Prisma migration `20260927110000
 ```bash
 npx prisma generate --schema src/lib/prisma
 npx prisma migrate dev --schema src/lib/prisma
+npm run prisma:seed-system-accounts
 ```
 
 For the project's detailed standards, see [API_GUIDELINES.md](API_GUIDELINES.md), [BUSINESS_RULES.md](BUSINESS_RULES.md), [DATABASE_GUIDELINES.md](DATABASE_GUIDELINES.md), and [AGENTS.md](AGENTS.md).
@@ -239,6 +270,7 @@ For the project's detailed standards, see [API_GUIDELINES.md](API_GUIDELINES.md)
 npm run start:dev   # Start in watch mode
 npm run build       # Compile the application
 npm run start:prod  # Start the compiled application
+npm run prisma:seed-system-accounts # Build and seed Paystack system accounts
 npm run test        # Run unit tests
 npm run test:e2e    # Run end-to-end tests
 npm run test:cov    # Generate coverage

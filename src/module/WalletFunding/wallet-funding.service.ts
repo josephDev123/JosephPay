@@ -92,6 +92,7 @@ export class WalletFundingService {
     provider: PaymentProvider,
     providerReference: string,
   ) {
+    console.log('start update, verify of  the transaction');
     const transaction = await this.prisma.transaction.findFirst({
       where: { provider, providerReference },
     });
@@ -99,6 +100,7 @@ export class WalletFundingService {
     if (!transaction)
       throw new NotFoundException('Wallet funding transaction not found');
 
+    console.log('verifying  the transaction');
     const verified = await this.providers
       .get(provider)
       .verify(providerReference);
@@ -115,19 +117,19 @@ export class WalletFundingService {
       );
 
     await this.prisma.$transaction(async (db) => {
+      await db.$queryRaw(
+        Prisma.sql`SELECT id FROM transactions WHERE id = ${transaction.id} FOR UPDATE`,
+      );
       const locked = await db.transaction.findUnique({
         where: { id: transaction.id },
       });
 
       if (!locked || locked.status === TransactionStatus.SUCCESS) return;
 
-      const source = await db.ledgerAccount.findFirst({
-        where: {
-          ownerType: LedgerAccountOwnerType.SYSTEM,
-          type: { in: [LedgerAccountType.BANK, LedgerAccountType.RECEIVABLE] },
-          currency: locked.currency,
-          status: 'ACTIVE',
-        },
+      console.log('deriving source and destination');
+
+      const source = await db.ledgerAccount.findUnique({
+        where: { code: `PAYSTACK_CLEARING_${locked.currency}` },
       });
 
       const destination = await db.walletBalance.findFirst({
@@ -138,11 +140,21 @@ export class WalletFundingService {
         include: { ledgerAccount: true },
       });
 
-      if (!source || !destination)
+      if (
+        !source ||
+        source.ownerType !== LedgerAccountOwnerType.SYSTEM ||
+        source.type !== LedgerAccountType.BANK ||
+        source.currency !== locked.currency ||
+        source.status !== 'ACTIVE' ||
+        !destination
+      )
         throw new NotFoundException(
           'Wallet funding ledger accounts are not configured',
         );
 
+      console.log('destination and source account', source, destination);
+
+      console.log('start balance update  the ');
       await this.ledger.postBalanced(db, locked.id, [
         {
           ledgerAccountId: source.id,
@@ -157,6 +169,8 @@ export class WalletFundingService {
           currency: locked.currency,
         },
       ]);
+
+      console.log('end balance update  the ');
 
       await db.transaction.update({
         where: { id: locked.id },

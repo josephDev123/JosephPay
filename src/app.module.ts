@@ -25,7 +25,6 @@ import { getAppConfig } from './shared/lib/app-config.js';
     ConfigModule.forRoot({
       isGlobal: true,
       load: [getAppConfig],
-      // envFilePath: '.env',
       validate: Envalidate,
     }),
 

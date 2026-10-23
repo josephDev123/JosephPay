@@ -1,5 +1,6 @@
 model LedgerAccount {
   id        String                @id @default(uuid()) @db.Uuid
+  code      String                @unique
   name      String
   type      LedgerAccountType
   ownerType LedgerAccountOwnerType @map("owner_type")

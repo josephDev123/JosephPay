@@ -4,6 +4,7 @@ import {
   LedgerAccountOwnerType,
   LedgerAccountType,
 } from '../../lib/prisma/generated/enums.js';
+import type { Wallet, WalletBalance } from '../../lib/prisma/generated/client.js';
 import { PrismaService } from '../../lib/prisma/prisma.service.js';
 import {
   SUPPORTED_CURRENCIES,
@@ -27,6 +28,7 @@ export class WalletRepository {
             balance: 0n,
             ledgerAccount: {
               create: {
+                code: `CUSTOMER_WALLET_${userId}_${currency}`,
                 name: `Customer wallet ${userId} ${currency}`,
                 type: LedgerAccountType.CUSTOMER_WALLET,
                 ownerType: LedgerAccountOwnerType.CUSTOMER,
@@ -38,7 +40,7 @@ export class WalletRepository {
         },
       },
       include: { balances: true },
-    });
+    }) as unknown as Promise<Wallet & { balances: WalletBalance[] }>;
   }
 
   async findWalletsByUserId(userId: string) {
