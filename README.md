@@ -88,7 +88,10 @@ RabbitMQ support is present as groundwork, but the current listener is disabled 
 2. Create a local `.env` file. Never commit it:
 
    ```env
-   DATABASE_URL=postgresql://USER:PASSWORD@HOST:5432/DATABASE
+   POSTGRES_USER=postgres
+   POSTGRES_PASSWORD=replace-with-a-local-password
+   POSTGRES_DB=fintech_platform
+   DATABASE_URL=postgresql://postgres:replace-with-a-local-password@db:5432/fintech_platform
    JWT_ACCESS_SECRET=replace-with-at-least-32-characters
    JWT_REFRESH_SECRET=replace-with-at-least-32-characters
    JWT_ACCESS_TTL=15m
@@ -102,11 +105,22 @@ RabbitMQ support is present as groundwork, but the current listener is disabled 
    PORT=5000
    ```
 
+   When running the API outside Docker, use `localhost` instead of `db` in
+   `DATABASE_URL`.
+
 3. Generate the Prisma client and apply development migrations:
 
    ```bash
    npx prisma generate --schema src/lib/prisma
    npx prisma migrate dev --schema src/lib/prisma
+   ```
+
+   With Docker Compose, start PostgreSQL and apply migrations with:
+
+   ```bash
+   docker compose up -d db
+   docker compose run --rm server-dev \
+     npx prisma migrate deploy --schema src/lib/prisma
    ```
 
 4. Provision the system ledger accounts required for Paystack wallet funding:
