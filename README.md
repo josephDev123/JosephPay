@@ -115,13 +115,20 @@ RabbitMQ support is present as groundwork, but the current listener is disabled 
    npx prisma migrate dev --schema src/lib/prisma
    ```
 
-   With Docker Compose, start PostgreSQL and apply migrations with:
+   Use `prisma migrate dev` locally when changing the Prisma schema. It can
+   create new migration files and is intended for interactive development.
+
+   With Docker Compose, the `db_migrate` service applies the migrations that
+   are already committed to the repository before `server-dev` starts. Run:
 
    ```bash
-   docker compose up -d db
-   docker compose run --rm server-dev \
-     npx prisma migrate deploy --schema src/lib/prisma
+   docker compose up --build
    ```
+
+   The Compose migration service uses `prisma migrate deploy` because startup
+   should apply known migrations deterministically. It should not create new
+   migrations or modify the schema interactively. Use `prisma migrate dev`
+   outside Compose when a schema change needs to be developed.
 
 4. Provision the system ledger accounts required for Paystack wallet funding:
 
@@ -141,6 +148,30 @@ RabbitMQ support is present as groundwork, but the current listener is disabled 
    ```
 
 The API is available at `http://localhost:5000` by default. The port can be changed with `PORT`.
+
+## Production database migrations
+
+Production deployments should run migrations once as a deployment step before
+starting or updating API instances:
+
+```bash
+npx prisma migrate deploy --schema src/lib/prisma
+```
+
+Do not run `prisma migrate dev` in production, and do not run migrations
+independently in every API replica. `migrate deploy` only applies committed
+migrations and is safe for a non-interactive deployment job.
+
+The current `production` Dockerfile stage contains the compiled application,
+but does not include the Prisma migration files or the Prisma CLI. Run the
+production migration command from a dedicated migration image/stage, or update
+the deployment image to include those artifacts. Keep the API image and the
+one-time migration job separate so application replicas do not race to migrate.
+
+For production, prefer a managed PostgreSQL database with backups, restricted
+network access, monitoring, and recovery procedures. The PostgreSQL service in
+`compose.yaml` is intended primarily for local development and controlled
+self-hosting.
 
 ## API documentation
 
@@ -268,7 +299,7 @@ entries.
 - Wallet balances cannot become negative.
 - Users cannot withdraw until KYC is verified.
 
-The wallet-ledger schema is applied through the Prisma migration `20260927110000_wallet_ledger_refactor`. Generate the client and apply development migrations with:
+The wallet-ledger schema is applied through the Prisma migration `20260927110000_wallet_ledger_refactor`. During development, generate the client and apply development migrations with:
 
 ```bash
 npx prisma generate --schema src/lib/prisma
