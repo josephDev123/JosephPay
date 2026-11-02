@@ -149,6 +149,34 @@ RabbitMQ support is present as groundwork, but the current listener is disabled 
 
 The API is available at `http://localhost:5000` by default. The port can be changed with `PORT`.
 
+## Production Docker deployment
+
+Production uses the `production` Dockerfile stage for the API and a separate
+`migration` stage for the one-time Prisma migration job. PostgreSQL is expected
+to be an externally managed database with backups, restricted network access,
+monitoring, and recovery procedures.
+
+Copy `.env.production.example` to `.env.production`, replace every placeholder,
+and provide the file through your deployment secret store. Never commit
+`.env.production` or real production credentials.
+
+Start the production stack with:
+
+```bash
+docker compose -f compose.production.yaml up -d --build
+```
+
+The API starts only after the migration job completes successfully. The API
+image does not run migrations, so multiple API replicas cannot race to update
+the schema. TLS, DNS, and reverse proxying should be provided by the hosting
+platform or load balancer in front of the API.
+
+To stop the stack:
+
+```bash
+docker compose -f compose.production.yaml down
+```
+
 ## Production database migrations
 
 Production deployments should run migrations once as a deployment step before
@@ -162,16 +190,12 @@ Do not run `prisma migrate dev` in production, and do not run migrations
 independently in every API replica. `migrate deploy` only applies committed
 migrations and is safe for a non-interactive deployment job.
 
-The current `production` Dockerfile stage contains the compiled application,
-but does not include the Prisma migration files or the Prisma CLI. Run the
-production migration command from a dedicated migration image/stage, or update
-the deployment image to include those artifacts. Keep the API image and the
-one-time migration job separate so application replicas do not race to migrate.
+The production Compose migration job uses `prisma migrate deploy`, which only
+applies committed migrations. Do not run `prisma migrate dev` in production or
+run migrations independently in every API replica.
 
-For production, prefer a managed PostgreSQL database with backups, restricted
-network access, monitoring, and recovery procedures. The PostgreSQL service in
-`compose.yaml` is intended primarily for local development and controlled
-self-hosting.
+The PostgreSQL service in `compose.yaml` remains intended for local development
+and controlled self-hosting.
 
 ## API documentation
 
