@@ -55,7 +55,9 @@ export class WalletFundingService {
       });
       return transaction;
     });
+
     if (transaction.providerReference) return transaction;
+
     try {
       const result = await this.providers.get(input.provider).initialize({
         reference: transaction.reference,
@@ -100,7 +102,7 @@ export class WalletFundingService {
     if (!transaction)
       throw new NotFoundException('Wallet funding transaction not found');
 
-    console.log('verifying  the transaction');
+    console.log('verifying  the transaction with the provider');
     const verified = await this.providers
       .get(provider)
       .verify(providerReference);
@@ -120,6 +122,7 @@ export class WalletFundingService {
       await db.$queryRaw(
         Prisma.sql`SELECT id FROM transactions WHERE id = ${transaction.id} FOR UPDATE`,
       );
+
       const locked = await db.transaction.findUnique({
         where: { id: transaction.id },
       });

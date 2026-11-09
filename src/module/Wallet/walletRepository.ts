@@ -18,7 +18,23 @@ type DatabaseClient = PrismaService | Prisma.TransactionClient;
 export class WalletRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  createWallets(userId: string, prisma: DatabaseClient = this.prisma) {
+  async createWallets(userId: string, prisma: DatabaseClient = this.prisma) {
+    const accountNumbers = new Map<SupportedCurrency, string>();
+
+    for (const currency of SUPPORTED_CURRENCIES) {
+      const [sequenceValue] = await prisma.$queryRaw<
+        { accountNumber: string }[]
+      >(Prisma.sql`
+        SELECT nextval('ledger_account_number_seq')::text AS "accountNumber"
+      `);
+
+      if (!sequenceValue?.accountNumber) {
+        throw new Error('Unable to generate ledger account number');
+      }
+
+      accountNumbers.set(currency, sequenceValue.accountNumber);
+    }
+
     return prisma.wallet.create({
       data: {
         userId,
@@ -29,6 +45,7 @@ export class WalletRepository {
             ledgerAccount: {
               create: {
                 code: `CUSTOMER_WALLET_${userId}_${currency}`,
+                accountNumber: accountNumbers.get(currency),
                 name: `Customer wallet ${userId} ${currency}`,
                 type: LedgerAccountType.CUSTOMER_WALLET,
                 ownerType: LedgerAccountOwnerType.CUSTOMER,
@@ -39,14 +56,14 @@ export class WalletRepository {
           })),
         },
       },
-      include: { balances: true },
+      include: { balances: { include: { ledgerAccount: true } } },
     }) as unknown as Promise<Wallet & { balances: WalletBalance[] }>;
   }
 
   async findWalletsByUserId(userId: string) {
     const wallet = await this.prisma.wallet.findUnique({
       where: { userId },
-      include: { balances: true },
+      include: { balances: { include: { ledgerAccount: true } } },
     });
 
     return wallet?.balances ?? [];

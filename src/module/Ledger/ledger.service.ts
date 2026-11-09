@@ -51,6 +51,7 @@ export class LedgerService {
       const account = accounts.find(
         (candidate) => candidate.id === entry.ledgerAccountId,
       );
+
       if (!account || account.currency !== entry.currency) {
         throw new BadRequestException(
           'Ledger account currency does not match entry currency',

@@ -27,6 +27,7 @@ export type AggregateLedgerAccount = {
 export type LedgerAccountMinAggregateOutputType = {
   id: string | null
   code: string | null
+  accountNumber: string | null
   name: string | null
   type: $Enums.LedgerAccountType | null
   ownerType: $Enums.LedgerAccountOwnerType | null
@@ -40,6 +41,7 @@ export type LedgerAccountMinAggregateOutputType = {
 export type LedgerAccountMaxAggregateOutputType = {
   id: string | null
   code: string | null
+  accountNumber: string | null
   name: string | null
   type: $Enums.LedgerAccountType | null
   ownerType: $Enums.LedgerAccountOwnerType | null
@@ -53,6 +55,7 @@ export type LedgerAccountMaxAggregateOutputType = {
 export type LedgerAccountCountAggregateOutputType = {
   id: number
   code: number
+  accountNumber: number
   name: number
   type: number
   ownerType: number
@@ -68,6 +71,7 @@ export type LedgerAccountCountAggregateOutputType = {
 export type LedgerAccountMinAggregateInputType = {
   id?: true
   code?: true
+  accountNumber?: true
   name?: true
   type?: true
   ownerType?: true
@@ -81,6 +85,7 @@ export type LedgerAccountMinAggregateInputType = {
 export type LedgerAccountMaxAggregateInputType = {
   id?: true
   code?: true
+  accountNumber?: true
   name?: true
   type?: true
   ownerType?: true
@@ -94,6 +99,7 @@ export type LedgerAccountMaxAggregateInputType = {
 export type LedgerAccountCountAggregateInputType = {
   id?: true
   code?: true
+  accountNumber?: true
   name?: true
   type?: true
   ownerType?: true
@@ -180,6 +186,7 @@ export type LedgerAccountGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
 export type LedgerAccountGroupByOutputType = {
   id: string
   code: string
+  accountNumber: string | null
   name: string
   type: $Enums.LedgerAccountType
   ownerType: $Enums.LedgerAccountOwnerType
@@ -214,6 +221,7 @@ export type LedgerAccountWhereInput = {
   NOT?: Prisma.LedgerAccountWhereInput | Prisma.LedgerAccountWhereInput[]
   id?: Prisma.UuidFilter<"LedgerAccount"> | string
   code?: Prisma.StringFilter<"LedgerAccount"> | string
+  accountNumber?: Prisma.StringNullableFilter<"LedgerAccount"> | string | null
   name?: Prisma.StringFilter<"LedgerAccount"> | string
   type?: Prisma.EnumLedgerAccountTypeFilter<"LedgerAccount"> | $Enums.LedgerAccountType
   ownerType?: Prisma.EnumLedgerAccountOwnerTypeFilter<"LedgerAccount"> | $Enums.LedgerAccountOwnerType
@@ -231,6 +239,7 @@ export type LedgerAccountWhereInput = {
 export type LedgerAccountOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
+  accountNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   type?: Prisma.SortOrder
   ownerType?: Prisma.SortOrder
@@ -248,6 +257,7 @@ export type LedgerAccountOrderByWithRelationInput = {
 export type LedgerAccountWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   code?: string
+  accountNumber?: string
   AND?: Prisma.LedgerAccountWhereInput | Prisma.LedgerAccountWhereInput[]
   OR?: Prisma.LedgerAccountWhereInput[]
   NOT?: Prisma.LedgerAccountWhereInput | Prisma.LedgerAccountWhereInput[]
@@ -263,11 +273,12 @@ export type LedgerAccountWhereUniqueInput = Prisma.AtLeast<{
   entries?: Prisma.LedgerEntryListRelationFilter
   sourceTransactions?: Prisma.TransactionListRelationFilter
   destinationTransactions?: Prisma.TransactionListRelationFilter
-}, "id" | "code">
+}, "id" | "code" | "accountNumber">
 
 export type LedgerAccountOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
+  accountNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   type?: Prisma.SortOrder
   ownerType?: Prisma.SortOrder
@@ -287,6 +298,7 @@ export type LedgerAccountScalarWhereWithAggregatesInput = {
   NOT?: Prisma.LedgerAccountScalarWhereWithAggregatesInput | Prisma.LedgerAccountScalarWhereWithAggregatesInput[]
   id?: Prisma.UuidWithAggregatesFilter<"LedgerAccount"> | string
   code?: Prisma.StringWithAggregatesFilter<"LedgerAccount"> | string
+  accountNumber?: Prisma.StringNullableWithAggregatesFilter<"LedgerAccount"> | string | null
   name?: Prisma.StringWithAggregatesFilter<"LedgerAccount"> | string
   type?: Prisma.EnumLedgerAccountTypeWithAggregatesFilter<"LedgerAccount"> | $Enums.LedgerAccountType
   ownerType?: Prisma.EnumLedgerAccountOwnerTypeWithAggregatesFilter<"LedgerAccount"> | $Enums.LedgerAccountOwnerType
@@ -300,6 +312,7 @@ export type LedgerAccountScalarWhereWithAggregatesInput = {
 export type LedgerAccountCreateInput = {
   id?: string
   code: string
+  accountNumber?: string | null
   name: string
   type: $Enums.LedgerAccountType
   ownerType: $Enums.LedgerAccountOwnerType
@@ -317,6 +330,7 @@ export type LedgerAccountCreateInput = {
 export type LedgerAccountUncheckedCreateInput = {
   id?: string
   code: string
+  accountNumber?: string | null
   name: string
   type: $Enums.LedgerAccountType
   ownerType: $Enums.LedgerAccountOwnerType
@@ -334,6 +348,7 @@ export type LedgerAccountUncheckedCreateInput = {
 export type LedgerAccountUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  accountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumLedgerAccountTypeFieldUpdateOperationsInput | $Enums.LedgerAccountType
   ownerType?: Prisma.EnumLedgerAccountOwnerTypeFieldUpdateOperationsInput | $Enums.LedgerAccountOwnerType
@@ -351,6 +366,7 @@ export type LedgerAccountUpdateInput = {
 export type LedgerAccountUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  accountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumLedgerAccountTypeFieldUpdateOperationsInput | $Enums.LedgerAccountType
   ownerType?: Prisma.EnumLedgerAccountOwnerTypeFieldUpdateOperationsInput | $Enums.LedgerAccountOwnerType
@@ -368,6 +384,7 @@ export type LedgerAccountUncheckedUpdateInput = {
 export type LedgerAccountCreateManyInput = {
   id?: string
   code: string
+  accountNumber?: string | null
   name: string
   type: $Enums.LedgerAccountType
   ownerType: $Enums.LedgerAccountOwnerType
@@ -381,6 +398,7 @@ export type LedgerAccountCreateManyInput = {
 export type LedgerAccountUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  accountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumLedgerAccountTypeFieldUpdateOperationsInput | $Enums.LedgerAccountType
   ownerType?: Prisma.EnumLedgerAccountOwnerTypeFieldUpdateOperationsInput | $Enums.LedgerAccountOwnerType
@@ -394,6 +412,7 @@ export type LedgerAccountUpdateManyMutationInput = {
 export type LedgerAccountUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  accountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumLedgerAccountTypeFieldUpdateOperationsInput | $Enums.LedgerAccountType
   ownerType?: Prisma.EnumLedgerAccountOwnerTypeFieldUpdateOperationsInput | $Enums.LedgerAccountOwnerType
@@ -407,6 +426,7 @@ export type LedgerAccountUncheckedUpdateManyInput = {
 export type LedgerAccountCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
+  accountNumber?: Prisma.SortOrder
   name?: Prisma.SortOrder
   type?: Prisma.SortOrder
   ownerType?: Prisma.SortOrder
@@ -420,6 +440,7 @@ export type LedgerAccountCountOrderByAggregateInput = {
 export type LedgerAccountMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
+  accountNumber?: Prisma.SortOrder
   name?: Prisma.SortOrder
   type?: Prisma.SortOrder
   ownerType?: Prisma.SortOrder
@@ -433,6 +454,7 @@ export type LedgerAccountMaxOrderByAggregateInput = {
 export type LedgerAccountMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
+  accountNumber?: Prisma.SortOrder
   name?: Prisma.SortOrder
   type?: Prisma.SortOrder
   ownerType?: Prisma.SortOrder
@@ -532,6 +554,7 @@ export type LedgerAccountUpdateOneRequiredWithoutWalletBalanceNestedInput = {
 export type LedgerAccountCreateWithoutEntriesInput = {
   id?: string
   code: string
+  accountNumber?: string | null
   name: string
   type: $Enums.LedgerAccountType
   ownerType: $Enums.LedgerAccountOwnerType
@@ -548,6 +571,7 @@ export type LedgerAccountCreateWithoutEntriesInput = {
 export type LedgerAccountUncheckedCreateWithoutEntriesInput = {
   id?: string
   code: string
+  accountNumber?: string | null
   name: string
   type: $Enums.LedgerAccountType
   ownerType: $Enums.LedgerAccountOwnerType
@@ -580,6 +604,7 @@ export type LedgerAccountUpdateToOneWithWhereWithoutEntriesInput = {
 export type LedgerAccountUpdateWithoutEntriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  accountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumLedgerAccountTypeFieldUpdateOperationsInput | $Enums.LedgerAccountType
   ownerType?: Prisma.EnumLedgerAccountOwnerTypeFieldUpdateOperationsInput | $Enums.LedgerAccountOwnerType
@@ -596,6 +621,7 @@ export type LedgerAccountUpdateWithoutEntriesInput = {
 export type LedgerAccountUncheckedUpdateWithoutEntriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  accountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumLedgerAccountTypeFieldUpdateOperationsInput | $Enums.LedgerAccountType
   ownerType?: Prisma.EnumLedgerAccountOwnerTypeFieldUpdateOperationsInput | $Enums.LedgerAccountOwnerType
@@ -612,6 +638,7 @@ export type LedgerAccountUncheckedUpdateWithoutEntriesInput = {
 export type LedgerAccountCreateWithoutSourceTransactionsInput = {
   id?: string
   code: string
+  accountNumber?: string | null
   name: string
   type: $Enums.LedgerAccountType
   ownerType: $Enums.LedgerAccountOwnerType
@@ -628,6 +655,7 @@ export type LedgerAccountCreateWithoutSourceTransactionsInput = {
 export type LedgerAccountUncheckedCreateWithoutSourceTransactionsInput = {
   id?: string
   code: string
+  accountNumber?: string | null
   name: string
   type: $Enums.LedgerAccountType
   ownerType: $Enums.LedgerAccountOwnerType
@@ -649,6 +677,7 @@ export type LedgerAccountCreateOrConnectWithoutSourceTransactionsInput = {
 export type LedgerAccountCreateWithoutDestinationTransactionsInput = {
   id?: string
   code: string
+  accountNumber?: string | null
   name: string
   type: $Enums.LedgerAccountType
   ownerType: $Enums.LedgerAccountOwnerType
@@ -665,6 +694,7 @@ export type LedgerAccountCreateWithoutDestinationTransactionsInput = {
 export type LedgerAccountUncheckedCreateWithoutDestinationTransactionsInput = {
   id?: string
   code: string
+  accountNumber?: string | null
   name: string
   type: $Enums.LedgerAccountType
   ownerType: $Enums.LedgerAccountOwnerType
@@ -697,6 +727,7 @@ export type LedgerAccountUpdateToOneWithWhereWithoutSourceTransactionsInput = {
 export type LedgerAccountUpdateWithoutSourceTransactionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  accountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumLedgerAccountTypeFieldUpdateOperationsInput | $Enums.LedgerAccountType
   ownerType?: Prisma.EnumLedgerAccountOwnerTypeFieldUpdateOperationsInput | $Enums.LedgerAccountOwnerType
@@ -713,6 +744,7 @@ export type LedgerAccountUpdateWithoutSourceTransactionsInput = {
 export type LedgerAccountUncheckedUpdateWithoutSourceTransactionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  accountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumLedgerAccountTypeFieldUpdateOperationsInput | $Enums.LedgerAccountType
   ownerType?: Prisma.EnumLedgerAccountOwnerTypeFieldUpdateOperationsInput | $Enums.LedgerAccountOwnerType
@@ -740,6 +772,7 @@ export type LedgerAccountUpdateToOneWithWhereWithoutDestinationTransactionsInput
 export type LedgerAccountUpdateWithoutDestinationTransactionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  accountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumLedgerAccountTypeFieldUpdateOperationsInput | $Enums.LedgerAccountType
   ownerType?: Prisma.EnumLedgerAccountOwnerTypeFieldUpdateOperationsInput | $Enums.LedgerAccountOwnerType
@@ -756,6 +789,7 @@ export type LedgerAccountUpdateWithoutDestinationTransactionsInput = {
 export type LedgerAccountUncheckedUpdateWithoutDestinationTransactionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  accountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumLedgerAccountTypeFieldUpdateOperationsInput | $Enums.LedgerAccountType
   ownerType?: Prisma.EnumLedgerAccountOwnerTypeFieldUpdateOperationsInput | $Enums.LedgerAccountOwnerType
@@ -772,6 +806,7 @@ export type LedgerAccountUncheckedUpdateWithoutDestinationTransactionsInput = {
 export type LedgerAccountCreateWithoutWalletBalanceInput = {
   id?: string
   code: string
+  accountNumber?: string | null
   name: string
   type: $Enums.LedgerAccountType
   ownerType: $Enums.LedgerAccountOwnerType
@@ -788,6 +823,7 @@ export type LedgerAccountCreateWithoutWalletBalanceInput = {
 export type LedgerAccountUncheckedCreateWithoutWalletBalanceInput = {
   id?: string
   code: string
+  accountNumber?: string | null
   name: string
   type: $Enums.LedgerAccountType
   ownerType: $Enums.LedgerAccountOwnerType
@@ -820,6 +856,7 @@ export type LedgerAccountUpdateToOneWithWhereWithoutWalletBalanceInput = {
 export type LedgerAccountUpdateWithoutWalletBalanceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  accountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumLedgerAccountTypeFieldUpdateOperationsInput | $Enums.LedgerAccountType
   ownerType?: Prisma.EnumLedgerAccountOwnerTypeFieldUpdateOperationsInput | $Enums.LedgerAccountOwnerType
@@ -836,6 +873,7 @@ export type LedgerAccountUpdateWithoutWalletBalanceInput = {
 export type LedgerAccountUncheckedUpdateWithoutWalletBalanceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  accountNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumLedgerAccountTypeFieldUpdateOperationsInput | $Enums.LedgerAccountType
   ownerType?: Prisma.EnumLedgerAccountOwnerTypeFieldUpdateOperationsInput | $Enums.LedgerAccountOwnerType
@@ -901,6 +939,7 @@ export type LedgerAccountCountOutputTypeCountDestinationTransactionsArgs<ExtArgs
 export type LedgerAccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   code?: boolean
+  accountNumber?: boolean
   name?: boolean
   type?: boolean
   ownerType?: boolean
@@ -919,6 +958,7 @@ export type LedgerAccountSelect<ExtArgs extends runtime.Types.Extensions.Interna
 export type LedgerAccountSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   code?: boolean
+  accountNumber?: boolean
   name?: boolean
   type?: boolean
   ownerType?: boolean
@@ -932,6 +972,7 @@ export type LedgerAccountSelectCreateManyAndReturn<ExtArgs extends runtime.Types
 export type LedgerAccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   code?: boolean
+  accountNumber?: boolean
   name?: boolean
   type?: boolean
   ownerType?: boolean
@@ -945,6 +986,7 @@ export type LedgerAccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
 export type LedgerAccountSelectScalar = {
   id?: boolean
   code?: boolean
+  accountNumber?: boolean
   name?: boolean
   type?: boolean
   ownerType?: boolean
@@ -955,7 +997,7 @@ export type LedgerAccountSelectScalar = {
   updatedAt?: boolean
 }
 
-export type LedgerAccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "type" | "ownerType" | "ownerId" | "currency" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["ledgerAccount"]>
+export type LedgerAccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "accountNumber" | "name" | "type" | "ownerType" | "ownerId" | "currency" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["ledgerAccount"]>
 export type LedgerAccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   walletBalance?: boolean | Prisma.LedgerAccount$walletBalanceArgs<ExtArgs>
   entries?: boolean | Prisma.LedgerAccount$entriesArgs<ExtArgs>
@@ -977,6 +1019,7 @@ export type $LedgerAccountPayload<ExtArgs extends runtime.Types.Extensions.Inter
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     code: string
+    accountNumber: string | null
     name: string
     type: $Enums.LedgerAccountType
     ownerType: $Enums.LedgerAccountOwnerType
@@ -1414,6 +1457,7 @@ export interface Prisma__LedgerAccountClient<T, Null = never, ExtArgs extends ru
 export interface LedgerAccountFieldRefs {
   readonly id: Prisma.FieldRef<"LedgerAccount", 'String'>
   readonly code: Prisma.FieldRef<"LedgerAccount", 'String'>
+  readonly accountNumber: Prisma.FieldRef<"LedgerAccount", 'String'>
   readonly name: Prisma.FieldRef<"LedgerAccount", 'String'>
   readonly type: Prisma.FieldRef<"LedgerAccount", 'LedgerAccountType'>
   readonly ownerType: Prisma.FieldRef<"LedgerAccount", 'LedgerAccountOwnerType'>

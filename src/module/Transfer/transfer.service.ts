@@ -22,12 +22,14 @@ export class TransferService {
 
   async transfer(input: {
     fromUserId: string;
-    toUserId: string;
+    recipientAccountNumber: string;
     currency: 'NGN' | 'USD';
     amount: bigint;
+    description?: string;
     idempotencyKey: string;
   }) {
-    if (input.amount <= 0n || input.fromUserId === input.toUserId) {
+    // Prevent negative or zero amount transfers.
+    if (input.amount <= 0n) {
       throw new ConflictException('Invalid transfer request');
     }
 
@@ -45,7 +47,7 @@ export class TransferService {
       if (existing) return existing;
 
       const wallets = await database.wallet.findMany({
-        where: { userId: { in: [input.fromUserId, input.toUserId] } },
+        where: { userId: input.fromUserId },
         include: {
           balances: {
             where: { currency: input.currency },
@@ -56,16 +58,32 @@ export class TransferService {
       const sender = wallets.find(
         (wallet) => wallet.userId === input.fromUserId,
       );
-      const recipient = wallets.find(
-        (wallet) => wallet.userId === input.toUserId,
-      );
       const senderBalance = sender?.balances[0];
-      const recipientBalance = recipient?.balances[0];
+
+      const recipientAccount = await database.ledgerAccount.findUnique({
+        where: { accountNumber: input.recipientAccountNumber },
+        include: { walletBalance: true },
+      });
+
+      const recipientBalance =
+        recipientAccount?.type === 'CUSTOMER_WALLET' &&
+        recipientAccount.ownerType === 'CUSTOMER' &&
+        recipientAccount.status === 'ACTIVE' &&
+        recipientAccount.currency === input.currency
+          ? recipientAccount.walletBalance
+          : null;
 
       if (!senderBalance || !recipientBalance) {
         throw new NotFoundException(
           'Required wallet currency balance was not found',
         );
+      }
+
+      if (
+        recipientAccount?.ownerId === input.fromUserId ||
+        recipientBalance.id === senderBalance.id
+      ) {
+        throw new ConflictException('Cannot transfer to your own account');
       }
 
       const balanceIds = [senderBalance.id, recipientBalance.id].sort();
@@ -99,7 +117,9 @@ export class TransferService {
         type: 'TRANSFER',
         amount: input.amount,
         currency: input.currency,
-        description: `Transfer to ${input.toUserId}`,
+        description:
+          input.description ??
+          `Transfer to account ${input.recipientAccountNumber}`,
         initiatedByUserId: input.fromUserId,
         sourceAccountId: lockedSenderBalance.ledgerAccountId,
         destinationAccountId: lockedRecipientBalance.ledgerAccountId,
