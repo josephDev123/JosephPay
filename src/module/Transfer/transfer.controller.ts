@@ -9,22 +9,27 @@ import { successResponse } from '../../shared/http/api-response.js';
 import { TransferRequestDto, TransferResponseDto } from '../../docs/swagger.models.js';
 
 const transferSchema = z.object({
-  destinationUserId: z.uuid(),
+  recipientAccountNumber: z.string().regex(/^\d{10}$/),
   currency: z.enum(['NGN', 'USD']),
   amount: z.string().regex(/^\d+$/).transform((value) => BigInt(value)),
+  description: z.string().trim().max(500).optional(),
   idempotencyKey: z.string().trim().min(8).max(128),
 });
 
 type TransferInput = z.infer<typeof transferSchema>;
 
-@ApiTags('Transfers')
+@ApiTags('Internal Transfers')
 @ApiCookieAuth('cookieAuth')
-@Controller('api/v1/transfers')
+@Controller('api/v1/transfers/internal')
 export class TransferController {
   constructor(private readonly transferService: TransferService) {}
 
   @Post()
-  @ApiOperation({ summary: 'Transfer funds to another user wallet' })
+  @ApiOperation({
+    summary: 'Transfer funds to another customer wallet',
+    description:
+      'Transfers funds to the recipient account number for the requested currency. The recipient account number must belong to an active customer wallet.',
+  })
   @ApiBody({
     type: TransferRequestDto,
   })
@@ -35,7 +40,6 @@ export class TransferController {
   ) {
     const transaction = await this.transferService.transfer({
       fromUserId: request.user!.sub,
-      toUserId: body.destinationUserId,
       ...body,
     });
     return successResponse(

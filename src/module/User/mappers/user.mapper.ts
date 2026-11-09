@@ -1,5 +1,6 @@
 import type {
   Kyc,
+  LedgerAccount,
   User,
   Wallet,
   WalletBalance,
@@ -13,6 +14,7 @@ import {
 
 export interface WalletView {
   id: string;
+  accountNumber: string;
   currency: SupportedCurrency;
   balance: string;
   createdAt: Date;
@@ -71,9 +73,12 @@ export interface UserProfileView extends UserView {
   profile: ProfileView | null;
 }
 
-export function mapWallet(wallet: WalletBalance): WalletView {
+export function mapWallet(
+  wallet: WalletBalance & { ledgerAccount: Pick<LedgerAccount, 'accountNumber'> },
+): WalletView {
   return {
     id: wallet.id,
+    accountNumber: wallet.ledgerAccount.accountNumber as string,
     currency: wallet.currency as SupportedCurrency,
     balance: wallet.balance.toString(),
     createdAt: wallet.createdAt,

@@ -26,6 +26,7 @@ Implemented API areas include:
 - User profile retrieval
 - NGN and USD wallet creation
 - Per-currency wallet balances backed by ledger accounts
+- One immutable, globally unique 10-digit customer account number per wallet currency
 - Double-entry ledger posting for wallet transfers
 - Atomic, idempotent user-to-user transfers with row-level balance locking
 - Wallet funding initialization through a payment provider
@@ -65,7 +66,7 @@ src/
 
 Business logic belongs in services, database access belongs in repositories, and controllers are responsible for transport concerns such as validation and response formatting.
 
-The financial modules are split into `Wallet`, `WalletFunding`, `Ledger`, `Transaction`, and `Transfer`. Wallet funding is an application workflow, but its financial source of truth is one `Transaction` record with type `DEPOSIT`; there is no separate wallet-funding table. `Webhook` receives provider callbacks and delegates verified events to the funding workflow. Wallet creation provisions NGN and USD balances and their corresponding customer ledger accounts.
+The financial modules are split into `Wallet`, `WalletFunding`, `Ledger`, `Transaction`, and `Transfer`. Wallet funding is an application workflow, but its financial source of truth is one `Transaction` record with type `DEPOSIT`; there is no separate wallet-funding table. `Webhook` receives provider callbacks and delegates verified events to the funding workflow. Wallet creation provisions NGN and USD balances, corresponding customer ledger accounts, and one immutable customer-facing account number for each currency.
 
 ## Prerequisites
 
@@ -149,6 +150,34 @@ RabbitMQ support is present as groundwork, but the current listener is disabled 
 
 The API is available at `http://localhost:5000` by default. The port can be changed with `PORT`.
 
+## Production Docker deployment
+
+Production uses the `production` Dockerfile stage for the API and a separate
+`migration` stage for the one-time Prisma migration job. PostgreSQL is expected
+to be an externally managed database with backups, restricted network access,
+monitoring, and recovery procedures.
+
+Copy `.env.production.example` to `.env.production`, replace every placeholder,
+and provide the file through your deployment secret store. Never commit
+`.env.production` or real production credentials.
+
+Start the production stack with:
+
+```bash
+docker compose -f compose.production.yaml up -d --build
+```
+
+The API starts only after the migration job completes successfully. The API
+image does not run migrations, so multiple API replicas cannot race to update
+the schema. TLS, DNS, and reverse proxying should be provided by the hosting
+platform or load balancer in front of the API.
+
+To stop the stack:
+
+```bash
+docker compose -f compose.production.yaml down
+```
+
 ## Production database migrations
 
 Production deployments should run migrations once as a deployment step before
@@ -162,16 +191,12 @@ Do not run `prisma migrate dev` in production, and do not run migrations
 independently in every API replica. `migrate deploy` only applies committed
 migrations and is safe for a non-interactive deployment job.
 
-The current `production` Dockerfile stage contains the compiled application,
-but does not include the Prisma migration files or the Prisma CLI. Run the
-production migration command from a dedicated migration image/stage, or update
-the deployment image to include those artifacts. Keep the API image and the
-one-time migration job separate so application replicas do not race to migrate.
+The production Compose migration job uses `prisma migrate deploy`, which only
+applies committed migrations. Do not run `prisma migrate dev` in production or
+run migrations independently in every API replica.
 
-For production, prefer a managed PostgreSQL database with backups, restricted
-network access, monitoring, and recovery procedures. The PostgreSQL service in
-`compose.yaml` is intended primarily for local development and controlled
-self-hosting.
+The PostgreSQL service in `compose.yaml` remains intended for local development
+and controlled self-hosting.
 
 ## API documentation
 
@@ -194,7 +219,7 @@ Current routes include:
 | Profiles | GET    | `/api/v1/users/profile`             | Required       |
 | Wallets  | POST   | `/api/v1/wallet`                    | Required       |
 | Wallet funding | POST | `/api/v1/wallet/fund`          | Required       |
-| Transfers | POST  | `/api/v1/transfers`                 | Required       |
+| Internal transfers | POST  | `/api/v1/transfers/internal`   | Required       |
 | Transactions | GET | `/api/v1/transactions`              | Required       |
 | Transactions | GET | `/api/v1/transactions/:transactionId` | Required     |
 | Webhooks | POST | `/api/v1/webhooks`                    | Provider signature |
@@ -225,17 +250,42 @@ Errors follow this shape:
 
 Authentication cookies are HTTP-only. Swagger is configured to send credentials when testing protected endpoints.
 
+### Wallet accounts
+
+`POST /api/v1/wallet` provisions one balance and one customer-facing account
+number for every supported currency. Account numbers are generated by the
+server, are globally unique 10-digit strings, and cannot be supplied or changed
+by clients.
+
+Example wallet balance response item:
+
+```json
+{
+  "id": "b3f22c43-6f8d-4b7f-b3a9-6de7b3a2b6c1",
+  "accountNumber": "1000000001",
+  "currency": "NGN",
+  "balance": "0",
+  "createdAt": "2026-08-06T11:00:00.000Z",
+  "updatedAt": "2026-08-06T11:00:00.000Z"
+}
+```
+
+The customer-facing `accountNumber` is separate from the internal ledger
+`code`. Ledger codes remain stable identifiers used for accounting and system
+account lookups; they must not be treated as customer account numbers.
+
 ### Transfers and transactions
 
-Transfers move funds between two users' wallet balances in the requested currency. The request amount must be a positive integer string representing the smallest currency unit, for example `10050` for ₦100.50. Each transfer requires an idempotency key; repeating the same request for the same authenticated user returns the existing transaction instead of processing it again.
+Transfers move funds from the authenticated user's wallet to a customer wallet identified by `recipientAccountNumber` in the requested currency. The account number must be a 10-digit active customer wallet account. The request amount must be a positive integer string representing the smallest currency unit, for example `10050` for ₦100.50. Each transfer requires an idempotency key; repeating the same request for the same authenticated user returns the existing transaction instead of processing it again. An optional description of up to 500 characters is stored on the transaction.
 
 Example request:
 
 ```json
 {
-  "destinationUserId": "9d8c7b6a-5f4e-4321-9012-345678901234",
+  "recipientAccountNumber": "1000000001",
   "currency": "NGN",
   "amount": "10050",
+  "description": "Payment for services",
   "idempotencyKey": "send-2026-09-27-001"
 }
 ```
@@ -287,7 +337,8 @@ entries.
 
 - PostgreSQL is the source of truth.
 - IDs are UUIDs and database fields use snake_case mappings.
-- Wallets contain one `WalletBalance` per supported currency, and each balance is linked to a customer `LedgerAccount`.
+- Wallets contain one `WalletBalance` per supported currency, and each balance is linked to a customer `LedgerAccount` with one immutable customer-facing account number.
+- `LedgerAccount.code` is an internal accounting identifier; `LedgerAccount.accountNumber` is the globally unique customer-facing identifier for customer wallet accounts. System ledger accounts may not have an account number.
 - `Transaction` records describe financial operations and payment-provider state, while `LedgerEntry` records provide the debit and credit postings for each operation.
 - Wallet funding does not have a second financial table; one funding request maps to one `Transaction`.
 - Monetary values are stored as integers in the smallest currency unit; floating-point arithmetic must not be used for money.
@@ -299,7 +350,7 @@ entries.
 - Wallet balances cannot become negative.
 - Users cannot withdraw until KYC is verified.
 
-The wallet-ledger schema is applied through the Prisma migration `20260927110000_wallet_ledger_refactor`. During development, generate the client and apply development migrations with:
+The wallet-ledger schema and customer account-number sequence are applied through the Prisma migrations `20260927110000_wallet_ledger_refactor` and `20261109120000_add_ledger_account_number`. During development, generate the client and apply development migrations with:
 
 ```bash
 npx prisma generate --schema src/lib/prisma

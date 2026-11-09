@@ -295,6 +295,12 @@ export class WalletDto {
   currency!: (typeof SUPPORTED_CURRENCIES)[number];
 
   @ApiProperty({
+    example: '1000000001',
+    description: 'Immutable customer-facing account number for this currency.',
+  })
+  accountNumber!: string;
+
+  @ApiProperty({
     example: '0',
     description: 'Wallet balance in the smallest currency unit.',
   })
@@ -556,14 +562,25 @@ export class TransactionListResponseDto {
 }
 
 export class TransferRequestDto {
-  @ApiProperty({ example: '9d8c7b6a-5f4e-4321-9012-345678901234', format: 'uuid' })
-  destinationUserId!: string;
+  @ApiProperty({
+    example: '1000000001',
+    description: '10-digit customer wallet account number.',
+    pattern: '^\\d{10}$',
+  })
+  recipientAccountNumber!: string;
 
   @ApiProperty({ example: 'NGN', enum: ['NGN', 'USD'] })
   currency!: 'NGN' | 'USD';
 
   @ApiProperty({ example: '2000000', description: 'Amount in minor currency units.' })
   amount!: string;
+
+  @ApiPropertyOptional({
+    example: 'Payment for services',
+    description: 'Optional transfer description stored with the transaction.',
+    maxLength: 500,
+  })
+  description?: string;
 
   @ApiProperty({ example: 'transfer-request-123', minLength: 8, maxLength: 128 })
   idempotencyKey!: string;

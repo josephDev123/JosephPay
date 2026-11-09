@@ -28,19 +28,7 @@ import { getAppConfig } from './shared/lib/app-config.js';
       validate: Envalidate,
     }),
 
-    // ClientsModule.register([
-    //   {
-    //     name: 'MATH_SERVICE',
-    //     transport: Transport.RMQ,
-    //     options: {
-    //       urls: ['amqp://localhost:5672'],
-    //       queue: 'cats_queue',
-    //       queueOptions: {
-    //         durable: false,
-    //       },
-    //     },
-    //   },
-    // ]),
+  
 
     PrismaModule,
     KycModule,

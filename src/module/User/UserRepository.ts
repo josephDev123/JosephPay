@@ -43,13 +43,17 @@ export class UserRepository {
         id,
       },
       include: {
-        wallet: { include: { balances: true } },
+        wallet: { include: { balances: { include: { ledgerAccount: true } } } },
         kyc: true,
         profile: true,
       } as never,
     }) as unknown as Promise<
       | (UserRecord & {
-          wallet: (Wallet & { balances: WalletBalance[] }) | null;
+          wallet:
+            | (Wallet & {
+                balances: (WalletBalance & { ledgerAccount: { accountNumber: string | null } })[];
+              })
+            | null;
           kyc: Kyc | null;
           profile: ProfileRecord | null;
         })
